@@ -16,12 +16,21 @@ main {
 header {
     position: sticky;
     top: 0;
+    z-index: 2;
+}
+
+#searchInput{
+    width: 30rem;
+    margin: 0 5rem;
 }
 
 .cards-container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     overflow-y: auto;
+    margin: 0 auto;
+    width: 93%;
 }
 
 .card {
@@ -38,6 +47,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .card-head {

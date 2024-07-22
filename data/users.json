@@ -1,0 +1,195 @@
+[
+    {
+      "name": "John Doe",
+      "title": "Software Developer",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/johndoe",
+        "github": "https://github.com/johndoe",
+        "portfolio": "https://johndoe.com"
+      },
+      "description": "John is a software developer with a passion for open-source projects and community engagement.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    },
+    {
+      "name": "Jane Smith",
+      "title": "Full-Stack Developer",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/janesmith",
+        "github": "https://github.com/janesmith",
+        "portfolio": "https://janesmith.com"
+      },
+      "description": "Jane is a full-stack developer with expertise in MERN stack.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    },
+    {
+      "name": "Alice Johnson",
+      "title": "Frontend Developer",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/alicejohnson",
+        "github": "https://github.com/alicejohnson",
+        "portfolio": "https://alicejohnson.com"
+      },
+      "description": "Alice is a frontend developer who loves creating beautiful and responsive web designs.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    },
+    {
+      "name": "Bob Brown",
+      "title": "Backend Developer",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/bobbrown",
+        "github": "https://github.com/bobbrown",
+        "portfolio": "https://bobbrown.com"
+      },
+      "description": "Bob is a backend developer specializing in database management and API development.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    },
+    {
+      "name": "Charlie Davis",
+      "title": "DevOps Engineer",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/charliedavis",
+        "github": "https://github.com/charliedavis",
+        "portfolio": "https://charliedavis.com"
+      },
+      "description": "Charlie is a DevOps engineer with a focus on CI/CD and cloud infrastructure.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    },
+    {
+      "name": "David Evans",
+      "title": "Mobile Developer",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/davidevans",
+        "github": "https://github.com/davidevans",
+        "portfolio": "https://davidevans.com"
+      },
+      "description": "David is a mobile developer with a passion for creating seamless user experiences on Android and iOS.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    },
+    {
+      "name": "Ella Foster",
+      "title": "UX/UI Designer",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/ellafoster",
+        "github": "https://github.com/ellafoster",
+        "portfolio": "https://ellafoster.com"
+      },
+      "description": "Ella is a UX/UI designer dedicated to enhancing user interactions and experience.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    },
+    {
+      "name": "Frank Green",
+      "title": "Data Scientist",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/frankgreen",
+        "github": "https://github.com/frankgreen",
+        "portfolio": "https://frankgreen.com"
+      },
+      "description": "Frank is a data scientist with a knack for uncovering insights through data analysis and visualization.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    },
+    {
+      "name": "Grace Hall",
+      "title": "Cybersecurity Specialist",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/gracehall",
+        "github": "https://github.com/gracehall",
+        "portfolio": "https://gracehall.com"
+      },
+      "description": "Grace is a cybersecurity specialist focusing on securing systems and networks.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    },
+    {
+      "name": "Hannah White",
+      "title": "AI Engineer",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/hannahwhite",
+        "github": "https://github.com/hannahwhite",
+        "portfolio": "https://hannahwhite.com"
+      },
+      "description": "Hannah is an AI engineer with expertise in machine learning and neural networks.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    },
+    {
+      "name": "Ian King",
+      "title": "Cloud Architect",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/ianking",
+        "github": "https://github.com/ianking",
+        "portfolio": "https://ianking.com"
+      },
+      "description": "Ian is a cloud architect specializing in designing scalable cloud solutions.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    },
+    {
+      "name": "Jackie Lee",
+      "title": "Blockchain Developer",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/jackielee",
+        "github": "https://github.com/jackielee",
+        "portfolio": "https://jackielee.com"
+      },
+      "description": "Jackie is a blockchain developer working on decentralized applications and smart contracts.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    }
+  ]
+  
