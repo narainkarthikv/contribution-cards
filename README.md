@@ -34,6 +34,7 @@ To get started with Contribution Cards, follow these steps:
    <br>
    Here's an example (edit with your details)
     ```plaintext
+    {
     "name": "John Doe",
       "title": "Software Developer",
       "socialLinks": {
@@ -48,6 +49,7 @@ To get started with Contribution Cards, follow these steps:
         "githubDocs": "https://docs.github.com"
       },
       "updatedOn": "July 22, 2024"
+    }
     ```
 ## How to Contribute
 
