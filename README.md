@@ -30,8 +30,25 @@ To get started with Contribution Cards, follow these steps:
     ```bash
     cd contribution-cards
     ```
-4. **Open `index.html` in your browser** to see the project in action:
-
+4. **Open `index.html` in your browser to see the project in action and add the data at the end of `users.json` in `data/` folder**
+   <br>
+   Here's an example (edit with your details)
+    ```plaintext
+    "name": "John Doe",
+      "title": "Software Developer",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/johndoe",
+        "github": "https://github.com/johndoe",
+        "portfolio": "https://johndoe.com"
+      },
+      "description": "John is a software developer with a passion for open-source projects and community engagement.",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 22, 2024"
+    ```
 ## How to Contribute
 
 We welcome contributions from everyone. Here are the steps to contribute:
@@ -87,6 +104,8 @@ contribution-cards/
 │   ├──favicon_io
 ├── css/
 │   ├── styles.css
+├── data/
+│   ├── users.json
 ├── js/
 │   ├── main.js
 ├── Code_OF_CONDUCT.md
