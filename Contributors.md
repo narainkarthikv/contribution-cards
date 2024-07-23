@@ -1,4 +1,6 @@
 # Contributors
 
-- [Narain Karthik](https://www.github.com/narainkarthikv) **Welcome to Contribution Cards**
-- [Rahul Sundaraj](https://github.com/rahuldev8) **My first Contribution**
+- [Narain Karthik](https://github.com/narainkarthikv) **Owner of contribution-cards**
+
+## Open Source Contributors
+- [Rahul Sundaraj](https://github.com/rahuldev8) **first Contribution**
