@@ -47,7 +47,7 @@ jobs:
           echo "deletions=$DELETIONS" >> $GITHUB_ENV
           echo "changed_lines=$CHANGED_LINES" >> $GITHUB_ENV
 
-          if [[ $CHANGED_LINES -le 10 ]]; then
+          if [[ $CHANGED_LINES -le 18 ]]; then
             echo "small_change=true" >> $GITHUB_ENV
           else
             echo "small_change=false" >> $GITHUB_ENV
