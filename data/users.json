@@ -62,6 +62,22 @@
         "githubDocs": "https://docs.github.com"
       },
       "updatedOn": "July 22, 2024"
+    },
+        {
+      "name": "Jane Doe",
+      "title": "Software Developer",
+      "socialLinks": {
+        "linkedin": "https://www.linkedin.com/in/johndoe",
+        "github": "https://github.com/johndoe",
+        "portfolio": "https://johndoe.com"
+      },
+      "description": "Hi there",
+      "studyLinks": {
+        "freeCodeCamp": "https://www.freecodecamp.org",
+        "w3Schools": "https://www.w3schools.com",
+        "githubDocs": "https://docs.github.com"
+      },
+      "updatedOn": "July 29, 2024"
     }
   ]
   
