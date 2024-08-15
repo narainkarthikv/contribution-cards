@@ -29,7 +29,7 @@
       "w3Schools": "https://www.w3schools.com",
       "githubDocs": "https://docs.github.com"
     },
-    "updatedOn": "July 22, 2024"
+    "updatedOn": "July 23, 2024"
   },
   {
     "name": "Rahul",
@@ -45,39 +45,7 @@
       "w3Schools": "https://www.w3schools.com",
       "githubDocs": "https://docs.github.com"
     },
-    "updatedOn": "July 22, 2024"
-  },
-  {
-    "name": "John Doe",
-    "title": "Software Developer",
-    "socialLinks": {
-      "linkedin": "https://www.linkedin.com/in/johndoe",
-      "github": "https://github.com/johndoe",
-      "portfolio": "https://johndoe.com"
-    },
-    "description": "John is a software developer with a passion for open-source projects and community engagement.",
-    "studyLinks": {
-      "freeCodeCamp": "https://www.freecodecamp.org",
-      "w3Schools": "https://www.w3schools.com",
-      "githubDocs": "https://docs.github.com"
-    },
-    "updatedOn": "July 22, 2024"
-  },
-  {
-    "name": "Jane Doe",
-    "title": "Software Developer",
-    "socialLinks": {
-      "linkedin": "https://www.linkedin.com/in/johndoe",
-      "github": "https://github.com/johndoe",
-      "portfolio": "https://johndoe.com"
-    },
-    "description": "Hi there",
-    "studyLinks": {
-      "freeCodeCamp": "https://www.freecodecamp.org",
-      "w3Schools": "https://www.w3schools.com",
-      "githubDocs": "https://docs.github.com"
-    },
-    "updatedOn": "July 29, 2024"
+    "updatedOn": "July 27, 2024"
   },
   {
   "name": "Jolly Jolli",
@@ -94,5 +62,21 @@
     "GitHub Docs": "https://docs.github.com"
   },
   "updatedOn": "August 14, 2024"
-}
+  },
+  {
+    "name": "Frank",
+    "title": "Open Source Hobbyist",
+    "socialLinks": {
+      "LinkedIn": "https://www.linkedin.com/404",
+      "GitHub": "https://github.com/hithere812",
+      "Portfolio": "https://github.com/hithere812"
+    },
+    "description": "Hi there! Frank here, I contribute to open source projects",
+    "studyLinks": {
+      "FreeCodeCamp": "https://www.freecodecamp.org",
+      "W3Schools": "https://www.w3schools.com",
+      "GitHub Docs": "https://docs.github.com"
+    },
+    "updatedOn": "August 15, 2024"
+  }
 ]
