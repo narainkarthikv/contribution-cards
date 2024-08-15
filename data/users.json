@@ -1,83 +1,98 @@
 [
-    {
-      "name": "John Doe",
-      "title": "Software Developer",
-      "socialLinks": {
-        "linkedin": "https://www.linkedin.com/in/johndoe",
-        "github": "https://github.com/johndoe",
-        "portfolio": "https://johndoe.com"
-      },
-      "description": "John is a software developer with a passion for open-source projects and community engagement.",
-      "studyLinks": {
-        "freeCodeCamp": "https://www.freecodecamp.org",
-        "w3Schools": "https://www.w3schools.com",
-        "githubDocs": "https://docs.github.com"
-      },
-      "updatedOn": "July 22, 2024"
+  {
+    "name": "John Doe",
+    "title": "Software Developer",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/in/johndoe",
+      "github": "https://github.com/johndoe",
+      "portfolio": "https://johndoe.com"
     },
-    {
-      "name": "Narain Karthik",
-      "title": "Front End Developer",
-      "socialLinks": {
-        "linkedin": "https://www.linkedin.com/in/narainkarthik-vellingiri",
-        "github": "https://github.com/narainkarthikv",
-        "portfolio": "https://narainkarthikv.github.io/Portfolio"
-      },
-      "description": "I Love Creative & Creating Stuffs ❤️",
-      "studyLinks": {
-        "freeCodeCamp": "https://www.freecodecamp.org",
-        "w3Schools": "https://www.w3schools.com",
-        "githubDocs": "https://docs.github.com"
-      },
-      "updatedOn": "July 22, 2024"
+    "description": "John is a software developer with a passion for open-source projects and community engagement.",
+    "studyLinks": {
+      "freeCodeCamp": "https://www.freecodecamp.org",
+      "w3Schools": "https://www.w3schools.com",
+      "githubDocs": "https://docs.github.com"
     },
-    {
-      "name": "Rahul",
-      "title": "Full Stack Developer",
-      "socialLinks": {
-        "linkedin": "https://www.linkedin.com/in/rahul-sundararaj-016536214/",
-        "github": "https://github.com/rahuldev8",
-        "portfolio": "https://rahuldev8.github.io/Rahul-Sundararaj/"
-      },
-      "description": "Hello World! ❤️",
-      "studyLinks": {
-        "freeCodeCamp": "https://www.freecodecamp.org",
-        "w3Schools": "https://www.w3schools.com",
-        "githubDocs": "https://docs.github.com"
-      },
-      "updatedOn": "July 22, 2024"
+    "updatedOn": "July 22, 2024"
+  },
+  {
+    "name": "Narain Karthik",
+    "title": "Front End Developer",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/in/narainkarthik-vellingiri",
+      "github": "https://github.com/narainkarthikv",
+      "portfolio": "https://narainkarthikv.github.io/Portfolio"
     },
-    {
-      "name": "John Doe",
-      "title": "Software Developer",
-      "socialLinks": {
-        "linkedin": "https://www.linkedin.com/in/johndoe",
-        "github": "https://github.com/johndoe",
-        "portfolio": "https://johndoe.com"
-      },
-      "description": "John is a software developer with a passion for open-source projects and community engagement.",
-      "studyLinks": {
-        "freeCodeCamp": "https://www.freecodecamp.org",
-        "w3Schools": "https://www.w3schools.com",
-        "githubDocs": "https://docs.github.com"
-      },
-      "updatedOn": "July 22, 2024"
+    "description": "I Love Creative & Creating Stuffs ❤️",
+    "studyLinks": {
+      "freeCodeCamp": "https://www.freecodecamp.org",
+      "w3Schools": "https://www.w3schools.com",
+      "githubDocs": "https://docs.github.com"
     },
-        {
-      "name": "Jane Doe",
-      "title": "Software Developer",
-      "socialLinks": {
-        "linkedin": "https://www.linkedin.com/in/johndoe",
-        "github": "https://github.com/johndoe",
-        "portfolio": "https://johndoe.com"
-      },
-      "description": "Hi there",
-      "studyLinks": {
-        "freeCodeCamp": "https://www.freecodecamp.org",
-        "w3Schools": "https://www.w3schools.com",
-        "githubDocs": "https://docs.github.com"
-      },
-      "updatedOn": "July 29, 2024"
-    }
-  ]
-  
+    "updatedOn": "July 22, 2024"
+  },
+  {
+    "name": "Rahul",
+    "title": "Full Stack Developer",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/in/rahul-sundararaj-016536214/",
+      "github": "https://github.com/rahuldev8",
+      "portfolio": "https://rahuldev8.github.io/Rahul-Sundararaj/"
+    },
+    "description": "Hello World! ❤️",
+    "studyLinks": {
+      "freeCodeCamp": "https://www.freecodecamp.org",
+      "w3Schools": "https://www.w3schools.com",
+      "githubDocs": "https://docs.github.com"
+    },
+    "updatedOn": "July 22, 2024"
+  },
+  {
+    "name": "John Doe",
+    "title": "Software Developer",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/in/johndoe",
+      "github": "https://github.com/johndoe",
+      "portfolio": "https://johndoe.com"
+    },
+    "description": "John is a software developer with a passion for open-source projects and community engagement.",
+    "studyLinks": {
+      "freeCodeCamp": "https://www.freecodecamp.org",
+      "w3Schools": "https://www.w3schools.com",
+      "githubDocs": "https://docs.github.com"
+    },
+    "updatedOn": "July 22, 2024"
+  },
+  {
+    "name": "Jane Doe",
+    "title": "Software Developer",
+    "socialLinks": {
+      "linkedin": "https://www.linkedin.com/in/johndoe",
+      "github": "https://github.com/johndoe",
+      "portfolio": "https://johndoe.com"
+    },
+    "description": "Hi there",
+    "studyLinks": {
+      "freeCodeCamp": "https://www.freecodecamp.org",
+      "w3Schools": "https://www.w3schools.com",
+      "githubDocs": "https://docs.github.com"
+    },
+    "updatedOn": "July 29, 2024"
+  },
+  {
+  "name": "Jolly Jolli",
+  "title": "Software Developer",
+  "socialLinks": {
+    "LinkedIn": "https://www.linkedin.com/404",
+    "GitHub": "https://github.com/jollyjolli",
+    "Portfolio": "https://www.formen.cc"
+  },
+  "description": "Jolly is a passionate software developer with a love for continuous learning.",
+  "studyLinks": {
+    "FreeCodeCamp": "https://www.freecodecamp.org",
+    "W3Schools": "https://www.w3schools.com",
+    "GitHub Docs": "https://docs.github.com"
+  },
+  "updatedOn": "August 14, 2024"
+}
+]
