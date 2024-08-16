@@ -2,6 +2,8 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
 }
 
 main {
@@ -17,9 +19,10 @@ header {
     position: sticky;
     top: 0;
     z-index: 2;
+    background-color: #343a40;
 }
 
-#searchInput{
+#searchInput {
     width: 30rem;
     margin: 0 5rem;
 }
@@ -27,20 +30,17 @@ header {
 .cards-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     overflow-y: auto;
     margin: 0 auto;
     width: 93%;
 }
 
-.card {
+.cards {
     width: 300px;
-    max-width: 100%;
     height: 300px;
-    max-height: 300px;
     margin: 15px;
     padding: 20px;
-    border: none;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, background-color 0.4s ease-in-out;
@@ -57,10 +57,11 @@ header {
     margin-bottom: 15px;
 }
 
-.card-social-links {
+.card-social-links,
+.card-study-links {
     list-style: none;
     display: flex;
-    gap: 5px;
+    gap: 10px;
 }
 
 .card-title {
@@ -84,22 +85,14 @@ header {
     background-color: white;
     padding: 10px;
     border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-link:hover {
     color: #0056b3;
     text-decoration: none;
-}
-
-.card-study-links {
-    list-style: none;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    /* display: flex;
-    justify-content: center;
-    gap: 15px;
-    align-items: center; */
 }
 
 .study-link {
@@ -109,6 +102,9 @@ header {
     background-color: white;
     padding: 5px;
     border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .study-link:hover {
@@ -117,21 +113,26 @@ header {
 
 .card-date {
     align-self: flex-end;
+    color: #6c757d;
 }
 
-.card:hover {
+.cards:hover {
     transform: translateY(-15px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-    background-color: #f1f1f1;
 }
 
 @media (max-width: 992px) {
-    .form-inline {
-        display: none;
+    #searchInput {
+        width: 100%;
+        margin: 0;
     }
 }
 
 footer {
     position: sticky;
     bottom: 0;
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px;
 }
