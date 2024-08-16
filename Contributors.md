@@ -1,6 +1,6 @@
-# Contributors
+# Code Maintainers
 
-- [Narain Karthik](https://github.com/narainkarthikv) **Creator of contribution-cards**
+- [Wisdom Fox](https://github.com/narainkarthikv) **Creator of contribution-cards**
 
 ## Open Source Contributors
 
