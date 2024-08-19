@@ -1,24 +1,44 @@
 .narainkarthik {
     background-color: #1dd1a1;
     color: white;
+    box-shadow: 15px 8px 16px rgba(29, 209, 161, 0.4), 0 12px 24px rgba(29, 209, 161, 0.2);
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .john-doe {
     background-color: #ff6b6b;
     color: white;
+    box-shadow: 15px 8px 16px rgba(255, 107, 107, 0.4), 0 12px 24px rgba(255, 107, 107, 0.2);
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .rahul {
     background-color: #54a0ff;
     color: white;
+    box-shadow: 15px 8px 16px rgba(84, 160, 255, 0.4), 0 12px 24px rgba(84, 160, 255, 0.2);
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .jolly-jolli {
     background-color: #f3ec14;
     color: black;
+    box-shadow: 15px 8px 16px rgba(243, 236, 20, 0.4), 0 12px 24px rgba(243, 236, 20, 0.2);
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .frank {
     background-color: #ff9f43;
     color: white;
+    box-shadow: 15px 8px 16px rgba(255, 159, 67, 0.4), 0 12px 24px rgba(255, 159, 67, 0.2);
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
