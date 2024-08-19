@@ -13,7 +13,3 @@ function filterCards() {
         }, 1000)
     }
 }
-
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-});
