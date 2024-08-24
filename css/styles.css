@@ -1,22 +1,49 @@
 /* Importing the Outfit font from Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap');
 
+/* Color Variables */
+:root {
+    --background-color: #fff;
+    --text-color: #333;
+    --card-background-color: #fff;
+    --card-text-color: #333;
+    --card-border-color: #e0e0e0;
+    --navbar-background-color: #343a40;
+    --footer-background-color: #343a40;
+    --link-color: #007bff;
+    --link-hover-color: #0056b3;
+}
+
+body.dark-mode {
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --card-background-color: #1e1e1e;
+    --card-text-color: #e0e0e0;
+    --card-border-color: #333;
+    --navbar-background-color: #1f1f1f;
+    --footer-background-color: #1f1f1f;
+    --link-color: #bb86fc;
+    --link-hover-color: #3700b3;
+}
+
 /* Base Styles */
 body {
     margin: 0;
     font-family: 'Outfit', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
 }
 
 /* Custom Scrollbar Styles */
 body::-webkit-scrollbar {
     width: 12px;
-    background-color: #2c2c2c;
+    background-color: var(--background-color);
 }
 
 body::-webkit-scrollbar-thumb {
     background-color: lightslategrey;
     border-radius: 20px;
-    border: 3px solid #2c2c2c;
+    border: 3px solid var(--background-color);
 }
 
 /* Header Styles */
@@ -24,19 +51,22 @@ header {
     position: sticky;
     top: 0;
     z-index: 2;
-    background-color: #343a40;
+    background-color: var(--navbar-background-color);
 }
 
 #searchInput {
     width: 100%;
     max-width: 25rem;
     margin: 0 auto;
+    background-color: var(--card-background-color);
+    color: var(--card-text-color);
 }
 
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
     cursor: default;
+    color: var(--text-color);
 }
 
 .navbar-nav {
@@ -72,9 +102,10 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #fff;
+    background-color: var(--card-background-color);
+    color: var(--card-text-color);
     cursor: pointer;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--card-border-color);
 }
 
 /* Card Hover Effect */
@@ -106,7 +137,7 @@ header {
 .card-title {
     font-size: 1.3em;
     font-weight: bold;
-    color: #333;
+    color: var(--card-text-color);
     margin-bottom: 10px;
 }
 
@@ -128,9 +159,9 @@ header {
 /* Card Link Styles */
 .card-link,
 .study-link {
-    color: #007bff;
+    color: var(--link-color);
     transition: color 0.3s ease, background-color 0.3s ease;
-    background-color: #f8f9fa;
+    background-color: var(--card-background-color);
     padding: 10px;
     border-radius: 8px;
     display: inline-flex;
@@ -141,7 +172,7 @@ header {
 
 .card-link:hover,
 .study-link:hover {
-    color: #0056b3;
+    color: var(--link-hover-color);
     background-color: #e2e6ea;
     text-decoration: none;
 }
@@ -166,8 +197,8 @@ footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    background-color: #343a40;
-    color: white;
+    background-color: var(--footer-background-color);
+    color: var(--text-color);
     text-align: center;
     padding: 10px;
     box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
