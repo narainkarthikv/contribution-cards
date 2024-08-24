@@ -13,3 +13,7 @@ function filterCards() {
         }, 1000)
     }
 }
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+}
