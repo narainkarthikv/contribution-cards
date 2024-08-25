@@ -118,6 +118,31 @@ document.addEventListener('DOMContentLoaded', function () {
         return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
     }
 
+    // Handle theme toggle button click
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeIcon = document.getElementById('themeIcon');
+
+    // Check if dark mode is enabled in localStorage
+    if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+        themeIcon.classList.remove('bi-sun');
+        themeIcon.classList.add('bi-moon');
+    }
+
+    themeToggleBtn.addEventListener('click', () => {
+        if (document.body.classList.contains('dark-mode')) {
+            document.body.classList.remove('dark-mode');
+            themeIcon.classList.remove('bi-moon');
+            themeIcon.classList.add('bi-sun');
+            localStorage.setItem('darkMode', 'disabled');
+        } else {
+            document.body.classList.add('dark-mode');
+            themeIcon.classList.remove('bi-sun');
+            themeIcon.classList.add('bi-moon');
+            localStorage.setItem('darkMode', 'enabled');
+        }
+    });
+
     // Attach filterCards function to the search input event
     document.getElementById('searchInput').addEventListener('keyup', filterCards);
 });
