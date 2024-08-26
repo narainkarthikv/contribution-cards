@@ -8,8 +8,8 @@
     <link rel="shortcut icon" href="assets/favicon_io/favicon.ico" type="image/x-icon">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="css/styles.css"> 
-    <link rel="stylesheet" href="css/users.css"> 
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/users.css">
 </head>
 
 <body>
@@ -26,120 +26,20 @@
                 </ul>
                 <form class="form-inline my-2 my-lg-0">
                     <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onkeyup="filterCards()">
+                    <button id="themeToggleBtn" class="btn btn-outline-light ml-2" type="button">
+                        <i id="themeIcon" class="bi bi-sun"></i>
+                    </button>
                 </form>
             </div>
         </nav>
-    </header>
-    
+    </header>        
 
     <main class="container-fluid">
-
-        <!-- Contribution Cards Start-->
-
+        <!-- Contribution Cards Start -->
         <div class="cards-container" id="cardsContainer">
-
-            <!--NarainKarthik's Card Start-->
-            <div class="cards narainkarthik">
-                <div class="card-head">
-                    <h5 class="card-title">Narain Karthik</h5>
-                    <ul class="card-social-links">
-                        <li><a href="https://www.linkedin.com/in/narainkarthik-vellingiri" class="card-link" data-toggle="tooltip" title="LinkedIn"><i class="bi bi-linkedin"></i></a></li>
-                        <li><a href="https://github.com/narainkarthikv" class="card-link" data-toggle="tooltip" title="GitHub"><i class="bi bi-github"></i></a></li>
-                        <li><a href="https://narainkarthikv.github.io/Portfolio" class="card-link" data-toggle="tooltip" title="Portfolio"><i class="bi bi-globe"></i></a></li>
-                    </ul>
-                </div>
-                <p class="card-text">I Love Creative & Creating Stuffs ❤️</p>
-                <ul class="card-study-links">
-                    <li><a href="https://www.freecodecamp.org" target="_blank" class="study-link" data-toggle="tooltip" title="FreeCodeCamp"><i class="bi bi-book"></i></a></li>
-                    <li><a href="https://www.w3schools.com" target="_blank" class="study-link" data-toggle="tooltip" title="W3Schools"><i class="bi bi-mortarboard"></i></a></li>
-                    <li><a href="https://docs.github.com" target="_blank" class="study-link" data-toggle="tooltip" title="GitHub Docs"><i class="bi bi-file-code"></i></a></li>
-                </ul>
-                <h6 class="mb-2 card-date">Updated on: July 23, 2024</h6>
-            </div>
-            <!--NarainKarthik Card End-->
-
-            <!--John Doe's Card Start-->
-            <div class="cards john-doe">
-                <div class="card-head">
-                    <h5 class="card-title">John Doe</h5>
-                    <ul class="card-social-links">
-                        <li><a href="https://www.linkedin.com/in/johndoe" class="card-link" data-toggle="tooltip" title="LinkedIn"><i class="bi bi-linkedin"></i></a></li>
-                        <li><a href="https://github.com/johndoe" class="card-link" data-toggle="tooltip" title="GitHub"><i class="bi bi-github"></i></a></li>
-                        <li><a href="https://johndoe.com" class="card-link" data-toggle="tooltip" title="Portfolio"><i class="bi bi-globe"></i></a></li>
-                    </ul>
-                </div>
-                <p class="card-text">John is a software developer with a passion for open-source projects and community engagement.</p>
-                <ul class="card-study-links">
-                    <li><a href="https://www.freecodecamp.org" target="_blank" class="study-link" data-toggle="tooltip" title="FreeCodeCamp"><i class="bi bi-book"></i></a></li>
-                    <li><a href="https://www.w3schools.com" target="_blank" class="study-link" data-toggle="tooltip" title="W3Schools"><i class="bi bi-mortarboard"></i></a></li>
-                    <li><a href="https://docs.github.com" target="_blank" class="study-link" data-toggle="tooltip" title="GitHub Docs"><i class="bi bi-file-code"></i></a></li>
-                </ul>
-                <h6 class="mb-2 card-date">Updated on: July 22, 2024</h6>
-            </div>
-            <!--John Doe's Card End-->
-
-            <!--Rahul's Card Start-->            
-            <div class="cards rahul">
-                <div class="card-head">
-                    <h5 class="card-title">Rahul</h5>
-                    <ul class="card-social-links">
-                        <li><a href="https://www.linkedin.com/in/rahul-sundararaj-016536214/" class="card-link" data-toggle="tooltip" title="LinkedIn"><i class="bi bi-linkedin"></i></a></li>
-                        <li><a href="https://github.com/rahuldev8" class="card-link" data-toggle="tooltip" title="GitHub"><i class="bi bi-github"></i></a></li>
-                        <li><a href="https://rahuldev8.github.io/Rahul-Sundararaj/" class="card-link" data-toggle="tooltip" title="Portfolio"><i class="bi bi-globe"></i></a></li>
-                    </ul>
-                </div>
-                <p class="card-text">Hello World! ❤️</p>
-                <ul class="card-study-links">
-                    <li><a href="https://www.freecodecamp.org" target="_blank" class="study-link" data-toggle="tooltip" title="FreeCodeCamp"><i class="bi bi-book"></i></a></li>
-                    <li><a href="https://www.w3schools.com" target="_blank" class="study-link" data-toggle="tooltip" title="W3Schools"><i class="bi bi-mortarboard"></i></a></li>
-                    <li><a href="https://docs.github.com" target="_blank" class="study-link" data-toggle="tooltip" title="GitHub Docs"><i class="bi bi-file-code"></i></a></li>
-                </ul>
-                <h6 class="mb-2 card-date">Updated on: July 27, 2024</h6>
-            </div>
-            <!--Rahul's Card End-->   
-
-            <!--Jolly Jolli's Card start-->   
-            <div class="cards jolly-jolli">
-                <div class="card-head">
-                    <h5 class="card-title">Jolly Jolli</h5>
-                    <ul class="card-social-links">
-                        <li><a href="https://www.linkedin.com/404" class="card-link" data-toggle="tooltip" title="LinkedIn"><i class="bi bi-linkedin"></i></a></li>
-                        <li><a href="https://github.com/jollyjolli" class="card-link" data-toggle="tooltip" title="GitHub"><i class="bi bi-github"></i></a></li>
-                        <li><a href="https://www.formen.cc" class="card-link" data-toggle="tooltip" title="Portfolio"><i class="bi bi-globe"></i></a></li>
-                    </ul>
-                </div>
-                <p class="card-text">Jolly is a passionate software developer with a love for continuous learning.</p>
-                <ul class="card-study-links">
-                    <li><a href="https://www.freecodecamp.org" target="_blank" class="study-link" data-toggle="tooltip" title="FreeCodeCamp"><i class="bi bi-book"></i></a></li>
-                    <li><a href="https://www.w3schools.com" target="_blank" class="study-link" data-toggle="tooltip" title="W3Schools"><i class="bi bi-mortarboard"></i></a></li>
-                    <li><a href="https://docs.github.com" target="_blank" class="study-link" data-toggle="tooltip" title="GitHub Docs"><i class="bi bi-file-code"></i></a></li>
-                </ul>
-                <h6 class="mb-2 card-date">Updated on: August 14, 2024</h6>
-            </div>
-            <!--Jolly Jolli's Card End-->
-
-            <!--Frank's Card Start-->   
-            <div class="cards frank">
-                <div class="card-head">
-                    <h5 class="card-title">Frank</h5>
-                    <ul class="card-social-links">
-                        <li><a href="https://www.linkedin.com/in/frank" class="card-link" data-toggle="tooltip" title="LinkedIn"><i class="bi bi-linkedin"></i></a></li>
-                        <li><a href="https://github.com/frank" class="card-link" data-toggle="tooltip" title="GitHub"><i class="bi bi-github"></i></a></li>
-                        <li><a href="https://frank.com" class="card-link" data-toggle="tooltip" title="Portfolio"><i class="bi bi-globe"></i></a></li>
-                    </ul>
-                </div>
-                <p class="card-text">Frank is an enthusiastic developer who loves exploring new technologies.</p>
-                <ul class="card-study-links">
-                    <li><a href="https://www.freecodecamp.org" target="_blank" class="study-link" data-toggle="tooltip" title="FreeCodeCamp"><i class="bi bi-book"></i></a></li>
-                    <li><a href="https://www.w3schools.com" target="_blank" class="study-link" data-toggle="tooltip" title="W3Schools"><i class="bi bi-mortarboard"></i></a></li>
-                    <li><a href="https://docs.github.com" target="_blank" class="study-link" data-toggle="tooltip" title="GitHub Docs"><i class="bi bi-file-code"></i></a></li>
-                </ul>
-                <h6 class="mb-2 card-date">Updated on: August 14, 2024</h6>
-            </div>
-            <!--Frank's Card End-->
-            
-            <!--Contribution Cards end-->
+            <!-- Cards will be dynamically generated here -->
         </div>
+        <!-- Contribution Cards End -->
     </main>
 
     <footer>
@@ -147,8 +47,7 @@
         <a href="https://github.com/narainkarthikv">Wisdom Fox Community</a> 
     </footer>
 
-    <!--Template Javascripts-->
-
+    <!-- Template Javascripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
