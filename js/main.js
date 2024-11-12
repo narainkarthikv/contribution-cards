@@ -136,4 +136,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Attach filterCards function to the search input event
     document.getElementById('searchInput').addEventListener('keyup', filterCards);
+
+    document.getElementById('themeToggleBtn').addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+    });
+      
 });
