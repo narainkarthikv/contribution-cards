@@ -8,136 +8,152 @@
     <link rel="shortcut icon" href="assets/favicon_io/favicon.ico" type="image/x-icon">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./css/styles.css">
     <!-- <link rel="stylesheet" href="css/users.css"> -->
 </head>
 
-<body>
+<body class="bg-gray-100 text-gray-800">
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <h3 class="navbar-brand">Contribution Cards</h3>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mr-auto">
-                    <!-- Add any additional navigation links here -->
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" onkeyup="filterCards()">
-                    <button id="themeToggleBtn" class="btn btn-outline-light ml-2" type="button">
+        <nav class="bg-gray-800 text-white p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <h3 class="text-lg font-semibold">Contribution Cards</h3>
+                <div class="flex items-center space-x-4">
+                    <input id="searchInput" type="text" placeholder="Search" class="px-4 py-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-blue-500" onkeyup="filterCards()">
+                    <button id="themeToggleBtn" class="bg-gray-700 p-2 rounded focus:outline-none" onclick="toggleTheme()">
                         <i id="themeIcon" class="bi bi-sun"></i>
                     </button>
-                </form>
+                </div>
             </div>
         </nav>
-    </header>        
-
-    <main class="container-fluid">
+    </header> 
+    
+    <main class="container mx-auto py-8">
         <!-- Contribution Cards Start -->
-        <div class="cards-container" id="cardsContainer">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="cardsContainer">
             <!-- Card for Narain Karthik -->
-            <div class="card mb-4" style="background-color: #f8f9fa;">
-                <div class="card-body">
-                    <h5 class="card-title">Narain Karthik</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Front End Developer</h6>
-                    <p class="card-text">I Love Creative & Creating Stuffs ❤️</p>
-                    <a href="https://www.linkedin.com/in/narainkarthik-vellingiri" class="card-link">LinkedIn</a>
-                    <a href="https://github.com/narainkarthikv" class="card-link">GitHub</a>
-                    <a href="https://narainkarthikv.github.io/Portfolio" class="card-link">Portfolio</a>
-                    <p class="card-text mt-2"><strong>Study Links:</strong></p>
-                    <a href="https://www.freecodecamp.org" class="card-link">FreeCodeCamp</a>
-                    <a href="https://www.w3schools.com" class="card-link">W3Schools</a>
-                    <a href="https://docs.github.com" class="card-link">GitHub Docs</a>
+            <div class="bg-white rounded-lg shadow p-9">
+                <div class="mb-4">
+                    <h5 class="text-xl font-semibold">Narain Karthik</h5>
+                    <h6 class="text-sm text-gray-500">Front End Developer</h6>
                 </div>
-                <div class="card-footer">
-                    <small class="text-muted">Updated on July 23, 2024</small>
+                <p class="mb-4">I Love Creative & Creating Stuffs ❤️</p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.linkedin.com/in/narainkarthik-vellingiri" class="text-blue-500 hover:underline">LinkedIn</a>
+                    <a href="https://github.com/narainkarthikv" class="text-blue-500 hover:underline">GitHub</a>
+                    <a href="https://narainkarthikv.github.io/Portfolio" class="text-blue-500 hover:underline">Portfolio</a>
+                </div>
+                <p class="mt-4 font-semibold">Study Links:</p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.freecodecamp.org" class="text-blue-500 hover:underline">FreeCodeCamp</a>
+                    <a href="https://www.w3schools.com" class="text-blue-500 hover:underline">W3Schools</a>
+                    <a href="https://docs.github.com" class="text-blue-500 hover:underline">GitHub Docs</a>
+                </div>
+                <div class="text-right mt-4 text-sm text-gray-500">
+                    <small>Updated on July 23, 2024</small>
                 </div>
             </div>
 
             <!-- Card for John Doe -->
-            <div class="card mb-4" style="background-color: #f8f9fa;">
-                <div class="card-body">
-                    <h5 class="card-title">John Doe</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Software Developer</h6>
-                    <p class="card-text">John is a software developer with a passion for open-source projects and community engagement.</p>
-                    <a href="https://www.linkedin.com/in/johndoe" class="card-link">LinkedIn</a>
-                    <a href="https://github.com/johndoe" class="card-link">GitHub</a>
-                    <a href="https://johndoe.com" class="card-link">Portfolio</a>
-                    <p class="card-text mt-2"><strong>Study Links:</strong></p>
-                    <a href="https://www.freecodecamp.org" class="card-link">FreeCodeCamp</a>
-                    <a href="https://www.w3schools.com" class="card-link">W3Schools</a>
-                    <a href="https://docs.github.com" class="card-link">GitHub Docs</a>
+            <div class="bg-white rounded-lg shadow p-9">
+                <div class="mb-4">
+                    <h5 class="text-xl font-semibold">John Doe</h5>
+                    <h6 class="text-sm text-gray-500">Software Developer</h6>
                 </div>
-                <div class="card-footer">
-                    <small class="text-muted">Updated on July 22, 2024</small>
+                <p class="md-4">John is a software developer with a passion for open-source projects and community engagement.</p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.linkedin.com/in/johndoe" class="text-blue-500 hover:underline">LinkedIn</a>
+                    <a href="https://github.com/johndoe" class="text-blue-500 hover:underline">GitHub</a>
+                    <a href="https://johndoe.com" class="text-blue-500 hover:underline">Portfolio</a>
+                </div>
+                <p class="mt-4 font-semibold">Study Links:</p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.freecodecamp.org" class="text-blue-500 hover:underline">FreeCodeCamp</a>
+                    <a href="https://www.w3schools.com" class="text-blue-500 hover:underline">W3Schools</a>
+                    <a href="https://docs.github.com" class="text-blue-500 hover:underline">GitHub Docs</a>
+                </div>
+                <div class="text-right mt-4 text-sm text-gray-500">
+                    <small>Updated on July 22, 2024</small>
                 </div>
             </div>
 
             <!-- Card for Rahul -->
-            <div class="card mb-4" style="background-color: #f8f9fa;">
-                <div class="card-body">
-                    <h5 class="card-title">Rahul</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Full Stack Developer</h6>
-                    <p class="card-text">Hello World! ❤️</p>
-                    <a href="https://www.linkedin.com/in/rahul-sundararaj-016536214/" class="card-link">LinkedIn</a>
-                    <a href="https://github.com/rahuldev8" class="card-link">GitHub</a>
-                    <a href="https://rahuldev8.github.io/Rahul-Sundararaj/" class="card-link">Portfolio</a>
-                    <p class="card-text mt-2"><strong>Study Links:</strong></p>
-                    <a href="https://www.freecodecamp.org" class="card-link">FreeCodeCamp</a>
-                    <a href="https://www.w3schools.com" class="card-link">W3Schools</a>
-                    <a href="https://docs.github.com" class="card-link">GitHub Docs</a>
+            <div class="bg-white rounded-lg shadow p-9">
+                <div class="mb-4">
+                    <h5 class="text-xl font-semibold">Rahul</h5>
+                    <h6 class="text-sm text-gray-500">Full Stack Developer</h6>
                 </div>
-                <div class="card-footer">
-                    <small class="text-muted">Updated on July 27, 2024</small>
+                <p class="md-4">Hello World! ❤️</p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.linkedin.com/in/rahul-sundararaj-016536214/" class="text-blue-500 hover:underline">LinkedIn</a>
+                    <a href="https://github.com/rahuldev8" class="text-blue-500 hover:underline">GitHub</a>
+                    <a href="https://rahuldev8.github.io/Rahul-Sundararaj/" class="text-blue-500 hover:underline">Portfolio</a>
+                </div>
+                <p class="card-text mt-2"><strong>Study Links:</strong></p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.freecodecamp.org" class="text-blue-500 hover:underline">FreeCodeCamp</a>
+                    <a href="https://www.w3schools.com" class="text-blue-500 hover:underline">W3Schools</a>
+                    <a href="https://docs.github.com" class="text-blue-500 hover:underline">GitHub Docs</a>
+                </div>
+                <div class="text-right mt-4 text-sm text-gray-500">
+                    <small>Updated on July 27, 2024</small>
                 </div>
             </div>
 
             <!-- Card for Jolly Jolli -->
-            <div class="card mb-4" style="background-color: #f8f9fa;">
-                <div class="card-body">
-                    <h5 class="card-title">Jolly Jolli</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Software Developer</h6>
-                    <p class="card-text">Jolly is a passionate software developer with a love for continuous learning.</p>
-                    <a href="https://www.linkedin.com/404" class="card-link">LinkedIn</a>
-                    <a href="https://github.com/jollyjolli" class="card-link">GitHub</a>
-                    <a href="https://www.formen.cc" class="card-link">Portfolio</a>
-                    <p class="card-text mt-2"><strong>Study Links:</strong></p>
-                    <a href="https://www.freecodecamp.org" class="card-link">FreeCodeCamp</a>
-                    <a href="https://www.w3schools.com" class="card-link">W3Schools</a>
-                    <a href="https://docs.github.com" class="card-link">GitHub Docs</a>
+            <div class="bg-white rounded-lg shadow p-9">
+                <div class="mb-4">
+                    <h5 class="text-xl font-semibold">Jolly Jolli</h5>
+                    <h6 class="text-sm text-gray-500">Software Developer</h6>
                 </div>
-                <div class="card-footer">
-                    <small class="text-muted">Updated on August 14, 2024</small>
+                <p class="mb-4">Jolly is a passionate software developer with a love for continuous learning.</p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.linkedin.com/404" class="text-blue-500 hover:underline">LinkedIn</a>
+                    <a href="https://github.com/jollyjolli" class="text-blue-500 hover:underline">GitHub</a>
+                    <a href="https://www.formen.cc" class="text-blue-500 hover:underline">Portfolio</a>
+                </div>
+                <p class="mb-4">Study Links:</p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.freecodecamp.org" class="text-blue-500 hover:underline">FreeCodeCamp</a>
+                    <a href="https://www.w3schools.com" class="text-blue-500 hover:underline">W3Schools</a>
+                    <a href="https://docs.github.com" class="text-blue-500 hover:underline">GitHub Docs</a>
+                </div>
+                <div class="text-right mt-4 text-sm text-gray-500">
+                    <small>Updated on August 14, 2024</small>
                 </div>
             </div>
 
             <!-- Card for Frank -->
-            <div class="card mb-4" style="background-color: #f8f9fa;">
-                <div class="card-body">
+            <div class="bg-white rounded-lg shadow p-9">
+                <div class="mb-4">
                     <h5 class="card-title">Frank</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Open Source Hobbyist</h6>
-                    <p class="card-text">Hi there! Frank here, I contribute to open source projects.</p>
-                    <a href="https://www.linkedin.com/404" class="card-link">LinkedIn</a>
-                    <a href="https://github.com/hithere812" class="card-link">GitHub</a>
-                    <a href="https://github.com/hithere812" class="card-link">Portfolio</a>
-                    <p class="card-text mt-2"><strong>Study Links:</strong></p>
-                    <a href="https://www.freecodecamp.org" class="card-link">FreeCodeCamp</a>
-                    <a href="https://www.w3schools.com" class="card-link">W3Schools</a>
-                    <a href="https://docs.github.com" class="card-link">GitHub Docs</a>
                 </div>
-                <div class="card-footer">
-                    <small class="text-muted">Updated on August 15, 2024</small>
+                <p class="mb-4">Hi there! Frank here, I contribute to open source projects.</p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.linkedin.com/404" class="text-blue-500 hover:underline">LinkedIn</a>
+                    <a href="https://github.com/hithere812" class="text-blue-500 hover:underline">GitHub</a>
+                    <a href="https://github.com/hithere812" class="text-blue-500 hover:underline">Portfolio</a>
+                </div>
+                <p class="mb-4">Study Links:</p>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://www.freecodecamp.org" class="text-blue-500 hover:underline">FreeCodeCamp</a>
+                    <a href="https://www.w3schools.com" class="text-blue-500 hover:underline">W3Schools</a>
+                    <a href="https://docs.github.com" class="text-blue-500 hover:underline">GitHub Docs</a>
+                </div>
+                <div class="text-right mt-4 text-sm text-gray-500">
+                    <small>Updated on August 15, 2024</small>
                 </div>
             </div>
         </div>
         <!-- Contribution Cards End -->
     </main>
 
-    <footer>
+    <footer class="bg-gray-800 text-white text-center py-4">
         &copy; 2024 Contribution Cards - An Open source contribution project by 
-        <a href="https://github.com/narainkarthikv">Wisdom Fox Community</a> 
+        <a href="https://github.com/narainkarthikv" class="text-blue-400 hover:underline">Wisdom Fox Community</a>
     </footer>
 
     <!-- Template Javascripts -->
