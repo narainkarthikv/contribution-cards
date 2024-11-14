@@ -48,20 +48,20 @@
     "updatedOn": "July 27, 2024"
   },
   {
-  "name": "Jolly Jolli",
-  "title": "Software Developer",
-  "socialLinks": {
-    "LinkedIn": "https://www.linkedin.com/404",
-    "GitHub": "https://github.com/jollyjolli",
-    "Portfolio": "https://www.formen.cc"
-  },
-  "description": "Jolly is a passionate software developer with a love for continuous learning.",
-  "studyLinks": {
-    "FreeCodeCamp": "https://www.freecodecamp.org",
-    "W3Schools": "https://www.w3schools.com",
-    "GitHub Docs": "https://docs.github.com"
-  },
-  "updatedOn": "August 14, 2024"
+    "name": "Jolly Jolli",
+    "title": "Software Developer",
+    "socialLinks": {
+      "LinkedIn": "https://www.linkedin.com/404",
+      "GitHub": "https://github.com/jollyjolli",
+      "Portfolio": "https://www.formen.cc"
+    },
+    "description": "Jolly is a passionate software developer with a love for continuous learning.",
+    "studyLinks": {
+      "FreeCodeCamp": "https://www.freecodecamp.org",
+      "W3Schools": "https://www.w3schools.com",
+      "GitHub Docs": "https://docs.github.com"
+    },
+    "updatedOn": "August 14, 2024"
   },
   {
     "name": "Frank",
