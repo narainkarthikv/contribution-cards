@@ -11,12 +11,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap" rel="stylesheet">
     <script src="js/index.js" type="module"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        
+    </style>
+
 </head>
 
 <body class="font-['Outfit'] m-0">
     <header class="sticky top-0 z-10 bg-gray-800 shadow-md rounded-b-md h-16 pt-2">
         <nav class="text-white flex flex-row justify-between items-center px-4 py-2">
-            <h3 class="navbar-brand  text-lg md:text-2xl font-semibold cursor-default">Contribution Cards</h3>
+            <h3 class="navbar-brand text-lg md:text-2xl font-semibold cursor-default">Contribution Cards</h3>
             <div class="flex items-center">
                 <input id="searchInput"
                     class="form-control bg-white text-black flex-1 max-w-[25rem] mr-2 px-2 py-1 rounded-md"
@@ -31,7 +36,7 @@
 
     <main class="container-fluid">
         <!-- Contribution Cards Start -->
-        <div class="cards-container flex flex-wrap justify-center p-8">
+        <div class="cards-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-8">
             <!-- Cards will be dynamically added here -->
         </div>
         <!-- Contribution Cards End -->
