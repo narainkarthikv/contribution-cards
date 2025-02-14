@@ -10,31 +10,37 @@ class Card {
 
   render() {
     // Define the card background and border based on the theme
-    const cardBg = document.body.classList.contains('dark-mode') ? '#2c2c2c' : '#f3f4f6';
-    const cardBorder = document.body.classList.contains('dark-mode') ? '#3a3a3a' : '#e2e8f0';
-    const hoverBg = document.body.classList.contains('dark-mode') ? '#3a3a3a' : '#e5e7eb';
+    const cardBg = document.body.classList.contains('dark-mode') ? '#2d2d2d' : '#ffffff';
+    const cardBorder = document.body.classList.contains('dark-mode') ? '#4a4a4a' : '#d1d5db';
+    const hoverBg = document.body.classList.contains('dark-mode') ? '#3a3a3a' : '#f3f4f6';
 
     const cardElement = document.createElement('div');
     cardElement.className = `
-      cards w-full bg-gray-100 h-[450px] 
-      flex flex-col justify-between m-4 p-4 
-      rounded-[15px] shadow-md transition-all duration-300 ease-in-out 
-      cursor-pointer border dark:bg-[#2c2c2c] dark:border-[#3a3a3a] 
-      hover:shadow-xl hover:scale-105
+      cards w-full bg-white h-[500px] 
+      flex flex-col justify-between m-5 p-5
+      shadow-lg transition-transform duration-500 ease-in-out 
+      cursor-pointer border dark:bg-[#2d2d2d] dark:border-[#4a4a4a] 
+      hover:shadow-2xl hover:scale-105 rounded-lg
     `;
 
     cardElement.innerHTML = `
-        <div class="flex flex-col h-full justify-between">
+        <div class="flex flex-col h-full justify-between align-center">
+          
           <div>
-            <h5 class="card-title text-[1.2em] font-bold mb-2">${this.title}</h5>
-            <h6 class="card-subtitle text-[0.9rem] font-semibold text-[#888] mb-2">${this.subtitle}</h6>
-            <p class="card-text text-[0.95rem] mb-4 leading-[1.4]">${this.text}</p>
+            <div class="flex justify-between items-center mb-2">
+              <h5 class="card-title text-[1.4em] font-bold">${this.title}</h5>
+              <div class="card-date text-sm text-gray-600 dark:text-gray-400 bg-gray-200 dark:bg-[#4a4a4a] rounded-full px-3 py-1 inline-flex items-center">
+                <i class="fas fa-calendar-alt mr-2"></i>${this.updatedAt}
+              </div>
+            </div>
+            <h6 class="card-subtitle text-[1rem] font-semibold text-[#6b7280] mb-2">${this.subtitle}</h6>
+            <p class="card-text text-[1rem] mb-4 leading-[1.6]">${this.text}</p>
             
             <!-- Social Links -->
-            <ul class="card-social-links list-none flex flex-wrap gap-2">
+            <ul class="card-social-links list-none flex flex-wrap gap-3">
               ${this.links.map(link => `
                 <li>
-                  <a href="${link.url}" class="card-link rounded-lg inline-flex items-center justify-center bg-gray-200 hover:bg-gray-300 p-2 text-[1.2rem] transition-all duration-300 dark:bg-[#333] hover:dark:bg-[#444]">
+                  <a href="${link.url}" class="card-link rounded-lg inline-flex items-center justify-center bg-gray-200 hover:bg-gray-300 p-3 text-[1.4rem] transition-all duration-300 dark:bg-[#4a4a4a] hover:dark:bg-[#5a5a5a]">
                     <i class="${this.getIconClass(link.label)} ${this.getIconColor(link.label)}"></i>
                   </a>
                 </li>
@@ -43,20 +49,17 @@ class Card {
 
             <!-- Study Links (Vertical Layout) -->
             <p class="card-text mt-4 font-semibold">Study Links:</p>
-            <ul class="card-study-links list-none flex flex-col gap-2 mt-2 overflow-y-auto max-h-[120px] pr-1"> 
-              ${this.studyLinks.map(link => `
-                <li>
-                  <a href="${link.url}" class="study-link inline-flex items-center justify-center w-full rounded-lg bg-gray-200 hover:bg-gray-300 p-2 text-[1rem] transition-all duration-300 dark:bg-[#333] hover:dark:bg-[#444]">
+            <ul class="card-study-links list-none flex flex-col gap-3 mt-2 overflow-y-auto max-h-[120px] pr-1"> 
+              ${this.studyLinks.map((link, index) => `
+                <li class="flex items-center">
+                  <a href="${link.url}" class="study-link inline-flex items-center justify-center w-full rounded-lg bg-gray-200 hover:bg-gray-300 p-3 text-[1rem] transition-all duration-300 dark:bg-[#4a4a4a] dark:hover:bg-[#5a5a5a] ${this.isAlwaysBlackLink(link.label) ? 'text-black dark:text-white' : 'text-gray-800 dark:text-white'}">
                     ${link.label}
                   </a>
                 </li>
               `).join('')}
             </ul>
           </div>
-
-          <div class="w-full flex justify-center p-2">
-            <div class="card-date text-sm text-gray-600 dark:text-gray-400">Updated on ${this.updatedAt}</div>
-          </div>
+          
         </div>
       `;
 
@@ -76,6 +79,7 @@ class Card {
     return cardElement;
   }
 
+  // Get the icon class based on the label
   getIconClass(label) {
     const icons = {
       'GitHub': 'fab fa-github',
@@ -89,6 +93,7 @@ class Card {
     return icons[label] || 'fas fa-link';
   }
 
+  // Get the icon color based on the label
   getIconColor(label) {
     const colors = {
       'GitHub': 'text-gray-800 dark:text-white', 
@@ -100,6 +105,12 @@ class Card {
       'Website': 'text-green-600 dark:text-green-400',
     };
     return colors[label] || 'text-gray-500 dark:text-gray-300';
+  }
+
+  // Check if the link should always be black
+  isAlwaysBlackLink(label) {
+    const alwaysBlackLinks = ['freecodecamp', 'w3Schools'];
+    return alwaysBlackLinks.includes(label.toLowerCase());
   }
 }
 

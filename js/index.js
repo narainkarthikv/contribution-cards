@@ -1,5 +1,6 @@
 import Card from './card.js';
 
+// Fetch and render cards from the JSON data
 async function fetchAndRenderCards() {
     try {
         console.log('fetching data');

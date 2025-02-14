@@ -12,23 +12,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap" rel="stylesheet">
     <script src="js/index.js" type="module"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        
-    </style>
-
 </head>
 
-<body class="font-['Outfit'] m-0">
+<body class="font-['Outfit'] m-0"></body>
     <header class="sticky top-0 z-10 bg-gray-800 shadow-md rounded-b-md h-16 pt-2">
-        <nav class="text-white flex flex-row justify-between items-center px-4 py-2">
+        <nav class="text-white flex flex-row justify-between items-center px-4 py-1">
             <h3 class="navbar-brand text-lg md:text-2xl font-semibold cursor-default">Contribution Cards</h3>
             <div class="flex items-center">
                 <input id="searchInput"
                     class="form-control bg-white text-black flex-1 max-w-[25rem] mr-2 px-2 py-1 rounded-md"
-                    type="search" placeholder="Search" aria-label="Search" onkeyup="filterCards()">
-                <button id="themeToggleBtn" class="btn btn-outline-light" type="button" onclick="toggleDarkMode()">
-                    <i id="themeIcon" class="bi bi-sun"><img src="./assets/favicon_io/sun (1).png" class="" alt="o"
-                            srcset=""></i>
+                    type="search" placeholder="Search" aria-label="Search">
+                <button id="themeToggleBtn" class="rounded-lg inline-flex items-center justify-center bg-gray-200 hover:bg-gray-300 p-1 text-[1.4rem] transition-all duration-300 dark:bg-[#4a4a4a] hover:dark:bg-[#5a5a5a]" type="button">
+                    <img id="themeIconSun" src="./assets/public/sun.png" class="hidden" alt="Sun">
+                    <img id="themeIconMoon" src="./assets/public/moon.png" class="hidden" alt="Moon">
                 </button>
             </div>
         </nav>
@@ -42,11 +38,11 @@
         <!-- Contribution Cards End -->
     </main>
 
-    <footer
-        class="fixed bottom-0 left-0 w-full bg-gray-800 text-white text-center py-2.5 shadow-[0_-1px_5px_rgba(0,0,0,0.1)] dark:bg-[#1e1e1e]">
+    <footer class="fixed rounded-t-xl bottom-0 left-0 w-full bg-gray-800 text-white text-center py-2.5 shadow-[0_-1px_5px_rgba(0,0,0,0.1)] dark:bg-[#1e1e1e]">
         &copy; 2024 Contribution Cards - An Open source contribution project by
         <a href="https://github.com/narainkarthikv" class="text-blue-500 hover:underline">Wisdom Fox Community</a>
     </footer>
+
     <script src="./js/main.js"></script>
 </body>
 
