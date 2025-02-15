@@ -3,8 +3,8 @@
     "name": "Narain Karthik",
     "title": "Front End Developer",
     "socialLinks": {
-      "linkedin": "https://www.linkedin.com/in/narainkarthik-vellingiri",
-      "github": "https://github.com/narainkarthikv",
+      "LinkedIn": "https://www.linkedin.com/in/narainkarthik-vellingiri",
+      "GitHub": "https://github.com/narainkarthikv",
       "portfolio": "https://narainkarthikv.github.io/Portfolio"
     },
     "description": "I Love Creative & Creating Stuffs ❤️",
@@ -19,8 +19,8 @@
     "name": "John Doe",
     "title": "Software Developer",
     "socialLinks": {
-      "linkedin": "https://www.linkedin.com/in/johndoe",
-      "github": "https://github.com/johndoe",
+      "LinkedIn": "https://www.linkedin.com/in/johndoe",
+      "GitHub": "https://github.com/johndoe",
       "portfolio": "https://johndoe.com"
     },
     "description": "John is a software developer with a passion for open-source projects and community engagement.",
@@ -35,8 +35,8 @@
     "name": "Rahul",
     "title": "Full Stack Developer",
     "socialLinks": {
-      "linkedin": "https://www.linkedin.com/in/rahul-sundararaj-016536214/",
-      "github": "https://github.com/rahuldev8",
+      "LinkedIn": "https://www.linkedin.com/in/rahul-sundararaj-016536214/",
+      "GitHub": "https://github.com/rahuldev8",
       "portfolio": "https://rahuldev8.github.io/Rahul-Sundararaj/"
     },
     "description": "Hello World! ❤️",
@@ -48,20 +48,20 @@
     "updatedOn": "July 27, 2024"
   },
   {
-  "name": "Jolly Jolli",
-  "title": "Software Developer",
-  "socialLinks": {
-    "LinkedIn": "https://www.linkedin.com/404",
-    "GitHub": "https://github.com/jollyjolli",
-    "Portfolio": "https://www.formen.cc"
-  },
-  "description": "Jolly is a passionate software developer with a love for continuous learning.",
-  "studyLinks": {
-    "FreeCodeCamp": "https://www.freecodecamp.org",
-    "W3Schools": "https://www.w3schools.com",
-    "GitHub Docs": "https://docs.github.com"
-  },
-  "updatedOn": "August 14, 2024"
+    "name": "Jolly Jolli",
+    "title": "Software Developer",
+    "socialLinks": {
+      "LinkedIn": "https://www.linkedin.com/404",
+      "GitHub": "https://github.com/jollyjolli",
+      "Portfolio": "https://www.formen.cc"
+    },
+    "description": "Jolly is a passionate software developer with a love for continuous learning.",
+    "studyLinks": {
+      "FreeCodeCamp": "https://www.freecodecamp.org",
+      "W3Schools": "https://www.w3schools.com",
+      "GitHub Docs": "https://docs.github.com"
+    },
+    "updatedOn": "August 14, 2024"
   },
   {
     "name": "Frank",
@@ -78,5 +78,22 @@
       "GitHub Docs": "https://docs.github.com"
     },
     "updatedOn": "August 15, 2024"
+  },
+  {
+    "name": "Sajini Weerasinghe",
+    "title": "Open-Source Contributor",
+    "socialLinks": {
+      "LinkedIn": " ",
+      "GitHub": " https://github.com/SajiniWeerasinghe",
+      "Portfolio": " "
+    },
+    "description": "I'm Sajini, a passionate learner always on the lookout for new knowledge and skills. I believe in the power of open-source contributions and actively seek opportunities to collaborate with the community.",
+    "studyLinks": {
+      "FreeCodeCamp": "https://www.freecodecamp.org",
+      "MDN Web Docs": "https://developer.mozilla.org/",
+      "GitHub Docs": "https://docs.github.com"
+    },
+    "updatedOn": "February 10, 2025"
   }
+
 ]

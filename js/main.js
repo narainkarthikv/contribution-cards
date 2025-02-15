@@ -1,48 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Load users data and generate cards
-    fetch('data/users.json')
-        .then(response => response.json())
-        .then(users => {
-            const cardsContainer = document.getElementById('cardsContainer');
-
-            users.forEach(user => {
-                const card = createCard(user);
-                cardsContainer.appendChild(card);
-                adjustCardTextColor(card);
-            });
-        });
-
-    // Function to create a card element
-    function createCard(user) {
-        const card = document.createElement('div');
-        card.classList.add('cards', formatClassName(user.name));
-        card.style.backgroundColor = generateConsistentColor(user.name);
-
-        card.innerHTML = `
-            <div class="card-head">
-                <h5 class="card-title">${user.name}</h5>
-                <ul class="card-social-links">
-                    <li><a href="${user.socialLinks.linkedin}" class="card-link" data-toggle="tooltip" title="LinkedIn"><i class="bi bi-linkedin"></i></a></li>
-                    <li><a href="${user.socialLinks.github}" class="card-link" data-toggle="tooltip" title="GitHub"><i class="bi bi-github"></i></a></li>
-                    <li><a href="${user.socialLinks.portfolio}" class="card-link" data-toggle="tooltip" title="Portfolio"><i class="bi bi-globe"></i></a></li>
-                </ul>
-            </div>
-            <p class="card-text">${user.description}</p>
-            <ul class="card-study-links">
-                <li><a href="${user.studyLinks.freeCodeCamp}" target="_blank" class="study-link" data-toggle="tooltip" title="FreeCodeCamp"><i class="bi bi-book"></i></a></li>
-                <li><a href="${user.studyLinks.w3Schools}" target="_blank" class="study-link" data-toggle="tooltip" title="W3Schools"><i class="bi bi-mortarboard"></i></a></li>
-                <li><a href="${user.studyLinks.githubDocs}" target="_blank" class="study-link" data-toggle="tooltip" title="GitHub Docs"><i class="bi bi-file-code"></i></a></li>
-            </ul>
-            <h6 class="mb-2 card-date">Updated on: ${user.updatedOn}</h6>
-        `;
-        return card;
-    }
-
-    // Function to format the user's name into a valid CSS class
-    function formatClassName(name) {
-        return name.toLowerCase().replace(/\s+/g, '-');
-    }
-
     // Function to filter cards based on search input with debouncing
     const filterCards = debounce(() => {
         const searchInput = document.getElementById('searchInput').value.toLowerCase();
@@ -52,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const cardTitle = card.querySelector('.card-title').textContent.toLowerCase();
             card.style.display = cardTitle.includes(searchInput) ? '' : 'none';
         });
-    }, 300); // Adjusted debounce delay
+    }, 300);
 
     // Debounce function to limit the rate of function execution
     function debounce(func, delay) {
@@ -63,76 +19,92 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Generate a consistent color based on a string (user's name)
-    function generateConsistentColor(name) {
-        let hash = 0;
-        for (let i = 0; i < name.length; i++) {
-            hash = name.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        return `#${((hash >> 24) & 0xFF).toString(16).padStart(2, '0')}${((hash >> 16) & 0xFF).toString(16).padStart(2, '0')}${((hash >> 8) & 0xFF).toString(16).padStart(2, '0')}`;
-    }
-
-    // Calculate optimal text color for best contrast with the background
-    function getContrastingTextColor(backgroundColor) {
-        const hex = backgroundColor.replace('#', '');
-        const r = parseInt(hex.substr(0, 2), 16);
-        const g = parseInt(hex.substr(2, 2), 16);
-        const b = parseInt(hex.substr(4, 2), 16);
-
-        const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-
-        const lightColors = ['#ffffff', '#f0f0f0', '#e0e0e0', '#d0d0d0'];
-        const darkColors = ['#000000', '#333333', '#666666', '#999999'];
-
-        const palette = luminance < 128 ? lightColors : darkColors;
-
-        return palette.reduce((bestColor, color) => {
-            const [r2, g2, b2] = hexToRgb(color);
-            const contrast = Math.abs(r - r2) + Math.abs(g - g2) + Math.abs(b - b2);
-            return contrast > (bestColor.contrast || 0) ? { color, contrast } : bestColor;
-        }, {}).color;
-    }
-
-    // Convert hex color to RGB array
-    function hexToRgb(hex) {
-        const r = parseInt(hex.substr(1, 2), 16);
-        const g = parseInt(hex.substr(3, 2), 16);
-        const b = parseInt(hex.substr(5, 2), 16);
-        return [r, g, b];
-    }
-
-    // Adjust text color for better contrast with the card background
-    function adjustCardTextColor(card) {
-        const backgroundColor = window.getComputedStyle(card).backgroundColor;
-        const hex = rgbToHex(backgroundColor);
-        const textColor = getContrastingTextColor(hex);
-
-        card.querySelectorAll('.card-title, .card-text').forEach(el => {
-            el.style.color = textColor;
-        });
-    }
-
-    // Convert RGB color to HEX
-    function rgbToHex(rgb) {
-        const [r, g, b] = rgb.match(/\d+/g).map(Number);
-        return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
-    }
-
     // Handle theme toggle
     const themeToggleBtn = document.getElementById('themeToggleBtn');
-    const themeIcon = document.getElementById('themeIcon');
+    const themeIconSun = document.getElementById('themeIconSun');
+    const themeIconMoon = document.getElementById('themeIconMoon');
 
+    // Check stored dark mode setting on load
     if (localStorage.getItem('darkMode') === 'enabled') {
         document.body.classList.add('dark-mode');
-        themeIcon.classList.replace('bi-sun', 'bi-moon');
+        themeIconSun.classList.add('hidden');
+        themeIconMoon.classList.remove('hidden');
+        applyDarkModeStyles();
+    } else {
+        themeIconSun.classList.remove('hidden');
+        themeIconMoon.classList.add('hidden');
     }
 
     themeToggleBtn.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
-        themeIcon.classList.toggle('bi-moon');
-        themeIcon.classList.toggle('bi-sun');
-        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode ? 'enabled' : 'disabled');
+
+        if (isDarkMode) {
+            themeIconSun.classList.add('hidden');
+            themeIconMoon.classList.remove('hidden');
+            applyDarkModeStyles();
+        } else {
+            themeIconSun.classList.remove('hidden');
+            themeIconMoon.classList.add('hidden');
+            applyLightModeStyles();
+        }
+
+        setTimeout(() => {
+            location.reload();
+        }, 100);
     });
+
+    // Apply styles for dark mode
+    function applyDarkModeStyles() {
+        const cards = document.querySelectorAll('.cards');
+        document.body.style.backgroundColor = '#121212';
+        document.body.style.color = '#ffffff'; // Change font color to white
+        cards.forEach(card => {
+            card.style.backgroundColor = '#1e1e1e';
+            card.style.borderColor = '#3a3a3a';
+        });
+
+        const cardTitles = document.querySelectorAll('.card-title');
+        cardTitles.forEach(title => {
+            title.style.color = '#e0e0e0';
+        });
+
+        const cardTexts = document.querySelectorAll('.card-text');
+        cardTexts.forEach(text => {
+            text.style.color = '#ccc';
+        });
+
+        const cardBorders = document.querySelectorAll('.cards');
+        cardBorders.forEach(card => {
+            card.style.borderColor = '#3a3a3a';
+        });
+    }
+
+    // Apply styles for light mode
+    function applyLightModeStyles() {
+        const cards = document.querySelectorAll('.cards');
+        cards.forEach(card => {
+            card.style.backgroundColor = '#f3f4f6';
+            document.body.style.backgroundColor = '#f3f4f6';
+            card.style.borderColor = '#e2e8f0';
+        });
+
+        const cardTitles = document.querySelectorAll('.card-title');
+        cardTitles.forEach(title => {
+            title.style.color = '#333';
+        });
+
+        const cardTexts = document.querySelectorAll('.card-text');
+        cardTexts.forEach(text => {
+            text.style.color = '#555';
+        });
+
+        const cardBorders = document.querySelectorAll('.cards');
+        cardBorders.forEach(card => {
+            card.style.borderColor = '#e2e8f0';
+        });
+    }
 
     // Attach filterCards function to the search input event
     document.getElementById('searchInput').addEventListener('keyup', filterCards);
