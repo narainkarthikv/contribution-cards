@@ -1,6 +1,19 @@
 # Contribution Cards
 
-Contribution Cards is an exciting project where you can design and customize HTML cards. It's a great way to learn about open-source contributions, enhance your HTML, CSS, JS, TailWindCSS and Git skills, and showcase your creativity. Whether you're a beginner or an experienced developer, there's something here for you! 🤍🤝
+Welcome to Contribution Cards! This project lets you design and customize HTML cards, making it a fantastic way to dive into open-source contributions, sharpen your HTML, CSS, JS, TailWindCSS, and Git skills, and unleash your creativity. Whether you're just starting out or you're a seasoned developer, there's something here for everyone! 🤍🤝
+
+## Tech Stack
+
+<table>
+    <tr>
+     <td>Frontend</td>
+     <td><img src="https://skillicons.dev/icons?i=html,tailwindcss,javascript" /></td>
+    </tr>
+    <tr>
+     <td>CI/CD</td>
+     <td><img src="https://skillicons.dev/icons?i=netlify,githubactions" /></td>
+    </tr>
+</table>
 
 ## Table of Contents
 
@@ -19,7 +32,7 @@ Contribution Cards is an exciting project where you can design and customize HTM
 
 ## Getting Started
 
-To get started with Contribution Cards, follow these steps:
+Ready to jump in? Follow these steps to get started with Contribution Cards:
 
 1. **Fork this repository**: Click the 'Fork' button at the top right of this page.
 2. **Clone your forked repository**:
@@ -52,7 +65,7 @@ To get started with Contribution Cards, follow these steps:
 
 ## How to Contribute
 
-We welcome contributions from everyone. Here are the steps to contribute:
+We welcome contributions from everyone. Here's how you can get involved:
 
 ### Fork the Repository
 
@@ -116,7 +129,7 @@ Here's a brief overview of the project structure:
 
 We appreciate the contributions of the following individuals: [Contributors](https://github.com/narainkarthikv/contribution-cards/blob/main/Contributors.md)
 
-This is just the beginning! We look forward to making more meaningful contributions and collaborating with this amazing community. Let's build something great together and make Contribution-Cards the best it can be! ❤️🤝
+This is just the beginning! We look forward to making more meaningful contributions and collaborating with this amazing community. Let's build something great together and make Contribution Cards the best it can be! ❤️🤝
 
 ## License
 
