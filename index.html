@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="assets/favicon_io/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap" rel="stylesheet">
     <script src="js/index.js" type="module"></script>
@@ -31,8 +32,17 @@
     </header>
 
     <main class="container-fluid">
+        <div class="flex gap-x-5 m-2">
+            <p class="cursor-pointer material-icons" id="grid">grid_view</p>
+            <p class="cursor-pointer material-icons" id="list">view_list</p>
+        </div>
         <!-- Contribution Cards Start -->
-        <div class="cards-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-8">
+         <!-- Grid Layout -->
+        <div class="cards-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-8">
+            <!-- Cards will be dynamically added here -->
+        </div>
+        <!-- List Layout -->
+        <div class="cards-list flex flex-col w-full h-fit justify-center items-center">
             <!-- Cards will be dynamically added here -->
         </div>
         <!-- Contribution Cards End -->
