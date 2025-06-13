@@ -134,3 +134,66 @@ This is just the beginning! We look forward to making more meaningful contributi
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](https://github.com/narainkarthikv/contribution-cards/blob/main/MIT-LICENSE.txt) file for details.
+
+# Contribution Cards
+
+A dynamic card-based display system for contributors.
+
+## Development
+
+### Prerequisites
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+
+### Setup
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm start
+   ```
+
+### Testing
+Run the test suite:
+```bash
+npm test
+```
+
+Watch mode for development:
+```bash
+npm run test:watch
+```
+
+Generate coverage report:
+```bash
+npm run test:coverage
+```
+
+### Code Style
+- Format code:
+  ```bash
+  npm run format
+  ```
+- Lint code:
+  ```bash
+  npm run lint
+  ```
+- Fix linting issues:
+  ```bash
+  npm run lint:fix
+  ```
+
+### Building
+Build the project for production:
+```bash
+npm run build
+```
+
+## Contributing
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## License
+This project is licensed under the MIT License - see the [MIT-LICENSE.txt](MIT-LICENSE.txt) file for details.

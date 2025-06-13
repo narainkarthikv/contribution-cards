@@ -1,0 +1,57 @@
+:root {
+  /* Light theme variables */
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --card-bg: #ffffff;
+  --card-border: #e0e0e0;
+  --header-bg: #1a1a1a;
+  --search-bg: #ffffff;
+  --search-text: #000000;
+  --button-hover: #e5e5e5;
+}
+
+/* Dark theme variables */
+.dark-mode {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --card-bg: #1e1e1e;
+  --card-border: #3a3a3a;
+  --header-bg: #1a1a1a;
+  --search-bg: #2d2d2d;
+  --search-text: #ffffff;
+  --button-hover: #3a3a3a;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.cards {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#searchInput {
+  background-color: var(--search-bg);
+  color: var(--search-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Performance optimizations */
+.cards {
+  contain: content;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
