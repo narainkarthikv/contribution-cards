@@ -1,11 +1,17 @@
 class Card {
   constructor(data) {
-    this.title = data.title;
-    this.subtitle = data.subtitle;
-    this.text = data.text;
-    this.links = data.links;
-    this.studyLinks = data.studyLinks;
-    this.updatedAt = data.updatedAt;
+    this.title = data.title || "";
+    this.subtitle = data.subtitle || "";
+    this.text = data.text || "";
+    this.links = data.links || [];
+    this.studyLinks = data.studyLinks || [];
+    this.updatedAt = data.updatedAt || "";
+  }
+
+  #sanitizeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
   }
 
   render() {
@@ -15,6 +21,7 @@ class Card {
     const hoverBg = isDark ? '#3a3a3a' : '#f3f4f6';
 
     const cardElement = document.createElement('div');
+    cardElement.setAttribute('role', 'article');
     cardElement.className = [
       'cards w-full h-[500px]',
       'flex flex-col justify-between m-5 p-5',
@@ -28,32 +35,42 @@ class Card {
       <div class="flex flex-col h-full justify-between align-center">
         <div>
           <div class="flex justify-between items-center mb-2">
-            <h5 class="card-title text-[1.4em] font-bold">${this.title}</h5>
+            <h5 class="card-title text-[1.4em] font-bold">${this.#sanitizeHTML(this.title)}</h5>
             <div class="card-date text-sm text-gray-600 dark:text-gray-400 bg-gray-200 dark:bg-[#4a4a4a] rounded-full px-3 py-1 inline-flex items-center">
-              <i class="fas fa-calendar-alt mr-2"></i>${this.updatedAt}
+              <i class="fas fa-calendar-alt mr-2" aria-hidden="true"></i>
+              <span>${this.#sanitizeHTML(this.updatedAt)}</span>
             </div>
           </div>
-          <h6 class="card-subtitle text-[1rem] font-semibold text-[#6b7280] mb-2">${this.subtitle}</h6>
-          <p class="card-text text-[1rem] mb-4 leading-[1.6]">${this.text}</p>
-          <ul class="card-social-links list-none flex flex-wrap gap-3">
+          <h6 class="card-subtitle text-[1rem] font-semibold text-[#6b7280] mb-2">${this.#sanitizeHTML(this.subtitle)}</h6>
+          <p class="card-text text-[1rem] mb-4 leading-[1.6]">${this.#sanitizeHTML(this.text)}</p>
+          <ul class="card-social-links list-none flex flex-wrap gap-3" role="list">
             ${this.links.map(link => `
               <li>
-                <a href="${link.url}" class="card-link rounded-lg inline-flex items-center justify-center bg-gray-200 hover:bg-gray-300 p-3 text-[1.4rem] transition-all duration-300 dark:bg-[#4a4a4a] hover:dark:bg-[#5a5a5a]">
-                  <i class="${this.#getIconClass(link.label)} ${this.#getIconColor(link.label)}"></i>
+                <a href="${this.#sanitizeHTML(link.url)}" 
+                   class="card-link rounded-lg inline-flex items-center justify-center bg-gray-200 hover:bg-gray-300 p-3 text-[1.4rem] transition-all duration-300 dark:bg-[#4a4a4a] hover:dark:bg-[#5a5a5a]"
+                   aria-label="${this.#sanitizeHTML(link.label)}"
+                   rel="noopener noreferrer"
+                   target="_blank">
+                  <i class="${this.#getIconClass(link.label)} ${this.#getIconColor(link.label)}" aria-hidden="true"></i>
                 </a>
               </li>
             `).join('')}
           </ul>
-          <p class="card-text mt-4 font-semibold">Study Links:</p>
-          <ul class="card-study-links list-none flex flex-col gap-3 mt-2 overflow-y-auto max-h-[120px] pr-1"> 
-            ${this.studyLinks.map(link => `
-              <li class="flex items-center">
-                <a href="${link.url}" class="study-link inline-flex items-center justify-center w-full rounded-lg bg-gray-200 hover:bg-gray-300 p-3 text-[1rem] transition-all duration-300 dark:bg-[#4a4a4a] dark:hover:bg-[#5a5a5a] ${this.#isAlwaysBlackLink(link.label) ? 'text-black dark:text-white' : 'text-gray-800 dark:text-white'}">
-                  ${link.label}
-                </a>
-              </li>
-            `).join('')}
-          </ul>
+          ${this.studyLinks.length > 0 ? `
+            <p class="card-text mt-4 font-semibold">Study Links:</p>
+            <ul class="card-study-links list-none flex flex-col gap-3 mt-2 overflow-y-auto max-h-[120px] pr-1" role="list"> 
+              ${this.studyLinks.map(link => `
+                <li class="flex items-center">
+                  <a href="${this.#sanitizeHTML(link.url)}" 
+                     class="study-link inline-flex items-center justify-center w-full rounded-lg bg-gray-200 hover:bg-gray-300 p-3 text-[1rem] transition-all duration-300 dark:bg-[#4a4a4a] dark:hover:bg-[#5a5a5a] ${this.#isAlwaysBlackLink(link.label) ? 'text-black dark:text-white' : 'text-gray-800 dark:text-white'}"
+                     rel="noopener noreferrer"
+                     target="_blank">
+                    ${this.#sanitizeHTML(link.label)}
+                  </a>
+                </li>
+              `).join('')}
+            </ul>
+          ` : ''}
         </div>
       </div>
     `;
