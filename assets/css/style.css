@@ -1,53 +1,180 @@
 :root {
   /* Light theme variables */
-  --bg-color: #ffffff;
-  --text-color: #000000;
-  --card-bg: #ffffff;
+  --bg-color: #f7f9fa;
+  --text-color: #111111;
+  --card-bg: #fff;
   --card-border: #e0e0e0;
-  --header-bg: #1a1a1a;
-  --search-bg: #ffffff;
-  --search-text: #000000;
+  --header-bg: #22304a;
+  --search-bg: #f0f2f5;
+  --search-text: #222831;
   --button-hover: #e5e5e5;
+  --accent-color: #2563eb;
+  --accent-bg: #eaf1fb;
+  --shadow: 0 4px 24px rgba(34, 48, 74, 0.10);
+  --radius: 18px;
+  --font-main: 'Outfit', 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  --font-size-base: 1.08rem;
+  --font-size-lg: 1.25rem;
+  --font-size-sm: 0.97rem;
+  --line-height: 1.6;
 }
 
 /* Dark theme variables */
 .dark-mode {
-  --bg-color: #121212;
-  --text-color: #ffffff;
-  --card-bg: #1e1e1e;
-  --card-border: #3a3a3a;
-  --header-bg: #1a1a1a;
-  --search-bg: #2d2d2d;
-  --search-text: #ffffff;
-  --button-hover: #3a3a3a;
+  --bg-color: #181c23;
+  --text-color: #f3f6fa;
+  --card-bg: #232a36;
+  --card-border: #2d3748;
+  --header-bg: #1a2233;
+  --search-bg: #232a36;
+  --search-text: #f3f6fa;
+  --button-hover: #2d3748;
+  --accent-color: #60a5fa;
+  --accent-bg: #1e293b;
+  --shadow: 0 4px 24px rgba(16, 24, 39, 0.18);
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header, footer {
+  background-color: var(--header-bg) !important;
+  color: var(--text-color);
+  font-family: var(--font-main);
 }
 
 .cards {
   background-color: var(--card-bg);
-  border-color: var(--card-border);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  border: 1.5px solid var(--card-border);
+  box-shadow: var(--shadow);
+  color: var(--text-color);
+  border-radius: var(--radius);
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  contain: content;
+  will-change: transform;
+}
+
+.cards:hover {
+  box-shadow: 0 8px 32px rgba(34, 48, 74, 0.16);
+  transform: translateY(-4px) scale(1.03);
+}
+
+.cards h2, .cards h3, .cards p, .cards .study-links a {
+  color: var(--text-color);
+}
+
+.cards h2 {
+  font-size: var(--font-size-lg);
+}
+
+.cards h3 {
+  font-size: var(--font-size-base);
+  color: var(--text-color);
+  opacity: 0.85;
+}
+
+.cards p {
+  font-size: var(--font-size-sm);
+  color: var(--text-color);
+  margin-bottom: 0.75em;
+}
+
+.cards .card-links {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 0.75em;
+}
+
+.cards .card-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-bg);
+  color: var(--accent-color);
+  border-radius: 50%;
+  width: 2.2em;
+  height: 2.2em;
+  font-size: 1.2em;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: none;
+}
+
+.cards .card-links a:hover {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+.cards .study-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-top: 0.5em;
+}
+
+.cards .study-links a {
+  background: #f7f9fa;
+  border: 1px solid #e0e0e0;
+  color: #111111;
+  border-radius: var(--radius);
+  padding: 0.5em 1em;
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.cards .study-links a:hover {
+  background: var(--accent-color);
+  color: #fff;
+}
+
+.cards .card-date {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  background: var(--accent-bg);
+  color: var(--accent-color);
+  border-radius: 1em;
+  font-size: 0.95em;
+  padding: 0.2em 0.9em;
+  margin-bottom: 0.7em;
+  font-weight: 500;
 }
 
 #searchInput {
   background-color: var(--search-bg);
   color: var(--search-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--card-border);
+  padding: 0.6em 1.2em;
+  font-size: var(--font-size-base);
+  margin: 0.5em 0;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+#searchInput:focus {
+  outline: 2px solid var(--accent-color);
+  border-color: var(--accent-color);
 }
 
 .hidden {
   display: none !important;
 }
 
-/* Performance optimizations */
-.cards {
-  contain: content;
-  will-change: transform;
+@media (max-width: 600px) {
+  .cards {
+    padding: 1.1em !important;
+  }
+  .cards h2 {
+    font-size: 1.08rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
