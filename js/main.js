@@ -37,48 +37,55 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Theme management
-  function setTheme(isDark) {
-    try {
-      document.body.classList.toggle("dark-mode", isDark);
+  function updateThemeUI(isDark) {
+    document.body.classList.toggle("dark-mode", isDark);
+    if (themeIconSun && themeIconMoon) {
       themeIconSun.classList.toggle("hidden", isDark);
       themeIconMoon.classList.toggle("hidden", !isDark);
+    }
+    if (themeToggleBtn) {
+      themeToggleBtn.setAttribute("aria-pressed", isDark ? "true" : "false");
+      themeToggleBtn.setAttribute(
+        "aria-label",
+        isDark ? "Switch to light mode" : "Switch to dark mode"
+      );
+    }
+  }
 
-      // Apply theme styles efficiently
-      if (isDark) {
-        applyDarkModeStyles();
-      } else {
-        applyLightModeStyles();
+  function getSystemPrefersDark() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+
+  function setTheme(isDark, persist = true) {
+    try {
+      updateThemeUI(isDark);
+      if (persist) {
+        localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
       }
-
-      localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
     } catch (error) {
       console.error("Error setting theme:", error);
     }
   }
 
-  // Optimized style application using classList
-  function applyDarkModeStyles() {
-    document.body.style.setProperty("--bg-color", "#121212");
-    document.body.style.setProperty("--text-color", "#ffffff");
-    Array.from(cards).forEach((card) => {
-      card.style.setProperty("--card-bg", "#1e1e1e");
-      card.style.setProperty("--card-border", "#3a3a3a");
-    });
-  }
-
-  function applyLightModeStyles() {
-    document.body.style.setProperty("--bg-color", "#ffffff");
-    document.body.style.setProperty("--text-color", "#000000");
-    Array.from(cards).forEach((card) => {
-      card.style.setProperty("--card-bg", "#ffffff");
-      card.style.setProperty("--card-border", "#e0e0e0");
-    });
-  }
-
   // Initialize theme
-  const savedTheme = localStorage.getItem("darkMode");
+  let savedTheme = null;
+  try {
+    savedTheme = localStorage.getItem("darkMode");
+  } catch (e) {}
+  let isDark = false;
   if (savedTheme === "enabled") {
-    setTheme(true);
+    isDark = true;
+  } else if (savedTheme === "disabled") {
+    isDark = false;
+  } else {
+    isDark = getSystemPrefersDark();
+  }
+  setTheme(isDark, false);
+
+  // Set correct icon visibility on load (no flash)
+  if (themeIconSun && themeIconMoon) {
+    themeIconSun.classList.toggle("hidden", isDark);
+    themeIconMoon.classList.toggle("hidden", !isDark);
   }
 
   // Event listener with error handling

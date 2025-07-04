@@ -148,6 +148,45 @@ header, footer {
   font-weight: 500;
 }
 
+/* Card social link button hover/focus */
+.cards .card-social-links a {
+  transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
+  box-shadow: none;
+  outline: none;
+}
+.cards .card-social-links a:hover,
+.cards .card-social-links a:focus {
+  background: var(--accent-color);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(34, 48, 74, 0.10);
+  transform: translateY(-2px) scale(1.07);
+}
+.dark-mode .cards .card-social-links a:hover,
+.dark-mode .cards .card-social-links a:focus {
+  background: var(--accent-color);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(16, 24, 39, 0.18);
+}
+
+/* Card study link button hover/focus */
+.cards .card-study-links a {
+  transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
+  outline: none;
+}
+.cards .card-study-links a:hover,
+.cards .card-study-links a:focus {
+  background: var(--accent-color);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(34, 48, 74, 0.10);
+  transform: translateY(-2px) scale(1.03);
+}
+.dark-mode .cards .card-study-links a:hover,
+.dark-mode .cards .card-study-links a:focus {
+  background: var(--accent-color);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(16, 24, 39, 0.18);
+}
+
 #searchInput {
   background-color: var(--search-bg);
   color: var(--search-text);
@@ -166,6 +205,81 @@ header, footer {
 
 .hidden {
   display: none !important;
+}
+
+/* Navbar tab switcher styles */
+#viewToggle {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1.5px solid var(--card-border);
+  background: var(--header-bg);
+}
+#viewToggle button {
+  background: transparent;
+  color: var(--text-color);
+  border: none;
+  outline: none;
+  font-weight: 500;
+  transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
+  position: relative;
+  z-index: 1;
+}
+#viewToggle button:hover {
+  background: var(--button-hover);
+  color: var(--accent-color);
+  box-shadow: 0 2px 8px rgba(34, 48, 74, 0.10);
+  transform: translateY(-2px) scale(1.04);
+}
+.dark-mode #viewToggle button:hover {
+  background: #2d3748;
+  color: var(--accent-color);
+  box-shadow: 0 2px 8px rgba(16, 24, 39, 0.18);
+}
+#viewToggle button[aria-pressed="true"],
+#viewToggle button.bg-blue-600,
+#viewToggle button.dark\:bg-blue-500 {
+  background: var(--accent-color);
+  color: #fff;
+}
+#viewToggle button[aria-pressed="false"] {
+  background: transparent;
+  color: var(--text-color);
+}
+#viewToggle .material-icons {
+  font-size: 1.3em;
+}
+
+/* Navbar responsive styles */
+@media (max-width: 640px) {
+  nav {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 0.5rem !important;
+  }
+  nav > h3 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.25rem;
+  }
+  nav > div {
+    flex-direction: column !important;
+    width: 100%;
+    gap: 0.5rem !important;
+  }
+  #viewToggle {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 0.25rem;
+  }
+  #searchInput {
+    width: 100%;
+    margin-left: 0 !important;
+    margin-bottom: 0.25rem;
+  }
+  #themeToggleBtn {
+    margin-left: 0 !important;
+    align-self: center;
+  }
 }
 
 @media (max-width: 600px) {

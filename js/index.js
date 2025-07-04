@@ -1,10 +1,28 @@
 import Card from "./card.js";
 
+function setActiveTab(tab) {
+  const gridTab = document.getElementById("gridTab");
+  const listTab = document.getElementById("listTab");
+  if (!gridTab || !listTab) return;
+  if (tab === "grid") {
+    gridTab.classList.add("bg-blue-600", "dark:bg-blue-500");
+    gridTab.setAttribute("aria-pressed", "true");
+    listTab.classList.remove("bg-blue-600", "dark:bg-blue-500");
+    listTab.setAttribute("aria-pressed", "false");
+  } else {
+    listTab.classList.add("bg-blue-600", "dark:bg-blue-500");
+    listTab.setAttribute("aria-pressed", "true");
+    gridTab.classList.remove("bg-blue-600", "dark:bg-blue-500");
+    gridTab.setAttribute("aria-pressed", "false");
+  }
+}
+
 function insertCards(jsonData, container, layout) {
   document.querySelector(".cards-grid").replaceChildren();
   document.querySelector(".cards-list").replaceChildren();
 
   localStorage.setItem("layout", layout);
+  setActiveTab(layout);
 
   jsonData.forEach((person) => {
     // Normalize socialLinks and studyLinks keys for consistent display
@@ -41,8 +59,8 @@ async function fetchAndRenderCards() {
   try {
     const response = await fetch("./data/users.json");
     const jsonData = await response.json();
-    const grid = document.querySelector("#grid");
-    const list = document.querySelector("#list");
+    const gridTab = document.getElementById("gridTab");
+    const listTab = document.getElementById("listTab");
     const cardsGrid = document.querySelector(".cards-grid");
     const cardsList = document.querySelector(".cards-list");
 
@@ -53,12 +71,14 @@ async function fetchAndRenderCards() {
       insertCards(jsonData, cardsGrid, "grid");
     }
 
-    grid.addEventListener("click", () =>
-      insertCards(jsonData, cardsGrid, "grid")
-    );
-    list.addEventListener("click", () =>
-      insertCards(jsonData, cardsList, "list")
-    );
+    if (gridTab && listTab) {
+      gridTab.addEventListener("click", () =>
+        insertCards(jsonData, cardsGrid, "grid")
+      );
+      listTab.addEventListener("click", () =>
+        insertCards(jsonData, cardsList, "list")
+      );
+    }
   } catch (error) {
     console.error("Error fetching and rendering cards:", error);
   }
