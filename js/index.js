@@ -51,7 +51,11 @@ function insertCards(jsonData, container, layout) {
       updatedAt: person.updatedOn,
     };
     const card = new Card(cardData);
-    container.appendChild(card.render());
+    if (layout === "list") {
+      container.appendChild(card.renderList());
+    } else {
+      container.appendChild(card.render());
+    }
   });
 }
 

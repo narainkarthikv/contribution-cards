@@ -249,7 +249,115 @@ header, footer {
   font-size: 1.3em;
 }
 
-/* Navbar responsive styles */
+/* --- List View Card Styles --- */
+.card-list-item {
+  background: var(--card-bg);
+  border: 1.5px solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  align-items: flex-start;
+  min-height: 110px;
+  contain: content;
+  will-change: transform;
+}
+.card-list-item:hover {
+  box-shadow: 0 8px 32px rgba(34, 48, 74, 0.16);
+  transform: translateY(-2px) scale(1.01);
+}
+.card-list-item .card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-right: 0.5em;
+}
+.card-list-item .card-subtitle {
+  font-size: 0.98rem;
+  opacity: 0.8;
+  font-weight: 500;
+}
+.card-list-item .card-date {
+  font-size: 0.85rem;
+  margin-bottom: 0.5em;
+  padding: 0.2em 0.7em;
+}
+.card-list-item .card-social-links a {
+  border-radius: 0.5em;
+  font-size: 1.1em;
+  padding: 0.5em;
+  background: var(--accent-bg);
+  color: var(--accent-color);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.card-list-item .card-social-links a:hover,
+.card-list-item .card-social-links a:focus {
+  background: var(--accent-color);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(34, 48, 74, 0.10);
+  transform: translateY(-2px) scale(1.07);
+}
+.card-list-item .card-study-links a {
+  font-size: 0.95rem;
+  padding: 0.4em 0.8em;
+}
+
+/* --- Accordion Styles --- */
+.accordion-toggle {
+  background: var(--accent-bg);
+  color: var(--accent-color);
+  border: none;
+  cursor: pointer;
+  font-size: 0.98rem;
+  font-weight: 600;
+  margin: 0.2em 0 0.2em 0;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  outline: none;
+  box-shadow: none;
+}
+.accordion-toggle:hover, .accordion-toggle:focus {
+  background: var(--accent-color);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(34, 48, 74, 0.10);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: max-height;
+}
+.card-list-item .accordion-content[aria-hidden="false"] {
+  /* When expanded, allow content to show */
+  overflow: visible;
+}
+
+/* Accordion chevron indicator */
+.accordion-toggle .chevron {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  vertical-align: middle;
+  margin-left: 0.2em;
+}
+
+/* Accordion expanded state highlight */
+.card-list-item .accordion-content.expanded {
+  background: linear-gradient(90deg, var(--accent-bg) 0 10%, var(--card-bg) 100%);
+  border-left: 3px solid var(--accent-color);
+  box-shadow: 0 2px 12px rgba(34,48,74,0.07);
+}
+
+.card-list-item .accordion-content {
+  border-top: 1.5px solid var(--card-border);
+  margin-top: -1px;
+}
+
+.card-list-item .accordion-content .card-text {
+  margin-bottom: 0.5em;
+}
+
+.card-list-item .accordion-content .card-study-links {
+  margin-top: 0.5em;
+}
+
 @media (max-width: 640px) {
   nav {
     flex-direction: column !important;
@@ -288,6 +396,14 @@ header, footer {
   }
   .cards h2 {
     font-size: 1.08rem;
+  }
+  .card-list-item {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    padding: 1em !important;
+  }
+  .card-list-item .card-title {
+    font-size: 1rem;
   }
 }
 
