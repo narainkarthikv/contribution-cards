@@ -1,4 +1,8 @@
+// index.js - Handles card rendering and layout switching
+// Follows separation of concerns and frontend best practices
+
 import Card from "./card.js";
+import { debounce } from "./utils.js";
 
 function setActiveTab(tab) {
   const gridTab = document.getElementById("gridTab");
