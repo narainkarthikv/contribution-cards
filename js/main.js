@@ -1,4 +1,9 @@
-import { debounce, setTheme, getSystemPrefersDark, getSavedTheme } from "./utils.js";
+import {
+  debounce,
+  setTheme,
+  getSystemPrefersDark,
+  getSavedTheme,
+} from "./utils.js";
 
 // main.js - Handles search and theme toggling
 // Follows separation of concerns and frontend best practices
