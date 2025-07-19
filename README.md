@@ -148,32 +148,15 @@ We welcome all contributions! Here’s a quick guide:
 
 ---
 
-
-## 👥 Contributors
-
-Thanks to these amazing people: [Contributors List](./Contributors.md)
-
----
-
-
-## 📜 License
-
-This project is licensed under the [MIT License](./MIT-LICENSE.txt).
-
----
-
 <p align="center">
   <b>Happy Contributing! 🎉</b>
 </p>
 
 ---
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/narainkarthikv/contribution-cards/blob/main/MIT-LICENSE.txt) file for details.
 
 ## Contributing
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+Please read [CONTRIBUTING.md](https://github.com/narainkarthikv/contribution-cards/blob/main/Contributors.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## License
-This project is licensed under the MIT License - see the [MIT-LICENSE.txt](MIT-LICENSE.txt) file for details.
+This project is licensed under the MIT License - see the [MIT-LICENSE.txt](https://github.com/narainkarthikv/contribution-cards/blob/main/MIT-LICENSE.txt) file for details.
