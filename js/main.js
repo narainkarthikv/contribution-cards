@@ -1,3 +1,6 @@
+// main.js - Handles search and theme toggling
+// Clean, modular, and consistent with index.js best practices
+
 import {
   debounce,
   setTheme,
@@ -5,20 +8,17 @@ import {
   getSavedTheme,
 } from "./utils.js";
 
-// main.js - Handles search and theme toggling
-// Follows separation of concerns and frontend best practices
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Cache DOM elements
+  // --- DOM Cache ---
   const searchInput = document.getElementById("searchInput");
   const themeToggleBtn = document.getElementById("themeToggleBtn");
   const themeIconSun = document.getElementById("themeIconSun");
   const themeIconMoon = document.getElementById("themeIconMoon");
   const cards = document.getElementsByClassName("cards");
 
-  // Card filtering
+  // --- Search Filtering ---
   const filterCards = debounce(() => {
-    const searchTerm = searchInput.value.toLowerCase();
+    const searchTerm = searchInput?.value.trim().toLowerCase() || "";
     Array.from(cards).forEach((card) => {
       const title =
         card.querySelector(".card-title")?.textContent.toLowerCase() || "";
@@ -27,35 +27,35 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 300);
 
   if (searchInput) {
-    searchInput.addEventListener("keyup", filterCards);
+    searchInput.addEventListener("input", filterCards);
   } else {
-    console.error("Search input element not found");
+    console.warn("⚠️ Search input element not found.");
   }
 
-  // Theme management
-  let savedTheme = getSavedTheme();
-  let isDark = false;
-  if (savedTheme === "enabled") {
-    isDark = true;
-  } else if (savedTheme === "disabled") {
-    isDark = false;
-  } else {
-    isDark = getSystemPrefersDark();
-  }
+  // --- Theme Handling ---
+  const savedTheme = getSavedTheme();
+  let isDark =
+    savedTheme === "enabled"
+      ? true
+      : savedTheme === "disabled"
+      ? false
+      : getSystemPrefersDark();
+
   setTheme(isDark, false);
 
-  // Set correct icon visibility on load
+  // Set initial icon visibility
   if (themeIconSun && themeIconMoon) {
     themeIconSun.classList.toggle("hidden", isDark);
     themeIconMoon.classList.toggle("hidden", !isDark);
   }
 
+  // Toggle theme on button click
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener("click", () => {
-      const isDarkMode = document.body.classList.contains("dark-mode");
-      setTheme(!isDarkMode);
+      const currentlyDark = document.body.classList.contains("dark-mode");
+      setTheme(!currentlyDark);
     });
   } else {
-    console.error("Theme toggle button not found");
+    console.warn("⚠️ Theme toggle button not found.");
   }
 });
