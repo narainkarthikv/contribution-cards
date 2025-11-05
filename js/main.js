@@ -1,61 +1,216 @@
-// main.js - Handles search and theme toggling
-// Clean, modular, and consistent with index.js best practices
+// Design System Constants
+const ANIMATION_DURATION = 250; // matches CSS --duration-normal
+const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 
-import {
-  debounce,
-  setTheme,
-  getSystemPrefersDark,
-  getSavedTheme,
-} from "./utils.js";
+// Theme Management
+const THEME_KEY = 'contribution-cards-theme';
+const DARK_CLASS = 'dark';
+const LIGHT_MODE_ICON = 'light_mode';
+const DARK_MODE_ICON = 'dark_mode';
 
-document.addEventListener("DOMContentLoaded", () => {
-  // --- DOM Cache ---
-  const searchInput = document.getElementById("searchInput");
-  const themeToggleBtn = document.getElementById("themeToggleBtn");
-  const themeIconSun = document.getElementById("themeIconSun");
-  const themeIconMoon = document.getElementById("themeIconMoon");
-  const cards = document.getElementsByClassName("cards");
+// State Management
+const state = {
+    currentView: 'grid',
+    isDark: false,
+    prefersReducedMotion: window.matchMedia(REDUCED_MOTION_QUERY).matches
+};
 
-  // --- Search Filtering ---
-  const filterCards = debounce(() => {
-    const searchTerm = searchInput?.value.trim().toLowerCase() || "";
-    Array.from(cards).forEach((card) => {
-      const title =
-        card.querySelector(".card-title")?.textContent.toLowerCase() || "";
-      card.style.display = title.includes(searchTerm) ? "" : "none";
-    });
-  }, 300);
+// DOM Elements
+const elements = {
+    gridView: document.getElementById('gridView'),
+    listView: document.getElementById('listView'),
+    gridTab: document.getElementById('gridTab'),
+    listTab: document.getElementById('listTab'),
+    themeToggle: document.getElementById('themeToggleBtn'),
+    searchInput: document.getElementById('searchInput')
+};
 
-  if (searchInput) {
-    searchInput.addEventListener("input", filterCards);
-  } else {
-    console.warn("⚠️ Search input element not found.");
-  }
+/**
+ * Theme Management
+ */
+const themeManager = {
+    init() {
+        // Check saved preference
+        const savedTheme = localStorage.getItem(THEME_KEY);
+        if (savedTheme) {
+            this.setTheme(savedTheme === 'dark');
+        } else {
+            // Check system preference
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            this.setTheme(prefersDark);
+        }
 
-  // --- Theme Handling ---
-  const savedTheme = getSavedTheme();
-  let isDark =
-    savedTheme === "enabled"
-      ? true
-      : savedTheme === "disabled"
-      ? false
-      : getSystemPrefersDark();
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem(THEME_KEY)) {
+                this.setTheme(e.matches);
+            }
+        });
 
-  setTheme(isDark, false);
+        // Set up theme toggle
+        elements.themeToggle.addEventListener('click', () => this.toggleTheme());
+    },
 
-  // Set initial icon visibility
-  if (themeIconSun && themeIconMoon) {
-    themeIconSun.classList.toggle("hidden", isDark);
-    themeIconMoon.classList.toggle("hidden", !isDark);
-  }
+    setTheme(isDark) {
+        // Add transition class before changing theme
+        document.documentElement.classList.add('theme-transition');
+        document.body.classList.add('theme-transition');
+        
+        // Update theme state
+        state.isDark = isDark;
+        document.documentElement.classList.toggle(DARK_CLASS, isDark);
+        document.body.classList.toggle(DARK_CLASS, isDark);
+        
+        // Update button state and icon
+        elements.themeToggle.setAttribute('aria-pressed', isDark);
+        elements.themeToggle.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} mode`);
+        
+        const icon = elements.themeToggle.querySelector('.material-icons');
+        icon.style.transform = 'rotate(180deg)';
+        icon.style.opacity = '0';
+        
+        setTimeout(() => {
+            icon.textContent = isDark ? LIGHT_MODE_ICON : DARK_MODE_ICON;
+            icon.style.transform = 'rotate(0)';
+            icon.style.opacity = '1';
+        }, 150);
+        
+        // Save preference
+        localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+        
+        // Remove transition class after animation completes
+        setTimeout(() => {
+            document.documentElement.classList.remove('theme-transition');
+            document.body.classList.remove('theme-transition');
+        }, 300);
+    },
 
-  // Toggle theme on button click
-  if (themeToggleBtn) {
-    themeToggleBtn.addEventListener("click", () => {
-      const currentlyDark = document.body.classList.contains("dark-mode");
-      setTheme(!currentlyDark);
-    });
-  } else {
-    console.warn("⚠️ Theme toggle button not found.");
-  }
+    toggleTheme() {
+        this.setTheme(!state.isDark);
+    }
+};
+
+/**
+ * View Management
+ */
+const viewManager = {
+    init() {
+        elements.gridTab.addEventListener('click', () => this.setView('grid'));
+        elements.listTab.addEventListener('click', () => this.setView('list'));
+
+        // Set initial view
+        this.setView(state.currentView);
+    },
+
+    async setView(view) {
+        if (view === state.currentView) return;
+
+        const [currentView, newView] = view === 'grid' 
+            ? [elements.listView, elements.gridView]
+            : [elements.gridView, elements.listView];
+
+        const [currentTab, newTab] = view === 'grid'
+            ? [elements.listTab, elements.gridTab]
+            : [elements.gridTab, elements.listTab];
+
+        // Update state
+        state.currentView = view;
+
+        // Remove display:none first
+        newView.style.display = '';
+        currentView.style.display = '';
+        
+        // Begin transition after a frame
+        requestAnimationFrame(() => {
+            currentView.setAttribute('aria-hidden', 'true');
+            newView.classList.remove('hidden');
+            
+            // Force reflow
+            void newView.offsetWidth;
+        
+            // Complete transition
+            newView.removeAttribute('aria-hidden');
+            
+            // Update tabs
+            currentTab.setAttribute('aria-pressed', 'false');
+            newTab.setAttribute('aria-pressed', 'true');
+
+            // Clean up after transition
+            if (!state.prefersReducedMotion) {
+                setTimeout(() => {
+                    currentView.classList.add('hidden');
+                }, ANIMATION_DURATION);
+            } else {
+                currentView.classList.add('hidden');
+            }
+        });
+    }
+};
+
+/**
+ * Search Functionality
+ */
+const searchManager = {
+    init() {
+        elements.searchInput.addEventListener('input', this.handleSearch.bind(this));
+    },
+
+    handleSearch(event) {
+        const query = event.target.value.toLowerCase().trim();
+        const cards = document.querySelectorAll('.ds-card');
+
+        cards.forEach(card => {
+            const text = card.textContent.toLowerCase();
+            const matches = text.includes(query);
+            
+            // Use opacity for smooth transitions
+            card.style.opacity = matches ? '1' : '0';
+            // Use visibility instead of display for animation
+            card.style.visibility = matches ? 'visible' : 'hidden';
+            // Remove from layout flow when hidden
+            card.style.position = matches ? 'relative' : 'absolute';
+        });
+    }
+};
+
+/**
+ * Accessibility
+ */
+const a11yManager = {
+    init() {
+        // Listen for reduced motion preference
+        window.matchMedia(REDUCED_MOTION_QUERY).addEventListener('change', (e) => {
+            state.prefersReducedMotion = e.matches;
+        });
+
+        // Ensure keyboard navigation
+        this.setupKeyboardNav();
+    },
+
+    setupKeyboardNav() {
+        // Handle arrow keys in view toggle
+        elements.gridTab.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                elements.listTab.focus();
+            }
+        });
+
+        elements.listTab.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                elements.gridTab.focus();
+            }
+        });
+    }
+};
+
+/**
+ * Initialize Application
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    themeManager.init();
+    viewManager.init();
+    searchManager.init();
+    a11yManager.init();
 });

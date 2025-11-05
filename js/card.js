@@ -198,33 +198,55 @@ class Card {
     const cardElement = document.createElement("div");
     cardElement.setAttribute("role", "article");
 
+    // safer id generation: keep alphanumeric and hyphens only
+    const safeIdBase = this.title
+      .toString()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "") || Date.now();
+
     cardElement.className = [
       "card-list-item",
-      "flex", "flex-col", "w-full", "p-0", "my-2",
       "rounded-xl", "border", "shadow-sm",
-      "transition-all", "duration-500", "ease-in-out",
-      "hover:shadow-lg", "hover:scale-[1.02]",
+      "transition-all", "duration-300", "ease-in-out",
+      "hover:shadow-lg",
       "bg-[var(--card-bg)]",
       "border-[#e5e7eb]", "dark:border-[#4a4a4a]",
     ].join(" ");
 
-    const descId = `desc-${this.title.replace(/\s/g, "")}`;
-    const toggleId = `toggle-${this.title.replace(/\s/g, "")}`;
+    const descId = `desc-${safeIdBase}`;
+    const toggleId = `toggle-${safeIdBase}`;
+
+    // helper: initials for avatar
+    const initials = (this.title || "")
+      .split(" ")
+      .map((s) => s.charAt(0))
+      .slice(0, 2)
+      .join("")
+      .toUpperCase();
+
 
     cardElement.innerHTML = `
-      <div class="flex items-center gap-4 w-full px-4 py-3">
-        <div class="card-date text-xs rounded-full px-3 py-1 shadow-sm font-medium"
-             style="background: var(--accent-bg); color: var(--accent-color)">
-          <i class="fas fa-calendar-alt mr-1 opacity-80"></i>
-          <span>${this.#sanitizeHTML(this.updatedAt)}</span>
+      <div class="card-avatar" aria-hidden="true">${initials}</div>
+
+      <div class="card-meta">
+        <div class="flex items-center gap-2">
+          <h5 class="card-title">${this.#sanitizeHTML(this.title)}</h5>
+          <div class="card-date text-xs rounded-full px-3 py-1 shadow-sm font-medium ml-2"
+               style="background: var(--accent-bg); color: var(--accent-color)">
+            <i class="fas fa-calendar-alt mr-1 opacity-80"></i>
+            <span>${this.#sanitizeHTML(this.updatedAt)}</span>
+          </div>
         </div>
 
-        <div class="flex-1 min-w-0">
-          <h5 class="card-title text-base font-bold truncate" style="color: var(--text-color)">
-            ${this.#sanitizeHTML(this.title)}
-          </h5>
-        </div>
+        ${this.subtitle ? `<div class="card-subtitle">${this.#sanitizeHTML(this.subtitle)}</div>` : ""}
 
+        <div class="card-preview text-sm opacity-90 mt-1 truncate" aria-hidden="true">
+          ${this.text ? this.#sanitizeHTML(this.text) : ""}
+        </div>
+      </div>
+
+      <div class="card-actions">
         <ul class="card-social-links list-none flex flex-row gap-2" role="list">
           ${this.links
             .map(
@@ -245,19 +267,19 @@ class Card {
             .join("")}
         </ul>
 
-        <button class="accordion-toggle text-sm font-semibold px-3 py-1 rounded-md ml-4 flex items-center gap-1
+        <button class="accordion-toggle text-sm font-semibold px-3 py-1 rounded-md ml-2 flex items-center gap-1
                        focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 transition-all duration-300"
           aria-expanded="false" aria-controls="${descId}" id="${toggleId}">
           <span>Show Description</span>
-          <span class="chevron" aria-hidden="true" style="transition: transform 0.3s;">
-            <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+          <span class="chevron" aria-hidden="true" style="transition: transform 0.25s; display:inline-block;">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
               <path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </span>
         </button>
       </div>
 
-      <div id="${descId}" class="accordion-content max-h-0 opacity-0 overflow-hidden transition-all duration-500
+      <div id="${descId}" class="accordion-content max-h-0 opacity-0 overflow-hidden transition-all duration-300
                                  px-4 border-t border-[var(--card-border)] bg-[var(--card-bg)]"
            aria-hidden="true">
         <div class="py-3">
@@ -309,21 +331,32 @@ class Card {
     const toggleText = toggleBtn.querySelector("span");
 
     if (toggleBtn && content) {
-      toggleBtn.addEventListener("click", () => {
+      const toggleHandler = () => {
         const expanded = toggleBtn.getAttribute("aria-expanded") === "true";
         toggleBtn.setAttribute("aria-expanded", String(!expanded));
         content.setAttribute("aria-hidden", String(expanded));
 
         if (!expanded) {
+          // expand
           content.style.maxHeight = content.scrollHeight + "px";
           content.style.opacity = "1";
           toggleText.textContent = "Hide Description";
           chevron.style.transform = "rotate(180deg)";
         } else {
+          // collapse
           content.style.maxHeight = "0";
           content.style.opacity = "0";
           toggleText.textContent = "Show Description";
           chevron.style.transform = "rotate(0deg)";
+        }
+      };
+
+      toggleBtn.addEventListener("click", toggleHandler);
+      // keyboard support: Enter/Space
+      toggleBtn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleHandler();
         }
       });
     }

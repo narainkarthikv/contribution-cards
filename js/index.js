@@ -109,8 +109,8 @@ async function fetchAndRenderCards() {
   try {
     const gridTab = document.getElementById("gridTab");
     const listTab = document.getElementById("listTab");
-    const cardsGrid = document.querySelector(".cards-grid");
-    const cardsList = document.querySelector(".cards-list");
+    const cardsGrid = document.getElementById("gridView");
+    const cardsList = document.getElementById("listView");
 
     if (!cardsGrid || !cardsList) {
       console.error("Card containers missing in DOM");
