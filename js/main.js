@@ -30,8 +30,27 @@ const elements = {
  */
 const themeManager = {
     init() {
-        // Check saved preference
-        const savedTheme = localStorage.getItem(THEME_KEY);
+        // Check saved preference (canonical key) or migrate old key if present
+        let savedTheme = localStorage.getItem(THEME_KEY);
+        // backwards-compat: older code used 'darkMode' with values 'enabled'|'disabled'
+        if (!savedTheme) {
+            const legacy = localStorage.getItem('darkMode');
+            if (legacy === 'enabled' || legacy === 'disabled') {
+                savedTheme = legacy === 'enabled' ? 'dark' : 'light';
+                try {
+                    localStorage.setItem(THEME_KEY, savedTheme);
+                    // migration: remove legacy key now that canonical key is set
+                    try {
+                        localStorage.removeItem('darkMode');
+                    } catch (err) {
+                        // ignore storage removal errors
+                    }
+                } catch (e) {
+                    // ignore
+                }
+            }
+        }
+
         if (savedTheme) {
             this.setTheme(savedTheme === 'dark');
         } else {
@@ -60,6 +79,13 @@ const themeManager = {
         state.isDark = isDark;
         document.documentElement.classList.toggle(DARK_CLASS, isDark);
         document.body.classList.toggle(DARK_CLASS, isDark);
+        // Also set a data attribute to allow CSS selectors or other scripts to read current theme
+        try {
+            document.documentElement.dataset.theme = isDark ? 'dark' : 'light';
+            document.body.dataset.theme = isDark ? 'dark' : 'light';
+        } catch (e) {
+            // ignore
+        }
         
         // Update button state and icon
         elements.themeToggle.setAttribute('aria-pressed', isDark);
@@ -76,7 +102,11 @@ const themeManager = {
         }, 150);
         
         // Save preference
-        localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+        try {
+            localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+        } catch (e) {
+            console.warn('Unable to persist theme preference', e);
+        }
         
         // Remove transition class after animation completes
         setTimeout(() => {

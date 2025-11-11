@@ -390,8 +390,8 @@ body {
   box-shadow: 0 2px 8px rgba(34, 48, 74, 0.1);
   transform: translateY(-2px) scale(1.07);
 }
-.dark-mode .cards .card-social-links a:hover,
-.dark-mode .cards .card-social-links a:focus {
+.dark .cards .card-social-links a:hover,
+.dark .cards .card-social-links a:focus {
   background: var(--accent-color);
   color: #fff;
   box-shadow: 0 2px 8px rgba(16, 24, 39, 0.18);
@@ -495,7 +495,7 @@ body {
   box-shadow: 0 2px 8px rgba(34, 48, 74, 0.1);
   transform: translateY(-2px) scale(1.04);
 }
-.dark-mode #viewToggle button:hover {
+.dark #viewToggle button:hover {
   background: #2d3748;
   color: var(--accent-color);
   box-shadow: 0 2px 8px rgba(16, 24, 39, 0.18);

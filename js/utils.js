@@ -26,51 +26,17 @@ export function getSystemPrefersDark() {
     window.matchMedia?.("(prefers-color-scheme: dark)")?.matches || false
   );
 }
+// Note: Theme management is handled centrally in `js/main.js` (themeManager).
+// This utils module provides small helpers only. Avoid duplicating theme
+// persistence or DOM-manipulation logic here to prevent conflicting keys.
 
 /**
- * Apply theme to document and update icons/buttons
- * @param {boolean} isDark - Whether dark mode is enabled
- * @param {boolean} [persist=true] - Whether to save theme preference
+ * Retrieve saved theme preference from localStorage using canonical key.
+ * Returns 'dark'|'light'|null
  */
-export function setTheme(isDark, persist = true) {
-  document.body.classList.toggle("dark-mode", isDark);
-
-  const themeIconSun = document.getElementById("themeIconSun");
-  const themeIconMoon = document.getElementById("themeIconMoon");
-  const themeToggleBtn = document.getElementById("themeToggleBtn");
-
-  // Toggle icon visibility
-  if (themeIconSun && themeIconMoon) {
-    themeIconSun.classList.toggle("hidden", isDark);
-    themeIconMoon.classList.toggle("hidden", !isDark);
-  }
-
-  // Update accessibility attributes
-  if (themeToggleBtn) {
-    themeToggleBtn.setAttribute("aria-pressed", isDark ? "true" : "false");
-    themeToggleBtn.setAttribute(
-      "aria-label",
-      isDark ? "Switch to light mode" : "Switch to dark mode"
-    );
-  }
-
-  // Persist preference
-  if (persist) {
-    try {
-      localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
-    } catch {
-      console.warn("⚠️ Unable to access localStorage for theme persistence.");
-    }
-  }
-}
-
-/**
- * Retrieve saved theme preference from localStorage
- * @returns {"enabled"|"disabled"|null}
- */
-export function getSavedTheme() {
+export function getSavedThemeCanonical() {
   try {
-    return localStorage.getItem("darkMode");
+    return localStorage.getItem("contribution-cards-theme");
   } catch {
     console.warn("⚠️ Unable to read theme preference from localStorage.");
     return null;

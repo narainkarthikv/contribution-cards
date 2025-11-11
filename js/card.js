@@ -172,7 +172,8 @@ class Card {
     cardElement.addEventListener("mouseenter", () => {
       cardElement.style.boxShadow = "0 12px 30px rgba(0, 0, 0, 0.12)";
       cardElement.style.transform = "translateY(-4px) scale(1.04)";
-      cardElement.style.backgroundColor = document.body.classList.contains("dark-mode")
+      // reflect theme using canonical `.dark` class placed on <html> (documentElement)
+      cardElement.style.backgroundColor = document.documentElement.classList.contains("dark")
         ? "#333333"
         : "#f9fafb";
     });
