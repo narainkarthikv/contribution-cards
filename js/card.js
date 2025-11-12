@@ -81,8 +81,8 @@ class Card {
       "shadow-md", "transition-all", "duration-500", "ease-in-out",
       "cursor-pointer", "border", "rounded-2xl",
       "hover:shadow-2xl", "hover:scale-[1.04]",
-      "bg-white", "dark:bg-[#2d2d2d]",
-      "border-[#e5e7eb]", "dark:border-[#4a4a4a]"
+      "bg-white", "dark:bg-[#1a2f3f]",
+      "border-[#e5e7eb]", "dark:border-[#1e3a47]"
     ].join(" ");
 
     cardElement.innerHTML = `
@@ -174,7 +174,7 @@ class Card {
       cardElement.style.transform = "translateY(-4px) scale(1.04)";
       // reflect theme using canonical `.dark` class placed on <html> (documentElement)
       cardElement.style.backgroundColor = document.documentElement.classList.contains("dark")
-        ? "#333333"
+        ? "#1a2f3f"
         : "#f9fafb";
     });
     cardElement.addEventListener("mouseleave", () => {
@@ -212,7 +212,7 @@ class Card {
       "transition-all", "duration-300", "ease-in-out",
       "hover:shadow-lg",
       "bg-[var(--card-bg)]",
-      "border-[#e5e7eb]", "dark:border-[#4a4a4a]",
+      "border-[#e5e7eb]", "dark:border-[#1e3a47]",
     ].join(" ");
 
     const descId = `desc-${safeIdBase}`;

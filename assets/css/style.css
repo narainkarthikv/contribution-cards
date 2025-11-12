@@ -63,27 +63,27 @@
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
 }
 
-/* Dark Theme Colors */
+/* Dark Theme Colors - Microsoft Azure Inspired */
 .dark {
-  --color-bg-primary: #111827;
-  --color-bg-secondary: #1f2937;
-  --color-text-primary: #f9fafb;
-  --color-text-secondary: #9ca3af;
-  --color-accent-primary: #3b82f6;
-  --color-accent-secondary: #60a5fa;
-  --color-border: #374151;
-  --color-focus-ring: #1d4ed8;
+  --color-bg-primary: #0b1929;
+  --color-bg-secondary: #0d1f2d;
+  --color-text-primary: #e8f4f8;
+  --color-text-secondary: #b0d4e3;
+  --color-accent-primary: #00b7f1;
+  --color-accent-secondary: #50d9ff;
+  --color-border: #1e3a47;
+  --color-focus-ring: #006ba3;
 
   /* Theme-specific overrides for dark mode */
-  --header-bg: #1f2937;
-  --card-bg: #1f2937;
-  --card-border: #374151;
-  --text-color: #f9fafb;
-  --accent-color: #60a5fa;
-  --accent-bg: rgba(59, 130, 246, 0.15);
-  --button-hover: #374151;
-  --search-bg: #1f2937;
-  --search-text: #f9fafb;
+  --header-bg: #0d1f2d;
+  --card-bg: #1a2f3f;
+  --card-border: #1e3a47;
+  --text-color: #e8f4f8;
+  --accent-color: #00b7f1;
+  --accent-bg: rgba(0, 183, 241, 0.12);
+  --button-hover: #1e3a47;
+  --search-bg: #0d1f2d;
+  --search-text: #e8f4f8;
 }
 
 /**
@@ -394,7 +394,7 @@ body {
 .dark .cards .card-social-links a:focus {
   background: var(--accent-color);
   color: #fff;
-  box-shadow: 0 2px 8px rgba(16, 24, 39, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 183, 241, 0.3);
 }
 
 /* Card study link button hover/focus */
@@ -419,18 +419,18 @@ body {
 .dark .cards .card-study-links a:focus {
   background: var(--accent-color);
   color: #fff;
-  box-shadow: 0 2px 8px rgba(16, 24, 39, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 183, 241, 0.3);
 }
 
 /* Card Component Dark Mode Improvements */
 .dark .ds-card {
   background-color: var(--card-bg);
   border-color: var(--card-border);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }
 
 .dark .ds-card:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
   border-color: var(--accent-color);
 }
 
@@ -443,7 +443,7 @@ body {
 
 .dark .ds-input:focus {
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 0 0 2px rgba(0, 183, 241, 0.2);
 }
 
 /* Toggle Group Dark Mode */
@@ -496,9 +496,9 @@ body {
   transform: translateY(-2px) scale(1.04);
 }
 .dark #viewToggle button:hover {
-  background: #2d3748;
+  background: #1e3a47;
   color: var(--accent-color);
-  box-shadow: 0 2px 8px rgba(16, 24, 39, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 183, 241, 0.2);
 }
 #viewToggle button[aria-pressed="true"],
 #viewToggle button.bg-blue-600,
