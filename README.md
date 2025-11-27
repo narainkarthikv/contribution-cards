@@ -1,4 +1,3 @@
-
 # 🎴 Contribution Cards
 
 Welcome to **Contribution Cards**! This project lets you design and showcase your own profile card using HTML, CSS, and JavaScript. It's a fun way to get started with open-source, practice your frontend skills, and join a friendly community. Whether you're a beginner or a pro, your contribution is welcome! 🤍🤝
@@ -23,11 +22,13 @@ Welcome to **Contribution Cards**! This project lets you design and showcase you
 - [License](#license)
 
 ---
+
 ---
 
 ## 📝 About
 
 **Contribution Cards** lets you:
+
 - Add your own profile card to the project wall
 - Learn and practice HTML, CSS, JavaScript, and TailwindCSS
 - Practice Git & GitHub workflows
@@ -35,13 +36,11 @@ Welcome to **Contribution Cards**! This project lets you design and showcase you
 
 ---
 
-
 ## 🌐 Demo
 
 👉 **[Live Preview](https://narainkarthikv.github.io/contribution-cards/)**
 
 ---
-
 
 ## 🛠️ Tech Stack
 
@@ -50,7 +49,6 @@ Welcome to **Contribution Cards**! This project lets you design and showcase you
 - JavaScript (ES6+)
 
 ---
-
 
 ## 🚀 Getting Started
 
@@ -77,7 +75,6 @@ Follow these steps to add your card:
 
 ---
 
-
 ## ✍️ Card Format Example
 
 Add your details to `data/users.json` as a new object:
@@ -100,7 +97,6 @@ Add your details to `data/users.json` as a new object:
 
 ---
 
-
 ## 🤝 How to Contribute
 
 We welcome all contributions! Here’s a quick guide:
@@ -113,7 +109,6 @@ We welcome all contributions! Here’s a quick guide:
 **Need help?** Open an [issue](https://github.com/narainkarthikv/contribution-cards/issues) or ask in the discussions!
 
 ---
-
 
 ## 📁 Project Structure
 
@@ -154,9 +149,10 @@ We welcome all contributions! Here’s a quick guide:
 
 ---
 
-
 ## Contributing
+
 Please read [CONTRIBUTING.md](https://github.com/narainkarthikv/contribution-cards/blob/main/Contributors.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## License
+
 This project is licensed under the MIT License - see the [MIT-LICENSE.txt](https://github.com/narainkarthikv/contribution-cards/blob/main/MIT-LICENSE.txt) file for details.

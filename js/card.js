@@ -76,13 +76,26 @@ class Card {
 
     cardElement.className = [
       "cards",
-      "w-full", "h-[500px]",
-      "flex", "flex-col", "justify-between", "m-5", "p-6",
-      "shadow-md", "transition-all", "duration-500", "ease-in-out",
-      "cursor-pointer", "border", "rounded-2xl",
-      "hover:shadow-2xl", "hover:scale-[1.04]",
-      "bg-white", "dark:bg-[#1a2f3f]",
-      "border-[#e5e7eb]", "dark:border-[#1e3a47]"
+      "w-full",
+      "h-[500px]",
+      "flex",
+      "flex-col",
+      "justify-between",
+      "m-5",
+      "p-6",
+      "shadow-md",
+      "transition-all",
+      "duration-500",
+      "ease-in-out",
+      "cursor-pointer",
+      "border",
+      "rounded-2xl",
+      "hover:shadow-2xl",
+      "hover:scale-[1.04]",
+      "bg-white",
+      "dark:bg-[#1a2f3f]",
+      "border-[#e5e7eb]",
+      "dark:border-[#1e3a47]",
     ].join(" ");
 
     cardElement.innerHTML = `
@@ -99,19 +112,23 @@ class Card {
             </div>
           </div>
 
-          ${this.subtitle
-            ? `<h6 class="card-subtitle text-[1.05rem] font-semibold mb-2 opacity-85 leading-snug" 
+          ${
+            this.subtitle
+              ? `<h6 class="card-subtitle text-[1.05rem] font-semibold mb-2 opacity-85 leading-snug" 
                   style="color: var(--text-color)">
                   ${this.#sanitizeHTML(this.subtitle)}
                </h6>`
-            : ""}
+              : ""
+          }
 
-          ${this.text
-            ? `<p class="card-text text-[1rem] mb-4 leading-[1.7] opacity-90" 
+          ${
+            this.text
+              ? `<p class="card-text text-[1rem] mb-4 leading-[1.7] opacity-90" 
                   style="color: var(--text-color)">
                   ${this.#sanitizeHTML(this.text)}
                </p>`
-            : ""}
+              : ""
+          }
 
           <ul class="card-social-links list-none flex flex-wrap gap-3 mt-2" role="list">
             ${this.links
@@ -147,11 +164,7 @@ class Card {
                        class="study-link inline-flex items-center justify-center w-full rounded-lg p-3 text-[1rem]
                               border transition-all duration-300 hover:scale-[1.02] hover:shadow-sm 
                               focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
-                              ${
-                                this.#isAlwaysBlackLink(link.label)
-                                  ? "text-black"
-                                  : ""
-                              }"
+                              ${this.#isAlwaysBlackLink(link.label) ? "text-black" : ""}"
                        style="background: var(--card-bg); color: var(--text-color); border: 1px solid var(--card-border)"
                        rel="noopener noreferrer" target="_blank">
                       ${this.#sanitizeHTML(link.label)}
@@ -200,19 +213,25 @@ class Card {
     cardElement.setAttribute("role", "article");
 
     // safer id generation: keep alphanumeric and hyphens only
-    const safeIdBase = this.title
-      .toString()
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "") || Date.now();
+    const safeIdBase =
+      this.title
+        .toString()
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "") || Date.now();
 
     cardElement.className = [
       "card-list-item",
-      "rounded-xl", "border", "shadow-sm",
-      "transition-all", "duration-300", "ease-in-out",
+      "rounded-xl",
+      "border",
+      "shadow-sm",
+      "transition-all",
+      "duration-300",
+      "ease-in-out",
       "hover:shadow-lg",
       "bg-[var(--card-bg)]",
-      "border-[#e5e7eb]", "dark:border-[#1e3a47]",
+      "border-[#e5e7eb]",
+      "dark:border-[#1e3a47]",
     ].join(" ");
 
     const descId = `desc-${safeIdBase}`;
@@ -225,7 +244,6 @@ class Card {
       .slice(0, 2)
       .join("")
       .toUpperCase();
-
 
     cardElement.innerHTML = `
       <div class="card-avatar" aria-hidden="true">${initials}</div>
@@ -304,11 +322,7 @@ class Card {
                          class="study-link inline-flex items-center justify-center w-full rounded-md p-2 text-[0.95rem]
                                 border transition-all duration-300 hover:scale-[1.02] hover:shadow-sm 
                                 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
-                                ${
-                                  this.#isAlwaysBlackLink(link.label)
-                                    ? "text-black"
-                                    : ""
-                                }"
+                                ${this.#isAlwaysBlackLink(link.label) ? "text-black" : ""}"
                          style="background: var(--card-bg); color: var(--text-color); border: 1px solid var(--card-border)"
                          rel="noopener noreferrer" target="_blank">
                         ${this.#sanitizeHTML(link.label)}

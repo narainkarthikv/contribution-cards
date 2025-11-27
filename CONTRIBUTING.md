@@ -9,6 +9,7 @@ We love your input! We want to make contributing to Contribution Cards as easy a
 - Becoming a maintainer
 
 ## Development Process
+
 We use GitHub to host code, to track issues and feature requests, as well as accept pull requests.
 
 1. Fork the repo and create your branch from `main`
@@ -19,9 +20,11 @@ We use GitHub to host code, to track issues and feature requests, as well as acc
 6. Issue that pull request!
 
 ## Any contributions you make will be under the MIT Software License
+
 In short, when you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.
 
 ## Report bugs using GitHub's [issue tracker]
+
 We use GitHub issues to track public bugs. Report a bug by [opening a new issue]().
 
 ## Write bug reports with detail, background, and sample code
@@ -43,4 +46,5 @@ We use GitHub issues to track public bugs. Report a bug by [opening a new issue]
 3. Your PR will be merged once you have the sign-off of at least one maintainer
 
 ## License
+
 By contributing, you agree that your contributions will be licensed under its MIT License.

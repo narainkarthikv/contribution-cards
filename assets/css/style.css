@@ -11,7 +11,7 @@
   --color-accent-secondary: #3b82f6;
   --color-border: #e5e7eb;
   --color-focus-ring: #93c5fd;
-  
+
   /* Theme-specific variables */
   --header-bg: var(--color-bg-primary);
   --card-bg: var(--color-bg-primary);
@@ -22,38 +22,38 @@
   --button-hover: #f3f4f6;
   --search-bg: var(--color-bg-primary);
   --search-text: var(--color-text-primary);
-  
+
   /* Spacing Scale (rem) */
-  --space-1: 0.25rem;   /* 4px */
-  --space-2: 0.5rem;    /* 8px */
-  --space-3: 0.75rem;   /* 12px */
-  --space-4: 1rem;      /* 16px */
-  --space-6: 1.5rem;    /* 24px */
-  --space-8: 2rem;      /* 32px */
-  --space-12: 3rem;     /* 48px */
-  
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-12: 3rem; /* 48px */
+
   /* Typography */
   --font-family-base: "Outfit", system-ui, -apple-system, sans-serif;
-  --font-size-xs: 0.75rem;     /* 12px */
-  --font-size-sm: 0.875rem;    /* 14px */
-  --font-size-base: 1rem;      /* 16px */
-  --font-size-lg: 1.125rem;    /* 18px */
-  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --line-height-tight: 1.25;
   --line-height-base: 1.5;
   --line-height-relaxed: 1.75;
-  
+
   /* Elevation & Effects */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-  --radius-sm: 0.375rem;    /* 6px */
-  --radius-md: 0.5rem;      /* 8px */
-  --radius-lg: 0.75rem;     /* 12px */
-  
+  --radius-sm: 0.375rem; /* 6px */
+  --radius-md: 0.5rem; /* 8px */
+  --radius-lg: 0.75rem; /* 12px */
+
   /* Animation */
   --duration-fast: 150ms;
   --duration-normal: 250ms;
@@ -111,15 +111,18 @@ body {
 
 /* Theme Toggle Button */
 #themeToggleBtn .material-icons {
-  transition: transform 0.3s ease, opacity 0.15s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.15s ease;
 }
 
 /* Improved Card Transitions */
 .ds-card {
-  transition: transform 0.3s ease-out,
-              box-shadow 0.3s ease-out,
-              background-color 0.3s ease-out,
-              border-color 0.3s ease-out !important;
+  transition:
+    transform 0.3s ease-out,
+    box-shadow 0.3s ease-out,
+    background-color 0.3s ease-out,
+    border-color 0.3s ease-out !important;
 }
 
 /* Focus Management */
@@ -232,7 +235,7 @@ body {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   transition: all var(--duration-normal) var(--ease-out);
-  
+
   /* GPU acceleration */
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
@@ -285,7 +288,7 @@ body {
   background-color: var(--color-bg-secondary);
   color: var(--color-accent-primary);
   transition: all var(--duration-normal) var(--ease-out);
-  
+
   &:hover {
     background-color: var(--color-accent-primary);
     color: white;
@@ -295,8 +298,9 @@ body {
 
 /* View Transitions */
 .view-transition {
-  transition: opacity var(--duration-normal) var(--ease-out),
-              transform var(--duration-normal) var(--ease-out);
+  transition:
+    opacity var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out);
 }
 
 .view-transition[aria-hidden="true"] {
@@ -329,11 +333,11 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  
+
   .ds-card:hover {
     transform: none;
   }
-  
+
   .view-transition {
     transition: opacity var(--duration-fast) var(--ease-out);
   }
@@ -356,7 +360,9 @@ body {
   font-weight: 500;
   text-align: center;
   text-decoration: none;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .cards .study-links a:hover {
@@ -379,7 +385,11 @@ body {
 
 /* Card social link button hover/focus */
 .cards .card-social-links a {
-  transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    box-shadow 0.25s,
+    transform 0.25s;
   box-shadow: none;
   outline: none;
 }
@@ -399,7 +409,11 @@ body {
 
 /* Card study link button hover/focus */
 .cards .card-study-links a {
-  transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    box-shadow 0.25s,
+    transform 0.25s;
   outline: none;
   background: var(--card-bg);
   color: var(--text-color);
@@ -460,7 +474,10 @@ body {
   padding: 0.6em 1.2em;
   font-size: var(--font-size-base);
   margin: 0.5em 0;
-  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s,
+    border-color 0.3s;
 }
 
 #searchInput:focus {
@@ -485,7 +502,11 @@ body {
   border: none;
   outline: none;
   font-weight: 500;
-  transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s;
+  transition:
+    background 0.25s,
+    color 0.25s,
+    box-shadow 0.25s,
+    transform 0.25s;
   position: relative;
   z-index: 1;
 }
@@ -520,7 +541,10 @@ body {
   border: 1.5px solid var(--card-border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  transition: background 0.25s, border-color 0.25s, box-shadow 0.25s,
+  transition:
+    background 0.25s,
+    border-color 0.25s,
+    box-shadow 0.25s,
     transform 0.25s;
   display: flex;
   flex-direction: row;
@@ -589,7 +613,11 @@ body {
   padding: 0.45em;
   background: var(--accent-bg);
   color: var(--accent-color);
-  transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
+  transition:
+    background 0.18s,
+    color 0.18s,
+    box-shadow 0.18s,
+    transform 0.18s;
 }
 .card-list-item .card-social-links a:hover,
 .card-list-item .card-social-links a:focus {
@@ -617,7 +645,10 @@ body {
   font-size: 0.98rem;
   font-weight: 600;
   margin: 0.2em 0 0.2em 0;
-  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
   outline: none;
   box-shadow: none;
 }
@@ -649,11 +680,7 @@ body {
 
 /* Accordion expanded state highlight */
 .card-list-item .accordion-content.expanded {
-  background: linear-gradient(
-    90deg,
-    var(--accent-bg) 0 10%,
-    var(--card-bg) 100%
-  );
+  background: linear-gradient(90deg, var(--accent-bg) 0 10%, var(--card-bg) 100%);
   border-left: 3px solid var(--accent-color);
   box-shadow: 0 2px 12px rgba(34, 48, 74, 0.07);
 }

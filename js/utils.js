@@ -22,9 +22,7 @@ export function debounce(func, wait = 300) {
  * @returns {boolean}
  */
 export function getSystemPrefersDark() {
-  return (
-    window.matchMedia?.("(prefers-color-scheme: dark)")?.matches || false
-  );
+  return window.matchMedia?.("(prefers-color-scheme: dark)")?.matches || false;
 }
 // Note: Theme management is handled centrally in `js/main.js` (themeManager).
 // This utils module provides small helpers only. Avoid duplicating theme

@@ -11,7 +11,12 @@ function setActiveTab(tab) {
   if (!gridTab || !listTab) return;
 
   const activeClasses = ["bg-blue-600", "dark:bg-blue-500", "text-white"];
-  const inactiveClasses = ["bg-gray-200", "dark:bg-gray-700", "text-gray-800", "dark:text-gray-200"];
+  const inactiveClasses = [
+    "bg-gray-200",
+    "dark:bg-gray-700",
+    "text-gray-800",
+    "dark:text-gray-200",
+  ];
 
   if (tab === "grid") {
     gridTab.classList.add(...activeClasses);
@@ -37,7 +42,8 @@ function showLoadingSkeleton(container, count = 6) {
   container.innerHTML = "";
   for (let i = 0; i < count; i++) {
     const skeleton = document.createElement("div");
-    skeleton.className = "animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg h-[250px] w-full my-2";
+    skeleton.className =
+      "animate-pulse bg-gray-200 dark:bg-gray-700 rounded-lg h-[250px] w-full my-2";
     container.appendChild(skeleton);
   }
 }
