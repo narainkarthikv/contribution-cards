@@ -1,5 +1,6 @@
 /**
  * Custom hook for fetching and managing contributors data
+ * Implements stale-while-revalidate pattern with advanced caching
  */
 
 import { useCallback, useEffect, useState } from 'react';
@@ -10,18 +11,25 @@ import type {
 } from '../types/github';
 import { fetchRepositoryContributors } from '../lib/github';
 import { aggregateContributors } from '../utils/aggregateContributors';
+import { getCache, setCache } from '../lib/cache';
 
 export interface UseContributorsOptions {
   repositories: string[];
   enableAutoFetch?: boolean;
+  revalidateInterval?: number;
 }
 
 export interface UseContributorsResult {
   data: Contributor[] | null;
   isLoading: boolean;
+  isValidating?: boolean;
   isError: boolean;
   error?: Error;
   refetch: () => void;
+  cacheStatus?: {
+    isCached: boolean;
+    age: number;
+  };
 }
 
 /**
@@ -30,10 +38,13 @@ export interface UseContributorsResult {
 const fetchAllContributors = async (
   repos: string[]
 ): Promise<Contributor[] | null> => {
+  if (!repos || repos.length === 0) {
+    return null;
+  }
+
   const contributorsByRepo = new Map<string, ContributorResponse[]>();
 
   try {
-    // Fetch contributors from all repositories in parallel
     const fetchPromises = repos.map(async (repo) => {
       const [owner, repoName] = repo.split('/');
       try {
@@ -43,7 +54,6 @@ const fetchAllContributors = async (
         );
         return { repo, contributors };
       } catch (error) {
-        console.error(`Failed to fetch contributors for ${repo}:`, error);
         return { repo, contributors: [] };
       }
     });
@@ -54,39 +64,78 @@ const fetchAllContributors = async (
       contributorsByRepo.set(repo, contributors);
     });
 
-    // Aggregate the data
     const aggregated = await aggregateContributors(repos, contributorsByRepo);
     return aggregated;
   } catch (error) {
-    console.error('Failed to aggregate contributors:', error);
     throw error;
   }
 };
 
 /**
- * Hook to fetch and manage contributors data
+ * Fetch with stale-while-revalidate pattern
+ */
+const fetchWithSWR = async (
+  repos: string[]
+): Promise<{ data: Contributor[] | null; isStale: boolean }> => {
+  const cacheKey = `contributors-${repos.sort().join(',')}`;
+  
+  const cachedData = getCache<Contributor[]>(cacheKey);
+  if (cachedData) {
+    return { data: cachedData, isStale: true };
+  }
+
+  const freshData = await fetchAllContributors(repos);
+  
+  if (freshData) {
+    setCache(cacheKey, freshData, { ttl: 86400000 });
+  }
+  
+  return { data: freshData, isStale: false };
+};
+
+/**
+ * Hook to fetch and manage contributors data with advanced caching
  */
 export const useContributors = ({
   repositories,
   enableAutoFetch = true,
+  revalidateInterval,
 }: UseContributorsOptions): UseContributorsResult => {
   const [manualRefetch, setManualRefetch] = useState(0);
+  const [cacheStatus, setCacheStatus] = useState<{
+    isCached: boolean;
+    age: number;
+  } | undefined>();
 
   const repoKey = repositories.sort().join(',');
-  const cacheKey = enableAutoFetch ? `contributors-${repoKey}` : null;
+  const cacheKey = enableAutoFetch && repositories.length > 0 ? `contributors-${repoKey}` : null;
 
-  const { data, error, isLoading, mutate } = useSWR(
+  const { data, error, isLoading, isValidating, mutate } = useSWR(
     cacheKey,
-    () => fetchAllContributors(repositories),
+    () => fetchWithSWR(repositories),
     {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
-      dedupingInterval: 3600000, // 1 hour
-      focusThrottleInterval: 300000, // 5 minutes
-      errorRetryCount: 2,
+      dedupingInterval: 60000,
+      focusThrottleInterval: 300000,
+      errorRetryCount: 3,
       errorRetryInterval: 5000,
+      ...(revalidateInterval && { 
+        focusThrottleInterval: revalidateInterval 
+      }),
     }
   );
+
+  useEffect(() => {
+    if (cacheKey) {
+      const cacheEntry = getCache<Contributor[]>(cacheKey);
+      if (cacheEntry) {
+        setCacheStatus({ isCached: true, age: 0 });
+      } else {
+        setCacheStatus({ isCached: false, age: 0 });
+      }
+    }
+  }, [cacheKey, data]);
 
   const refetch = useCallback(() => {
     setManualRefetch((prev) => prev + 1);
@@ -94,18 +143,23 @@ export const useContributors = ({
   }, [mutate]);
 
   useEffect(() => {
-    if (!enableAutoFetch && manualRefetch > 0) {
+    if (!enableAutoFetch && manualRefetch > 0 && repositories.length > 0) {
       fetchAllContributors(repositories).then((result) => {
-        mutate(result);
+        if (result && cacheKey) {
+          setCache(cacheKey, result, { ttl: 86400000 });
+        }
+        mutate({ data: result, isStale: false });
       });
     }
-  }, [manualRefetch, enableAutoFetch, repositories, mutate]);
+  }, [manualRefetch, enableAutoFetch, repositories, mutate, cacheKey]);
 
   return {
-    data: data || null,
+    data: data?.data || null,
     isLoading,
+    isValidating,
     isError: !!error,
     error,
     refetch,
+    cacheStatus,
   };
 };

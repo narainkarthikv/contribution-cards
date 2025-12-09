@@ -15,31 +15,17 @@ import {
   sortContributors,
   exportToCSV,
 } from '../utils/aggregateContributors';
+import { useContributors } from '../hooks/useContributors';
+import { REPOSITORIES } from '../App';
 
-const REPOSITORIES = [
-  'narainkarthikv/GLIS',
-  'narainkarthikv/contribution-cards',
-  'narainkarthikv/fit-track',
-  'narainkarthikv/sticky-memo',
-  'narainkarthikv/readme-shop',
-];
-
-interface ContributorsPageProps {
-  contributors: Contributor[] | null;
-  isLoading: boolean;
-  isError: boolean;
-  refetch: () => void;
-}
-
-export const ContributorsPage: React.FC<ContributorsPageProps> = ({
-  contributors,
-  isLoading,
-  isError,
-  refetch,
-}) => {
+export const ContributorsPage: React.FC = () => {
   const [selectedContributor, setSelectedContributor] =
     useState<Contributor | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [selectedRepositories, setSelectedRepositories] = useState<string[]>([
+    REPOSITORIES[0],
+  ]);
 
   const [filters, setFilters] = useState<FilterOptions>({
     repositories: [],
@@ -56,6 +42,11 @@ export const ContributorsPage: React.FC<ContributorsPageProps> = ({
     Contributor[]
   >([]);
 
+  const { data: contributors, isLoading, isError, refetch } = useContributors({
+    repositories: selectedRepositories,
+    enableAutoFetch: true,
+  });
+
   // Apply filters and sorting
   useEffect(() => {
     if (contributors) {
@@ -64,6 +55,19 @@ export const ContributorsPage: React.FC<ContributorsPageProps> = ({
       setFilteredContributors(result);
     }
   }, [contributors, filters, sortBy]);
+
+  const handleSelectRepository = (repo: string) => {
+    setSelectedRepositories([repo]);
+    setFilters({
+      repositories: [],
+      contributionType: 'all',
+      searchTerm: '',
+    });
+    setSortBy({
+      field: 'totalContributions',
+      order: 'desc',
+    });
+  };
 
   const handleViewDetails = (contributor: Contributor) => {
     setSelectedContributor(contributor);
@@ -83,8 +87,8 @@ export const ContributorsPage: React.FC<ContributorsPageProps> = ({
 
   if (isError) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-20 px-4">
-        <div className="max-w-7xl mx-auto">
+      <div className="w-full bg-gray-50 dark:bg-slate-950 py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-7xl mx-auto">
           <ErrorState
             title="Failed to Load Contributors"
             message="There was an error fetching the contributors data. Please check your GitHub token or try again later."
@@ -96,21 +100,51 @@ export const ContributorsPage: React.FC<ContributorsPageProps> = ({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="w-full bg-gray-50 dark:bg-slate-950 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-12"
+          className="mb-8 sm:mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
             Meet Our Contributors
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
+          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
             Explore the amazing people contributing to our open-source projects
           </p>
         </motion.div>
+
+        {/* Repository Selection */}
+        {!isLoading && contributors && contributors.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 sm:mb-8"
+          >
+            <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
+              Select Repository
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              {REPOSITORIES.map((repo) => (
+                <motion.button
+                  key={repo}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => handleSelectRepository(repo)}
+                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-all border ${
+                    selectedRepositories.includes(repo)
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400'
+                  }`}
+                >
+                  {repo.split('/')[1]}
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
         {/* Filters Bar */}
         {!isLoading && contributors && contributors.length > 0 && (
@@ -134,7 +168,7 @@ export const ContributorsPage: React.FC<ContributorsPageProps> = ({
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
               >
                 {filteredContributors.map((contributor) => (
                   <ContributorCard
@@ -149,7 +183,7 @@ export const ContributorsPage: React.FC<ContributorsPageProps> = ({
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-center py-8 text-gray-600 dark:text-gray-400"
+                className="text-center py-8 text-gray-600 dark:text-gray-400 text-sm sm:text-base"
               >
                 Showing {filteredContributors.length} of {contributors?.length ?? 0}{' '}
                 contributors

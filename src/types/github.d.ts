@@ -5,9 +5,6 @@
 export interface RepoContrib {
   repo: string;
   commitsCount?: number;
-  prsCount?: number;
-  issuesCount?: number;
-  lastContribution?: string;
 }
 
 export interface Contributor {
@@ -56,11 +53,11 @@ export interface GraphQLResponse<T> {
 
 export interface FilterOptions {
   repositories: string[];
-  contributionType: 'all' | 'commits' | 'prs' | 'issues';
+  contributionType: 'all' | 'commits';
   searchTerm: string;
 }
 
 export interface SortOption {
-  field: 'totalContributions' | 'name' | 'lastContribution';
+  field: 'totalContributions' | 'name';
   order: 'asc' | 'desc';
 }
