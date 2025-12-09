@@ -1,6 +1,6 @@
 /**
  * GitHub API Service Layer
- * Handles GraphQL and REST API interactions with rate limiting
+ * Handles GraphQL and REST API interactions with rate limiting and caching
  */
 
 import type {
@@ -8,73 +8,146 @@ import type {
   GitHubUser,
   GraphQLResponse,
 } from '../types/github';
+import { getCache, setCache } from './cache';
 
 const GITHUB_API_URL = 'https://api.github.com';
 const GITHUB_GRAPHQL_URL = 'https://api.github.com/graphql';
 
-// Rate limiting configuration
+/**
+ * Enhanced Rate limiting configuration
+ * - Uses adaptive backoff strategy
+ * - Respects GitHub API rate limits
+ * - Supports concurrent request limiting
+ */
 const RATE_LIMIT_CONFIG = {
-  maxRequests: 50, // Maximum requests per time window
-  timeWindow: 60000, // Time window in milliseconds (60 seconds)
-  delayBetweenRequests: 100, // Minimum delay between requests (100ms)
+  maxConcurrentRequests: 6, // Maximum concurrent requests (respects GitHub limits)
+  delayBetweenRequests: 150, // Minimum delay between requests (150ms)
+  baseBackoffDelay: 1000, // Base delay for exponential backoff (1s)
+  maxBackoffDelay: 60000, // Maximum backoff delay (1 minute)
+  maxRetries: 3, // Maximum retry attempts
+  deduplicationWindow: 5000, // Request deduplication window (5s)
 };
 
-// Rate limit state
-let requestQueue: Array<() => Promise<any>> = [];
-let isProcessing = false;
-let lastRequestTime = 0;
+/**
+ * Rate limit state management
+ */
+interface RateLimitState {
+  requestQueue: Array<{
+    fn: () => Promise<any>;
+    resolve: (value: any) => void;
+    reject: (reason?: any) => void;
+    retries: number;
+  }>;
+  activeRequests: number;
+  lastRequestTime: number;
+  pendingRequests: Map<string, Promise<any>>; // For deduplication
+}
+
+const rateLimitState: RateLimitState = {
+  requestQueue: [],
+  activeRequests: 0,
+  lastRequestTime: 0,
+  pendingRequests: new Map(),
+};
 
 /**
- * Process request queue with rate limiting
+ * Calculate exponential backoff delay
+ */
+const getBackoffDelay = (retryCount: number): number => {
+  const delay = RATE_LIMIT_CONFIG.baseBackoffDelay * Math.pow(2, retryCount);
+  return Math.min(delay, RATE_LIMIT_CONFIG.maxBackoffDelay);
+};
+
+/**
+ * Process request queue with advanced rate limiting
  */
 const processRequestQueue = async () => {
-  if (isProcessing || requestQueue.length === 0) return;
-  
-  isProcessing = true;
-  
-  while (requestQueue.length > 0) {
-    const now = Date.now();
-    const timeSinceLastRequest = now - lastRequestTime;
+  while (rateLimitState.requestQueue.length > 0 && 
+         rateLimitState.activeRequests < RATE_LIMIT_CONFIG.maxConcurrentRequests) {
     
+    const now = Date.now();
+    const timeSinceLastRequest = now - rateLimitState.lastRequestTime;
+    
+    // Respect minimum delay between requests
     if (timeSinceLastRequest < RATE_LIMIT_CONFIG.delayBetweenRequests) {
       await new Promise(resolve => 
         setTimeout(resolve, RATE_LIMIT_CONFIG.delayBetweenRequests - timeSinceLastRequest)
       );
     }
     
-    const request = requestQueue.shift();
-    if (request) {
-      try {
-        await request();
-      } catch (error) {
-        console.error('Request queue error:', error);
-      }
-    }
+    const requestItem = rateLimitState.requestQueue.shift();
+    if (!requestItem) break;
     
-    lastRequestTime = Date.now();
+    rateLimitState.activeRequests++;
+    rateLimitState.lastRequestTime = Date.now();
+    
+    (async () => {
+      try {
+        const result = await requestItem.fn();
+        requestItem.resolve(result);
+      } catch (error) {
+        // Implement retry logic with exponential backoff
+        if (requestItem.retries < RATE_LIMIT_CONFIG.maxRetries) {
+          requestItem.retries++;
+          const backoffDelay = getBackoffDelay(requestItem.retries - 1);
+          
+          console.warn(
+            `Request failed. Retrying after ${backoffDelay}ms (attempt ${requestItem.retries}/${RATE_LIMIT_CONFIG.maxRetries}):`,
+            error
+          );
+          
+          await new Promise(resolve => setTimeout(resolve, backoffDelay));
+          
+          // Re-queue the request
+          rateLimitState.requestQueue.push(requestItem);
+        } else {
+          console.error('Request failed after max retries:', error);
+          requestItem.reject(error);
+        }
+      } finally {
+        rateLimitState.activeRequests--;
+        // Process next request in queue
+        if (rateLimitState.requestQueue.length > 0) {
+          processRequestQueue();
+        }
+      }
+    })();
   }
-  
-  isProcessing = false;
 };
 
-/**
- * Execute a request with rate limiting
- */
 const executeWithRateLimit = async <T>(
-  fn: () => Promise<T>
+  fn: () => Promise<T>,
+  dedupeKey?: string
 ): Promise<T> => {
-  return new Promise((resolve, reject) => {
-    requestQueue.push(async () => {
-      try {
-        const result = await fn();
-        resolve(result);
-      } catch (error) {
-        reject(error);
-      }
+  // Check for pending request deduplication
+  if (dedupeKey && rateLimitState.pendingRequests.has(dedupeKey)) {
+    return rateLimitState.pendingRequests.get(dedupeKey) as Promise<T>;
+  }
+
+  const promise = new Promise<T>((resolve, reject) => {
+    rateLimitState.requestQueue.push({
+      fn,
+      resolve,
+      reject,
+      retries: 0,
     });
     
     processRequestQueue();
   });
+
+  // Store pending request for deduplication
+  if (dedupeKey) {
+    rateLimitState.pendingRequests.set(dedupeKey, promise);
+    
+    // Remove from pending after window expires
+    promise.finally(() => {
+      setTimeout(() => {
+        rateLimitState.pendingRequests.delete(dedupeKey);
+      }, RATE_LIMIT_CONFIG.deduplicationWindow);
+    });
+  }
+
+  return promise;
 };
 
 const getAuthHeaders = (): HeadersInit => {
@@ -92,12 +165,20 @@ const getAuthHeaders = (): HeadersInit => {
 };
 
 /**
- * Fetch contributors from a repository using REST API with rate limiting
+ * Fetch contributors from a repository using REST API with rate limiting and caching
  */
 export const fetchRepositoryContributors = async (
   owner: string,
   repo: string
 ): Promise<ContributorResponse[]> => {
+  const cacheKey = `contributors:${owner}/${repo}`;
+  
+  // Check cache first (24 hour TTL for contributor lists)
+  const cached = getCache<ContributorResponse[]>(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   return executeWithRateLimit(async () => {
     try {
       const response = await fetch(
@@ -111,23 +192,32 @@ export const fetchRepositoryContributors = async (
         throw new Error(`GitHub API error: ${response.statusText}`);
       }
 
-      return await response.json();
+      const data = await response.json();
+      
+      // Cache for 24 hours
+      setCache(cacheKey, data, { ttl: 86400000 });
+      
+      return data;
     } catch (error) {
-      console.error(
-        `Failed to fetch contributors for ${owner}/${repo}:`,
-        error
-      );
       return [];
     }
-  });
+  }, cacheKey);
 };
 
 /**
- * Fetch user profile data using REST API with rate limiting
+ * Fetch user profile data using REST API with rate limiting and caching
  */
 export const fetchUserProfile = async (
   login: string
 ): Promise<GitHubUser | null> => {
+  const cacheKey = `user:${login}`;
+  
+  // Check cache first (7 day TTL for user profiles)
+  const cached = getCache<GitHubUser>(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   return executeWithRateLimit(async () => {
     try {
       const response = await fetch(`${GITHUB_API_URL}/users/${login}`, {
@@ -138,124 +228,35 @@ export const fetchUserProfile = async (
         return null;
       }
 
-      return await response.json();
-    } catch (error) {
-      console.error(`Failed to fetch user profile for ${login}:`, error);
+      const data = await response.json();
+      
+      // Cache for 7 days
+      setCache(cacheKey, data, { ttl: 604800000 });
+      
+      return data;
+    } catch {
       return null;
     }
-  });
+  }, cacheKey);
 };
 
-/**
- * Fetch pull requests count for a repository with rate limiting
- */
-export const fetchPullRequestsCount = async (
-  owner: string,
-  repo: string,
-  login: string
-): Promise<number> => {
-  return executeWithRateLimit(async () => {
-    try {
-      const response = await fetch(
-        `${GITHUB_API_URL}/search/issues?q=repo:${owner}/${repo}+is:pr+author:${login}&per_page=1`,
-        {
-          headers: getAuthHeaders(),
-        }
-      );
 
-      if (!response.ok) {
-        return 0;
-      }
-
-      const data = await response.json();
-      return data.total_count || 0;
-    } catch (error) {
-      console.error(
-        `Failed to fetch PRs count for ${login} in ${owner}/${repo}:`,
-        error
-      );
-      return 0;
-    }
-  });
-};
 
 /**
- * Fetch issues count for a repository with rate limiting
- */
-export const fetchIssuesCount = async (
-  owner: string,
-  repo: string,
-  login: string
-): Promise<number> => {
-  return executeWithRateLimit(async () => {
-    try {
-      const response = await fetch(
-        `${GITHUB_API_URL}/search/issues?q=repo:${owner}/${repo}+is:issue+author:${login}&per_page=1`,
-        {
-          headers: getAuthHeaders(),
-        }
-      );
-
-      if (!response.ok) {
-        return 0;
-      }
-
-      const data = await response.json();
-      return data.total_count || 0;
-    } catch (error) {
-      console.error(
-        `Failed to fetch issues count for ${login} in ${owner}/${repo}:`,
-        error
-      );
-      return 0;
-    }
-  });
-};
-
-/**
- * Fetch the latest contribution date for a user in a repository with rate limiting
- */
-export const fetchLatestContribution = async (
-  owner: string,
-  repo: string,
-  login: string
-): Promise<string | null> => {
-  return executeWithRateLimit(async () => {
-    try {
-      const response = await fetch(
-        `${GITHUB_API_URL}/search/commits?q=repo:${owner}/${repo}+author:${login}&sort=author-date&order=desc&per_page=1`,
-        {
-          headers: getAuthHeaders(),
-        }
-      );
-
-      if (!response.ok) {
-        return null;
-      }
-
-      const data = await response.json();
-      if (data.items && data.items.length > 0) {
-        return data.items[0].commit.author.date;
-      }
-
-      return null;
-    } catch (error) {
-      console.error(
-        `Failed to fetch latest contribution for ${login} in ${owner}/${repo}:`,
-        error
-      );
-      return null;
-    }
-  });
-};
-
-/**
- * Fetch repository details using GraphQL
+ * Fetch repository details using GraphQL with caching
  */
 export const fetchRepositoryDetailsGraphQL = async (
   owner: string,
   name: string
 ): Promise<any> => {
+  const cacheKey = `repo-details:${owner}/${name}`;
+  
+  // Check cache first (7 day TTL for repo details)
+  const cached = getCache(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   const query = `
     query {
       repository(owner: "${owner}", name: "${name}") {
@@ -288,17 +289,31 @@ export const fetchRepositoryDetailsGraphQL = async (
       throw new Error(result.errors[0].message);
     }
 
-    return result.data?.repository || null;
-  } catch (error) {
-    console.error(`Failed to fetch repository details for ${owner}/${name}:`, error);
+    const repoData = result.data?.repository || null;
+    
+    // Cache for 7 days
+    if (repoData) {
+      setCache(cacheKey, repoData, { ttl: 604800000 });
+    }
+    
+    return repoData;
+  } catch {
     return null;
   }
 };
 
 /**
- * Check if GitHub token is valid
+ * Check if GitHub token is valid with caching
  */
 export const validateGitHubToken = async (): Promise<boolean> => {
+  const cacheKey = 'github-token-valid';
+  
+  // Check cache (1 hour TTL)
+  const cached = getCache<boolean>(cacheKey);
+  if (cached !== null) {
+    return cached;
+  }
+
   const token = import.meta.env.VITE_GITHUB_TOKEN;
 
   if (!token) {
@@ -310,16 +325,29 @@ export const validateGitHubToken = async (): Promise<boolean> => {
       headers: getAuthHeaders(),
     });
 
-    return response.ok;
+    const isValid = response.ok;
+    
+    // Cache for 1 hour
+    setCache(cacheKey, isValid, { ttl: 3600000 });
+    
+    return isValid;
   } catch {
     return false;
   }
 };
 
 /**
- * Get remaining API rate limit
+ * Get remaining API rate limit with caching
  */
 export const getRateLimit = async (): Promise<{ limit: number; remaining: number }> => {
+  const cacheKey = 'rate-limit';
+  
+  // Check cache (5 minute TTL for rate limit info)
+  const cached = getCache<{ limit: number; remaining: number }>(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
   try {
     const response = await fetch(`${GITHUB_API_URL}/rate_limit`, {
       headers: getAuthHeaders(),
@@ -330,12 +358,16 @@ export const getRateLimit = async (): Promise<{ limit: number; remaining: number
     }
 
     const data = await response.json();
-    return {
+    const rateLimitInfo = {
       limit: data.rate_limit.limit,
       remaining: data.rate_limit.remaining,
     };
+    
+    // Cache for 5 minutes
+    setCache(cacheKey, rateLimitInfo, { ttl: 300000 });
+    
+    return rateLimitInfo;
   } catch (error) {
-    console.error('Failed to fetch rate limit:', error);
     return { limit: 0, remaining: 0 };
   }
 };

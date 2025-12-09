@@ -68,11 +68,10 @@ export const filterContributors = (
   contributors: Contributor[],
   {
     repositories,
-    contributionType,
     searchTerm,
   }: {
     repositories: string[];
-    contributionType: 'all' | 'commits' | 'prs' | 'issues';
+    contributionType: 'all' | 'commits';
     searchTerm: string;
   }
 ): Contributor[] => {
@@ -96,30 +95,6 @@ export const filterContributors = (
       }
     }
 
-    // Contribution type filter
-    if (contributionType !== 'all') {
-      let hasType = false;
-
-      for (const contrib of contributor.contributions) {
-        if (contributionType === 'commits' && contrib.commitsCount) {
-          hasType = true;
-          break;
-        }
-        if (contributionType === 'prs' && contrib.prsCount) {
-          hasType = true;
-          break;
-        }
-        if (contributionType === 'issues' && contrib.issuesCount) {
-          hasType = true;
-          break;
-        }
-      }
-
-      if (!hasType) {
-        return false;
-      }
-    }
-
     return true;
   });
 };
@@ -129,7 +104,7 @@ export const filterContributors = (
  */
 export const sortContributors = (
   contributors: Contributor[],
-  field: 'totalContributions' | 'name' | 'lastContribution',
+  field: 'totalContributions' | 'name',
   order: 'asc' | 'desc' = 'desc'
 ): Contributor[] => {
   const sorted = [...contributors].sort((a, b) => {
@@ -144,10 +119,6 @@ export const sortContributors = (
       case 'name':
         aValue = (a.name || a.login).toLowerCase();
         bValue = (b.name || b.login).toLowerCase();
-        break;
-      case 'lastContribution':
-        aValue = a.contributions[0]?.lastContribution || '';
-        bValue = b.contributions[0]?.lastContribution || '';
         break;
     }
 
@@ -180,8 +151,6 @@ export const exportToCSV = (contributors: Contributor[]): string => {
     'Total Contributions',
     'Repositories',
     'Commits',
-    'Pull Requests',
-    'Issues',
   ];
 
   const rows = contributors.map((contributor) => [
@@ -194,12 +163,6 @@ export const exportToCSV = (contributors: Contributor[]): string => {
     contributor.contributions.map((c) => c.repo).join(';'),
     contributor.contributions
       .reduce((sum, c) => sum + (c.commitsCount || 0), 0)
-      .toString(),
-    contributor.contributions
-      .reduce((sum, c) => sum + (c.prsCount || 0), 0)
-      .toString(),
-    contributor.contributions
-      .reduce((sum, c) => sum + (c.issuesCount || 0), 0)
       .toString(),
   ]);
 
