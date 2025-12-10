@@ -1,99 +1,99 @@
-<!DOCTYPE html>
-<html lang="en" class="dark:bg-[#121212] dark:text-[#e0e0e0]">
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Contribution Cards</title>
-        <link rel="shortcut icon" href="assets/favicon_io/favicon.ico"
-            type="image/x-icon">
-        <link rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css">
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-            rel="stylesheet">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Outfit:wght@400&display=swap"
-            rel="stylesheet">
-        <script src="js/index.js" type="module"></script>
-        <link rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    </head>
+    <!-- Primary SEO -->
+    <title>Contribution Cards — Curated Contributor Profiles for Open Source Projects</title>
+    <meta
+      name="description"
+      content="Contribution Cards: a curated collection of contributor profiles and recognition cards to help open-source projects celebrate and showcase their community members with beautiful, customizable cards."
+    />
+    <meta name="author" content="Wisdom Fox Community" />
+    <meta
+      name="keywords"
+      content="contribution cards, open source, contributor recognition, contributor profiles, GitHub contributors, open source community, community recognition"
+    />
 
-    <body class="font-['Outfit'] m-0">
-        <header class="sticky top-0 z-10 bg-gray-800 shadow-md rounded-b-md">
-            <nav
-                class="text-white flex flex-col sm:flex-row justify-between items-center px-4 gap-2 sm:gap-0"
-                aria-label="Main Navigation">
-                <h3
-                    class="navbar-brand text-lg md:text-2xl font-semibold cursor-default w-full sm:w-auto text-center sm:text-left">Contribution
-                    Cards</h3>
-                <div
-                    class="flex flex-col sm:flex-row items-center gap-2 w-full sm:w-auto">
-                    <div id="viewToggle"
-                        class="flex bg-gray-700 dark:bg-[#232a36] rounded-lg overflow-hidden border border-gray-600 mb-2 sm:mb-0"
-                        role="group" aria-label="View toggle">
-                        <button id="gridTab"
-                            class="px-3 py-1 flex items-center gap-1 text-white focus:outline-none transition-colors duration-200 bg-gray-700 dark:bg-[#232a36]"
-                            aria-label="Grid view" aria-pressed="true"
-                            tabindex="0">
-                            <span class="material-icons"
-                                aria-hidden="true">grid_view</span>
-                            <span class="hidden sm:inline">Grid</span>
-                        </button>
-                        <button id="listTab"
-                            class="px-3 py-1 flex items-center gap-1 text-white focus:outline-none transition-colors duration-200"
-                            aria-label="List view" aria-pressed="false"
-                            tabindex="0">
-                            <span class="material-icons"
-                                aria-hidden="true">view_list</span>
-                            <span class="hidden sm:inline">List</span>
-                        </button>
-                    </div>
-                    <input id="searchInput"
-                        class="form-control bg-white text-black flex-1 max-w-[25rem] px-2 py-1 rounded-md mb-2 sm:mb-0 sm:ml-2"
-                        type="search" placeholder="Search"
-                        aria-label="Search for cards" tabindex="0">
-                    <button id="themeToggleBtn" aria-pressed="false"
-                        aria-label="Switch to dark mode"
-                        class="rounded-lg inline-flex items-center justify-center bg-gray-200 hover:bg-gray-300 p-1 text-[1.4rem] transition-all duration-300 dark:bg-[#4a4a4a] hover:dark:bg-[#5a5a5a] ml-0 sm:ml-2"
-                        type="button" tabindex="0">
-                        <img id="themeIconSun" src="./assets/public/sun.png"
-                            alt="Sun">
-                        <img id="themeIconMoon" src="./assets/public/moon.png"
-                            class="hidden" alt="Moon">
-                    </button>
-                </div>
-            </nav>
-        </header>
+    <!-- Open Graph -->
+    <meta
+      property="og:title"
+      content="Contribution Cards — Curated Contributor Profiles for Open Source Projects"
+    />
+    <meta
+      property="og:description"
+      content="A curated collection of contributor recognition cards to help maintainers showcase and celebrate their community members beautifully."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://github.com/narainkarthikv/contribution-cards" />
+    <meta property="og:image" content="/public/android-chrome-512x512.png" />
+    <meta
+      property="og:image:alt"
+      content="Contribution Cards - Celebrate open source contributors"
+    />
 
-        <main class="container-fluid">
-            <!-- Contribution Cards Start -->
-            <!-- Grid Layout -->
-            <div
-                class="cards-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-8">
-                <!-- Cards will be dynamically added here -->
-            </div>
-            <!-- List Layout -->
-            <div
-                class="cards-list flex flex-col w-full h-fit justify-center items-center">
-                <!-- Cards will be dynamically added here -->
-            </div>
-            <!-- Contribution Cards End -->
-        </main>
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Contribution Cards — Curated Contributor Profiles for Open Source Projects"
+    />
+    <meta
+      name="twitter:description"
+      content="Browse and customize beautiful contributor recognition cards for your open-source project."
+    />
+    <meta name="twitter:image" content="/public/android-chrome-512x512.png" />
 
-        <footer
-            class="fixed rounded-t-xl bottom-0 left-0 w-full bg-gray-800 text-white text-center py-2.5 shadow-[0_-1px_5px_rgba(0,0,0,0.1)] dark:bg-[#1e1e1e]">
-            &copy; 2025 Contribution Cards - An Open source contribution project
-            by
-            <a href="https://github.com/narainkarthikv"
-                class="text-blue-500 hover:underline">Wisdom Fox Community</a>
-        </footer>
+    <!-- Robots & Canonical -->
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://github.com/narainkarthikv/contribution-cards" />
 
-        <script src="./js/main.js" type="module"></script>
+    <!-- Structured Data: Website + Organization -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "name": "Contribution Cards",
+            "url": "https://github.com/narainkarthikv/contribution-cards",
+            "description": "Curated contributor recognition cards for open-source projects",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://github.com/narainkarthikv/contribution-cards?search={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          },
+          {
+            "@type": "Organization",
+            "name": "Wisdom Fox Community",
+            "url": "https://github.com/narainkarthikv",
+            "logo": "/public/android-chrome-512x512.png",
+            "sameAs": [
+              "https://github.com/narainkarthikv",
+              "https://github.com/narainkarthikv/contribution-cards"
+            ]
+          },
+          {
+            "@type": "CollectionPage",
+            "name": "Contribution Cards Collection",
+            "description": "A curated collection of contributor profiles and recognition cards",
+            "url": "https://github.com/narainkarthikv/contribution-cards"
+          }
+        ]
+      }
+    </script>
 
-    </body>
-
+    <!-- Favicon & Apple Touch Icon -->
+    <link rel="shortcut icon" href="public/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="public/apple-touch-icon.png" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
