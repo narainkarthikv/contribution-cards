@@ -8,7 +8,7 @@ Welcome to **Contribution Cards**! This project lets you design and showcase you
 [![GitHub forks](https://img.shields.io/github/forks/narainkarthikv/contribution-cards?style=flat-square)](https://github.com/narainkarthikv/contribution-cards/network)
 [![GitHub stars](https://img.shields.io/github/stars/narainkarthikv/contribution-cards?style=flat-square)](https://github.com/narainkarthikv/contribution-cards/stargazers)
 [![MIT License](https://img.shields.io/github/license/narainkarthikv/contribution-cards?style=flat-square)](./MIT-LICENSE.txt)
-
+[![Version](https://img.shields.io/github/package-json/v/narainkarthikv/contribution-cards?style=flat-square)](./package.json)
 ---
 
 ## 🌟 Why Contribution Cards?
