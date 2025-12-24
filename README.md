@@ -126,5 +126,3 @@ Open a PR against `develop`. If you're adding or editing data used by the app, c
 - Clear cache: `__GITHUB_CACHE_DEBUG__.cache.clearAll()`
 
 ---
-
-If you want, I can also run the dev server and verify the app boots locally, or prepare a short “how to add your card” snippet tailored to the current React app — tell me which you prefer.
