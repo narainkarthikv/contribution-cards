@@ -1,12 +1,23 @@
 /**
- * GitHub API Types
+ * GitHub API Types & Domain Models
+ * Separation of concerns: Types here are used across Models, Services, and Controllers
  */
 
+// ============================================================================
+// DOMAIN MODELS (Business Logic)
+// ============================================================================
+
+/**
+ * Repository Contribution - represents contributions to a specific repository
+ */
 export interface RepoContrib {
   repo: string;
   commitsCount?: number;
 }
 
+/**
+ * Contributor Domain Model - represents an aggregated contributor across multiple repos
+ */
 export interface Contributor {
   login: string;
   name?: string;
@@ -16,6 +27,10 @@ export interface Contributor {
   contributions: RepoContrib[];
   totalContributions: number;
 }
+
+// ============================================================================
+// API RESPONSE TYPES (from GitHub API)
+// ============================================================================
 
 export interface GitHubUser {
   login: string;
@@ -51,12 +66,22 @@ export interface GraphQLResponse<T> {
   errors?: GraphQLError[];
 }
 
+// ============================================================================
+// CONTROLLER/STATE TYPES
+// ============================================================================
+
+/**
+ * Filter Options - used for filtering contributors in the UI
+ */
 export interface FilterOptions {
   repositories: string[];
   contributionType: 'all' | 'commits';
   searchTerm: string;
 }
 
+/**
+ * Sort Option - used for sorting contributors
+ */
 export interface SortOption {
   field: 'totalContributions' | 'name';
   order: 'asc' | 'desc';

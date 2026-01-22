@@ -1,90 +1,66 @@
 /**
- * Contributors Page
+ * Contributors Page - VIEW
  * Main page displaying all contributors with filtering and sorting
+ * Orchestrates UI using controllers (hooks) for state management
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { motion } from 'framer-motion';
-import type { Contributor, FilterOptions, SortOption } from '../types/github';
+import type { Contributor } from '../types/github';
 import { ContributorCard } from '../components/ContributorCard';
 import { ContributorModal } from '../components/ContributorModal';
 import { FiltersBar } from '../components/FiltersBar';
 import { LoadingSkeletons, ErrorState, EmptyState } from '../components/LoadingStates';
-import {
-  filterContributors,
-  sortContributors,
-  exportToCSV,
-} from '../utils/aggregateContributors';
-import { useContributors } from '../hooks/useContributors';
-import { REPOSITORIES } from '../App';
+import { useContributors } from '../controllers/useContributors';
+import { useContributorsPageState } from '../controllers/useContributorsPageState';
+import { REPOSITORY_LIST } from '../constants/repositories';
 
 export const ContributorsPage: React.FC = () => {
-  const [selectedContributor, setSelectedContributor] =
-    useState<Contributor | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // Page state management (CONTROLLER)
+  const pageState = useContributorsPageState(null);
 
-  const [selectedRepositories, setSelectedRepositories] = useState<string[]>([
-    REPOSITORIES[0],
-  ]);
-
-  const [filters, setFilters] = useState<FilterOptions>({
-    repositories: [],
-    contributionType: 'all',
-    searchTerm: '',
-  });
-
-  const [sortBy, setSortBy] = useState<SortOption>({
-    field: 'totalContributions',
-    order: 'desc',
-  });
-
-  const [filteredContributors, setFilteredContributors] = useState<
-    Contributor[]
-  >([]);
-
+  // Data fetching (MODEL - via Controller)
   const { data: contributors, isLoading, isError, refetch } = useContributors({
-    repositories: selectedRepositories,
+    repositories: pageState.selectedRepositories.length > 0 ? pageState.selectedRepositories : [REPOSITORY_LIST[0]],
     enableAutoFetch: true,
   });
 
-  // Apply filters and sorting
-  useEffect(() => {
+  // Update page state when contributors change
+  React.useEffect(() => {
     if (contributors) {
-      let result = filterContributors(contributors, filters);
-      result = sortContributors(result, sortBy.field, sortBy.order);
-      setFilteredContributors(result);
+      pageState.setContributors(contributors);
     }
-  }, [contributors, filters, sortBy]);
+  }, [contributors, pageState]);
 
-  const handleSelectRepository = (repo: string) => {
-    setSelectedRepositories([repo]);
-    setFilters({
-      repositories: [],
-      contributionType: 'all',
-      searchTerm: '',
-    });
-    setSortBy({
-      field: 'totalContributions',
-      order: 'desc',
-    });
-  };
+  /**
+   * Handle repository selection
+   */
+  const handleSelectRepository = useCallback(
+    (repo: string) => {
+      pageState.selectRepository(repo);
+    },
+    [pageState]
+  );
 
-  const handleViewDetails = (contributor: Contributor) => {
-    setSelectedContributor(contributor);
-    setIsModalOpen(true);
-  };
+  /**
+   * Handle contributor details view
+   */
+  const handleViewDetails = useCallback(
+    (contributor: Contributor) => {
+      pageState.setSelectedContributor(contributor);
+      pageState.setIsModalOpen(true);
+    },
+    [pageState]
+  );
 
-  const handleExport = () => {
-    const csv = exportToCSV(filteredContributors);
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `contributors-${new Date().toISOString().split('T')[0]}.csv`;
-    a.click();
-    window.URL.revokeObjectURL(url);
-  };
+  /**
+   * Handle CSV export
+   */
+  const handleExport = useCallback(() => {
+    pageState.handleExport(pageState.filteredContributors);
+  }, [pageState]);
 
+  // Error state
   if (isError) {
     return (
       <div className="w-full bg-gray-50 dark:bg-slate-950 py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
@@ -100,95 +76,55 @@ export const ContributorsPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full bg-gray-50 dark:bg-slate-950 py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+    <div className="w-full min-h-screen px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       <div className="w-full max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8 sm:mb-12"
-        >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4">
-            Meet Our Contributors
-          </h1>
-          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
-            Explore the amazing people contributing to our open-source projects
-          </p>
-        </motion.div>
-
-        {/* Repository Selection */}
+        {/* Consolidated Filters Bar - Single Row */}
         {!isLoading && contributors && contributors.length > 0 && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6 sm:mb-8"
+            transition={{ duration: 0.5 }}
+            className="mb-8 sm:mb-10"
           >
-            <label className="block text-sm font-semibold text-gray-900 dark:text-white mb-3">
-              Select Repository
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-              {REPOSITORIES.map((repo) => (
-                <motion.button
-                  key={repo}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handleSelectRepository(repo)}
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-all border ${
-                    selectedRepositories.includes(repo)
-                      ? 'bg-blue-600 text-white border-blue-600'
-                      : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400'
-                  }`}
-                >
-                  {repo.split('/')[1]}
-                </motion.button>
-              ))}
-            </div>
+            <FiltersBar
+              repositories={Array.from(REPOSITORY_LIST)}
+              selectedRepositories={pageState.selectedRepositories}
+              filters={pageState.filters}
+              sortBy={pageState.sortBy}
+              onRepositorySelect={handleSelectRepository}
+              onFilterChange={pageState.updateFilters}
+              onSortChange={pageState.updateSort}
+              onExport={handleExport}
+              totalContributors={pageState.filteredContributors.length}
+            />
           </motion.div>
         )}
 
-        {/* Filters Bar */}
-        {!isLoading && contributors && contributors.length > 0 && (
-          <FiltersBar
-            repositories={REPOSITORIES}
-            filters={filters}
-            sortBy={sortBy}
-            onFilterChange={setFilters}
-            onSortChange={setSortBy}
-            onExport={handleExport}
-            totalContributors={filteredContributors.length}
-          />
-        )}
-
-        {/* Contributors Grid */}
+        {/* Contributors Grid - Modern Masonry */}
         <div className="space-y-8">
           {isLoading ? (
             <LoadingSkeletons count={12} />
-          ) : filteredContributors.length > 0 ? (
-            <>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
-              >
-                {filteredContributors.map((contributor) => (
+          ) : pageState.filteredContributors.length > 0 ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, staggerChildren: 0.05 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8"
+            >
+              {pageState.filteredContributors.map((contributor, index) => (
+                <motion.div
+                  key={contributor.login}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                >
                   <ContributorCard
-                    key={contributor.login}
                     contributor={contributor}
                     onViewDetails={handleViewDetails}
                   />
-                ))}
-              </motion.div>
-
-              {/* Pagination Info */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center py-8 text-gray-600 dark:text-gray-400 text-sm sm:text-base"
-              >
-                Showing {filteredContributors.length} of {contributors?.length ?? 0}{' '}
-                contributors
-              </motion.div>
-            </>
+                </motion.div>
+              ))}
+            </motion.div>
           ) : (
             <EmptyState
               title="No Contributors Found"
@@ -200,9 +136,9 @@ export const ContributorsPage: React.FC = () => {
 
       {/* Modal */}
       <ContributorModal
-        contributor={selectedContributor}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        contributor={pageState.selectedContributor}
+        isOpen={pageState.isModalOpen}
+        onClose={() => pageState.setIsModalOpen(false)}
       />
     </div>
   );
