@@ -1,218 +1,213 @@
 /**
- * Home Page (Landing Page)
- * Hero section with key metrics and quick navigation
+ * Home Page (Landing Page) – VIEW
+ * Refined hero, balanced typography, scroll-safe layout
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Github, Users, Zap, ArrowRight } from 'lucide-react';
-import { useContributors } from '../hooks/useContributors';
-import { REPOSITORIES } from '../App';
+
+import { useContributors } from '../controllers/useContributors';
+import { REPOSITORY_LIST } from '../constants/repositories';
+
+/* ----------------------------- Motion Variants ---------------------------- */
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.12 },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
+
+/* ------------------------------ UI Components ------------------------------ */
+
+const StatCard = ({
+  icon: Icon,
+  value,
+  label,
+  loading,
+}: {
+  icon: React.ElementType;
+  value: number;
+  label: string;
+  loading: boolean;
+}) => (
+  <motion.div
+    whileHover={{ scale: 1.03 }}
+    className="
+      rounded-2xl border border-gray-200 dark:border-slate-700
+      bg-white/90 dark:bg-slate-800/80
+      px-8 py-8 text-center
+      shadow-sm backdrop-blur
+      transition hover:shadow-md
+    "
+  >
+    <Icon className="mx-auto mb-3 h-7 w-7 text-blue-600 dark:text-blue-400" />
+    <div className="text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+      {loading ? '—' : value}
+    </div>
+    <p className="mt-1 text-sm font-medium text-gray-600 dark:text-gray-400">
+      {label}
+    </p>
+  </motion.div>
+);
+
+/* --------------------------------- View ---------------------------------- */
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
-  const [stats, setStats] = useState({
-    totalContributors: 0,
-    totalContributions: 0,
-  });
 
   const { data: contributors, isLoading } = useContributors({
-    repositories: [REPOSITORIES[0]],
+    repositories: [REPOSITORY_LIST[0]],
     enableAutoFetch: true,
   });
 
-  useEffect(() => {
-    if (contributors) {
-      const totalContributors = contributors.length;
-      const totalContributions = contributors.reduce(
+  const stats = useMemo(() => {
+    if (!contributors) {
+      return { totalContributors: 0, totalContributions: 0 };
+    }
+
+    return {
+      totalContributors: contributors.length,
+      totalContributions: contributors.reduce(
         (sum, c) => sum + c.totalContributions,
         0
-      );
-
-      setStats({
-        totalContributors,
-        totalContributions,
-      });
-    }
+      ),
+    };
   }, [contributors]);
 
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  };
-
   return (
-    <div className="w-full bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
-      <motion.section
-        initial="hidden"
-        animate="show"
-        variants={container}
-        className="relative w-full overflow-hidden py-16 sm:py-24 md:py-32 px-4 sm:px-6 lg:px-8"
-      >
-        <div className="absolute top-0 right-0 w-64 sm:w-96 h-64 sm:h-96 bg-blue-400 rounded-full blur-3xl opacity-10 dark:opacity-15 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-64 sm:w-96 h-64 sm:h-96 bg-purple-400 rounded-full blur-3xl opacity-10 dark:opacity-15 pointer-events-none" />
+    <main className="relative h-screen w-full overflow-hidden">
+      {/* -------------------------------- Hero -------------------------------- */}
+      <section className="relative grid h-full place-items-center overflow-hidden px-6">
+        {/* Decorative blobs (scroll-safe) */}
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-32 right-0 h-72 w-72 rounded-full bg-blue-400/20 blur-3xl" />
+          <div className="absolute -bottom-32 left-0 h-72 w-72 rounded-full bg-purple-400/20 blur-3xl" />
+        </div>
 
-        <div className="relative w-full max-w-6xl mx-auto text-center">
-          <motion.div variants={item} className="mb-4 sm:mb-6">
-            <div className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300 px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-semibold">
-              <Zap size={14} className="sm:w-4 sm:h-4" />
+        <motion.div
+          variants={container}
+          initial="hidden"
+          animate="show"
+          className="relative mx-auto max-w-5xl text-center"
+        >
+          {/* Badge */}
+          <motion.div variants={fadeUp} className="mb-5">
+            <span
+              className="
+                inline-flex items-center gap-2 rounded-full
+                border border-blue-300/40 dark:border-blue-800/40
+                bg-blue-100/70 dark:bg-blue-900/30
+                px-4 py-2 text-xs font-semibold
+                text-blue-700 dark:text-blue-300
+              "
+            >
+              <Zap size={14} />
               Dynamic GitHub Contributors
-            </div>
+            </span>
           </motion.div>
 
+          {/* Heading (semantic + visual fix) */}
           <motion.h1
-            variants={item}
-            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white mb-4 sm:mb-6 leading-tight px-2"
+            variants={fadeUp}
+            className="
+              text-[clamp(2.75rem,6vw,5.5rem)]
+              font-extrabold leading-[1.05]
+              tracking-tight text-gray-900 dark:text-white
+            "
           >
-            Celebrate the People
-            <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Who Build
+            Celebrate the
+            <span className="block text-blue-600 dark:text-blue-400">
+              People Who Build
             </span>
           </motion.h1>
 
+          {/* Subtitle */}
           <motion.p
-            variants={item}
-            className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8 sm:mb-12 px-2"
+            variants={fadeUp}
+            className="
+              mx-auto mt-5 max-w-2xl
+              text-base sm:text-lg
+              leading-relaxed
+              text-gray-600 dark:text-gray-400
+            "
           >
-            Dynamically pulled from GitHub. Filter, sort, and explore contributors across multiple repositories with interactive insights.
+            Discover, filter, and explore contributors dynamically pulled from
+            GitHub across multiple open-source repositories.
           </motion.p>
 
-          <motion.div variants={item} className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
-            {[
-              {
-                icon: Users,
-                value: stats.totalContributors,
-                label: 'Contributors',
-              },
-              {
-                icon: Zap,
-                value: stats.totalContributions,
-                label: 'Contributions',
-              },
-              {
-                icon: Github,
-                value: REPOSITORIES.length,
-                label: 'Repositories',
-              },
-            ].map(({ icon: Icon, value, label }, idx) => (
-              <motion.div
-                key={idx}
-                whileHover={{ scale: 1.05 }}
-                className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-lg sm:rounded-2xl p-4 sm:p-6 border border-gray-200 dark:border-gray-700 shadow-lg"
-              >
-                <Icon className="w-6 sm:w-8 h-6 sm:h-8 text-blue-600 dark:text-blue-400 mb-3 sm:mb-4 mx-auto" />
-                <div className="text-2xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-1 sm:mb-2">
-                  {isLoading ? '...' : value}
-                </div>
-                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 font-medium">
-                  {label}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <motion.div variants={item} className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+          {/* CTA */}
+          <motion.div
+            variants={fadeUp}
+            className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:justify-center"
+          >
+            <button
               onClick={() => navigate('/contributors')}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg sm:rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl text-sm sm:text-base"
+              className="
+                inline-flex items-center gap-2 rounded-xl
+                bg-blue-600 px-8 py-3.5
+                text-sm sm:text-base font-semibold text-white
+                shadow-md transition
+                hover:bg-blue-700 hover:shadow-lg
+              "
             >
               Explore Contributors
-              <ArrowRight size={18} className="sm:w-5 sm:h-5" />
-            </motion.button>
+              <ArrowRight size={18} />
+            </button>
 
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+            <a
               href="https://github.com/narainkarthikv"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-gray-900 dark:bg-gray-700 hover:bg-gray-800 dark:hover:bg-gray-600 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg sm:rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl text-sm sm:text-base"
+              className="
+                inline-flex items-center gap-2 rounded-xl
+                border border-gray-300 dark:border-slate-700
+                bg-gray-900 dark:bg-slate-900
+                px-8 py-3.5
+                text-sm sm:text-base font-semibold text-white
+                shadow-sm transition
+                hover:bg-gray-800 dark:hover:bg-slate-800
+              "
             >
-              <Github size={18} className="sm:w-5 sm:h-5" />
+              <Github size={18} />
               View on GitHub
-            </motion.a>
+            </a>
           </motion.div>
-        </div>
-      </motion.section>
 
-      <section className="w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white/50 dark:bg-slate-800/50">
-        <div className="w-full max-w-6xl mx-auto">
+          {/* Stats (height-controlled) */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8 sm:mb-12"
+            variants={fadeUp}
+            className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-3"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2 sm:mb-4">
-              Featured Repositories
-            </h2>
-            <p className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400">
-              Contributors from these amazing projects
-            </p>
+            <StatCard
+              icon={Users}
+              value={stats.totalContributors}
+              label="Contributors"
+              loading={isLoading}
+            />
+            <StatCard
+              icon={Zap}
+              value={stats.totalContributions}
+              label="Contributions"
+              loading={isLoading}
+            />
+            <StatCard
+              icon={Github}
+              value={REPOSITORY_LIST.length}
+              label="Repositories"
+              loading={false}
+            />
           </motion.div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {REPOSITORIES.map((repo, idx) => (
-              <motion.a
-                key={repo}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ scale: 1.05 }}
-                href={`https://github.com/${repo}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-white dark:bg-gray-800 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all"
-              >
-                <div className="flex items-start gap-3 mb-4">
-                  <Github size={20} className="sm:w-6 sm:h-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-1" />
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white truncate">
-                    {repo.split('/')[1]}
-                  </h3>
-                </div>
-                <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 truncate">
-                  {repo}
-                </p>
-              </motion.a>
-            ))}
-          </div>
-        </div>
+        </motion.div>
       </section>
-
-      <motion.section
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-600 to-purple-600"
-      >
-        <div className="w-full max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 sm:mb-6 px-2">
-            Ready to explore contributors?
-          </h2>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/contributors')}
-            className="bg-white hover:bg-gray-100 text-blue-600 font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-lg sm:rounded-xl transition-all shadow-lg hover:shadow-xl text-sm sm:text-base"
-          >
-            View All Contributors
-          </motion.button>
-        </div>
-      </motion.section>
-    </div>
+    </main>
   );
 };
