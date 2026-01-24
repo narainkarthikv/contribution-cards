@@ -5,7 +5,6 @@
  */
 
 import React, { useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Users, Zap, GitFork } from 'lucide-react';
 import type { Contributor } from '../types/github';
@@ -19,9 +18,6 @@ import { useContributorsPageState } from '../controllers/useContributorsPageStat
 import { REPOSITORY_LIST } from '../constants/repositories';
 
 export const ContributorsPage: React.FC = () => {
-  // Navigation
-  const navigate = useNavigate();
-  
   // Global stats hook (for summary display)
   const { stats: globalStats, isLoading: globalStatsLoading } = useGlobalStats();
   

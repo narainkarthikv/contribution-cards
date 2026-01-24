@@ -18,7 +18,6 @@ interface FiltersBarProps {
   onRepositorySelect: (repo: string) => void;
   onFilterChange: (filters: FilterOptions) => void;
   onSortChange: (sort: SortOption) => void;
-  onExport?: () => void;
   totalContributors: number;
 }
 
@@ -30,7 +29,6 @@ export const FiltersBar: React.FC<FiltersBarProps> = ({
   onRepositorySelect,
   onFilterChange,
   onSortChange,
-  onExport,
   totalContributors,
 }) => {
   const [showRepoDropdown, setShowRepoDropdown] = useState(false);

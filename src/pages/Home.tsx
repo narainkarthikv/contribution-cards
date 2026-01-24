@@ -3,7 +3,7 @@
  * Refined hero, balanced typography, scroll-safe layout
  */
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Github, Users, Zap, ArrowRight } from 'lucide-react';
