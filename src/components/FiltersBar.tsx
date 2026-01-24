@@ -6,7 +6,7 @@
 
 import React, { useCallback, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Download, ChevronDown } from 'lucide-react';
+import { Search, ChevronDown, ArrowUp, ArrowDown } from 'lucide-react';
 import type { FilterOptions, SortOption } from '../types/github';
 import { debounce } from '../utils/common';
 
@@ -18,7 +18,7 @@ interface FiltersBarProps {
   onRepositorySelect: (repo: string) => void;
   onFilterChange: (filters: FilterOptions) => void;
   onSortChange: (sort: SortOption) => void;
-  onExport: () => void;
+  onExport?: () => void;
   totalContributors: number;
 }
 
@@ -58,20 +58,20 @@ export const FiltersBar: React.FC<FiltersBarProps> = ({
       transition={{ duration: 0.5 }}
       className="w-full bg-white dark:bg-slate-800 rounded-lg p-4 sm:p-5 border border-gray-200 dark:border-slate-700 shadow-sm"
     >
-      {/* Single Row Filters - Responsive Layout */}
-      <div className="flex flex-col gap-3 sm:gap-4 sm:flex-row sm:items-center sm:justify-between flex-wrap">
+      {/* Single Row Filters - Responsive Layout with Unified Heights */}
+      <div className="flex flex-col gap-3 sm:gap-3 sm:flex-row sm:items-stretch sm:justify-between flex-wrap">
         
         {/* Repository Dropdown */}
-        <div className="relative min-w-max">
+        <div className="relative">
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setShowRepoDropdown(!showRepoDropdown)}
-            className="flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg hover:border-blue-400 dark:hover:border-blue-400 transition-colors text-sm font-medium whitespace-nowrap"
+            className="flex items-center justify-center gap-2 px-4 py-0 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg hover:border-blue-400 dark:hover:border-blue-400 transition-colors text-sm font-medium whitespace-nowrap h-10 w-full sm:w-auto"
           >
             <span className="hidden sm:inline text-gray-600 dark:text-gray-400 text-xs">Repo:</span>
             <span className="font-semibold text-gray-900 dark:text-white">{selectedRepoDisplay}</span>
-            <ChevronDown size={16} className={`transition-transform ${showRepoDropdown ? 'rotate-180' : ''}`} />
+            <ChevronDown size={16} className={`transition-transform flex-shrink-0 ${showRepoDropdown ? 'rotate-180' : ''}`} />
           </motion.button>
 
           {/* Dropdown Menu */}
@@ -109,20 +109,20 @@ export const FiltersBar: React.FC<FiltersBarProps> = ({
         </div>
 
         {/* Search Bar */}
-        <div className="flex-1 min-w-48 sm:min-w-56">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 flex-shrink-0" />
+        <div className="flex-1 min-w-48 sm:min-w-56 h-10">
+          <div className="relative h-full flex items-center">
+            <Search className="absolute left-3 w-4 h-4 text-gray-400 flex-shrink-0" />
             <input
               type="text"
               placeholder="Search by name..."
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="w-full pl-10 pr-3 py-2 sm:py-2.5 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
+              className="w-full h-full pl-10 pr-3 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-sm"
             />
           </div>
         </div>
 
         {/* Sort By Dropdown */}
-        <div className="min-w-max">
+        <div className="h-10 w-full sm:w-auto">
           <select
             value={sortBy.field}
             onChange={(e) =>
@@ -131,42 +131,43 @@ export const FiltersBar: React.FC<FiltersBarProps> = ({
                 field: e.target.value as any,
               })
             }
-            className="px-3 sm:px-4 py-2 sm:py-2.5 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            className="w-full h-full px-4 py-0 border border-gray-300 dark:border-slate-600 dark:bg-slate-700 dark:text-white rounded-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
           >
             <option value="totalContributions">Contributions</option>
             <option value="name">Name</option>
           </select>
         </div>
 
-        {/* Order Toggle Buttons */}
-        <div className="flex gap-1.5">
-          {(['asc', 'desc'] as const).map((order) => (
-            <motion.button
-              key={order}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => onSortChange({ ...sortBy, order })}
-              className={`px-2.5 sm:px-3 py-2 sm:py-2.5 rounded-lg text-sm font-semibold transition-all touch-none whitespace-nowrap ${
-                sortBy.order === order
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-600'
-              }`}
-            >
-              {order === 'asc' ? '↑ Asc' : '↓ Desc'}
-            </motion.button>
-          ))}
-        </div>
+        {/* Sort Direction Buttons with Icons */}
+        <div className="flex gap-1.5 h-10">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => onSortChange({ ...sortBy, order: 'asc' })}
+            className={`flex items-center justify-center px-3 py-0 rounded-lg transition-all touch-none border border-gray-300 dark:border-slate-600 ${
+              sortBy.order === 'asc'
+                ? 'bg-blue-600 text-white border-blue-600'
+                : 'bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-600'
+            }`}
+            title="Sort ascending"
+          >
+            <ArrowUp size={18} />
+          </motion.button>
 
-        {/* Export Button */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={onExport}
-          className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg transition-colors font-semibold text-sm shadow-sm hover:shadow-md touch-none whitespace-nowrap"
-        >
-          <Download size={16} />
-          <span className="hidden sm:inline">Export</span>
-        </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => onSortChange({ ...sortBy, order: 'desc' })}
+            className={`flex items-center justify-center px-3 py-0 rounded-lg transition-all touch-none border border-gray-300 dark:border-slate-600 ${
+              sortBy.order === 'desc'
+                ? 'bg-blue-600 text-white border-blue-600'
+                : 'bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-600'
+            }`}
+            title="Sort descending"
+          >
+            <ArrowDown size={18} />
+          </motion.button>
+        </div>
       </div>
 
       {/* Summary Line */}

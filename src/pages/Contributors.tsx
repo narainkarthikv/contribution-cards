@@ -5,17 +5,26 @@
  */
 
 import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Users, Zap, GitFork } from 'lucide-react';
 import type { Contributor } from '../types/github';
 import { ContributorCard } from '../components/ContributorCard';
 import { ContributorModal } from '../components/ContributorModal';
 import { FiltersBar } from '../components/FiltersBar';
 import { LoadingSkeletons, ErrorState, EmptyState } from '../components/LoadingStates';
 import { useContributors } from '../controllers/useContributors';
+import { useGlobalStats } from '../controllers/useGlobalStats';
 import { useContributorsPageState } from '../controllers/useContributorsPageState';
 import { REPOSITORY_LIST } from '../constants/repositories';
 
 export const ContributorsPage: React.FC = () => {
+  // Navigation
+  const navigate = useNavigate();
+  
+  // Global stats hook (for summary display)
+  const { stats: globalStats, isLoading: globalStatsLoading } = useGlobalStats();
+  
   // Page state management (CONTROLLER)
   const pageState = useContributorsPageState(null);
 
@@ -53,13 +62,6 @@ export const ContributorsPage: React.FC = () => {
     [pageState]
   );
 
-  /**
-   * Handle CSV export
-   */
-  const handleExport = useCallback(() => {
-    pageState.handleExport(pageState.filteredContributors);
-  }, [pageState]);
-
   // Error state
   if (isError) {
     return (
@@ -78,6 +80,65 @@ export const ContributorsPage: React.FC = () => {
   return (
     <div className="w-full min-h-screen px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
       <div className="w-full max-w-7xl mx-auto">
+
+        {/* Global Stats Summary */}
+        {globalStats && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-8 grid grid-cols-1 sm:grid-cols-3 gap-4"
+          >
+            {/* Unique Contributors Summary */}
+            <div className="rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-4 shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-blue-100 dark:bg-blue-900/30">
+                  <Users size={20} className="text-blue-600 dark:text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-gray-600 dark:text-gray-400">Across All Repos</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {globalStatsLoading ? '—' : globalStats.uniqueContributorCount}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-500">Unique Contributors</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Total Contributions Summary */}
+            <div className="rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-4 shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-green-100 dark:bg-green-900/30">
+                  <Zap size={20} className="text-green-600 dark:text-green-400" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-gray-600 dark:text-gray-400">Total</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {globalStatsLoading ? '—' : globalStats.totalContributions}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-500">Contributions</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Repositories Summary */}
+            <div className="rounded-lg bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-4 shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-purple-100 dark:bg-purple-900/30">
+                  <GitFork size={20} className="text-purple-600 dark:text-purple-400" />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-gray-600 dark:text-gray-400">Active</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {globalStats.totalRepositories}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-500">Repositories</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {/* Consolidated Filters Bar - Single Row */}
         {!isLoading && contributors && contributors.length > 0 && (
           <motion.div
@@ -94,7 +155,6 @@ export const ContributorsPage: React.FC = () => {
               onRepositorySelect={handleSelectRepository}
               onFilterChange={pageState.updateFilters}
               onSortChange={pageState.updateSort}
-              onExport={handleExport}
               totalContributors={pageState.filteredContributors.length}
             />
           </motion.div>

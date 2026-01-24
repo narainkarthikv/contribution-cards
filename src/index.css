@@ -25,12 +25,12 @@ html {
 }
 
 html:not(.dark) {
-  background: linear-gradient(135deg, #ffffff 0%, #f5f7ff 50%, #f0f4ff 100%);
+  background: #ffffff;
   color: #111827;
 }
 
 html.dark {
-  background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 50%, #0d1929 100%);
+  background: #0f172a;
   color: #f1f5f9;
 }
 

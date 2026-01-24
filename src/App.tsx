@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Github, X } from 'lucide-react';
 import { Home } from './pages/Home';
@@ -18,10 +18,13 @@ import {
   APP_AUTHOR_URL 
 } from './constants/repositories';
 
-export const App: React.FC = () => {
+export const AppContent: React.FC = () => {
   const { isDark, toggleTheme } = useTheme();
   const [showTokenWarning, setShowTokenWarning] = useState(false);
   const [tokenValid, setTokenValid] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === '/';
 
   /**
    * Validate GitHub token on mount
@@ -38,43 +41,48 @@ export const App: React.FC = () => {
   }, []);
 
   return (
-    <Router>
-      <div className="w-full h-full flex flex-col">
-        {/* Token Warning Banner */}
-        {showTokenWarning && !tokenValid && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/40 border-b-2 border-amber-300 dark:border-amber-700 px-4 py-4 flex-shrink-0 backdrop-blur-sm"
-          >
-            <div className="w-full max-w-7xl mx-auto flex items-center justify-between gap-4">
-              <div className="text-sm text-amber-900 dark:text-amber-200 flex-1">
-                <span className="font-bold">⚠️ GitHub Token Not Found:</span> Set VITE_GITHUB_TOKEN in .env.local for higher API limits (60 → 5,000 requests/hour)
-              </div>
-              <button
-                onClick={() => setShowTokenWarning(false)}
-                className="text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 flex-shrink-0 transition-colors p-1"
-                aria-label="Dismiss warning"
-              >
-                <X size={20} />
-              </button>
+    <div className="w-full h-full flex flex-col">
+      {/* Token Warning Banner */}
+      {showTokenWarning && !tokenValid && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/40 dark:to-orange-950/40 border-b-2 border-amber-300 dark:border-amber-700 px-4 py-4 flex-shrink-0 backdrop-blur-sm"
+        >
+          <div className="w-full max-w-7xl mx-auto flex items-center justify-between gap-4">
+            <div className="text-sm text-amber-900 dark:text-amber-200 flex-1">
+              <span className="font-bold">⚠️ GitHub Token Not Found:</span> Set VITE_GITHUB_TOKEN in .env.local for higher API limits (60 → 5,000 requests/hour)
             </div>
-          </motion.div>
-        )}
+            <button
+              onClick={() => setShowTokenWarning(false)}
+              className="text-amber-600 dark:text-amber-400 hover:text-amber-800 dark:hover:text-amber-300 flex-shrink-0 transition-colors p-1"
+              aria-label="Dismiss warning"
+            >
+              <X size={20} />
+            </button>
+          </div>
+        </motion.div>
+      )}
 
-        {/* Header - Modern Glassmorphism */}
-        <header className="sticky top-0 z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-slate-800/50 flex-shrink-0 shadow-sm">
-          <nav className="h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4 max-w-full">
-            <div className="flex items-center gap-3 flex-1 min-w-0">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition" />
-                <Github className="w-7 h-7 text-white relative flex-shrink-0" />
-              </div>
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 truncate">
-                {APP_NAME}
-              </h1>
-            </div>
+      {/* Header - Modern Glassmorphism */}
+      <header className="sticky top-0 z-20 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-slate-800/50 flex-shrink-0 shadow-sm">
+        <nav className="h-16 px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4 max-w-full">
+          <motion.button
+            whileHover={!isHomePage ? { scale: 1.02 } : {}}
+            whileTap={!isHomePage ? { scale: 0.98 } : {}}
+            onClick={() => !isHomePage && navigate('/')}
+            disabled={isHomePage}
+            className={`flex items-center gap-3 flex-1 min-w-0 ${
+              !isHomePage ? 'cursor-pointer' : 'cursor-default'
+            }`}
+            aria-label={!isHomePage ? 'Go to home' : 'You are on home page'}
+          >
+            <Github className="w-7 h-7 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-blue-600 dark:text-blue-400 truncate">
+              {APP_NAME}
+            </h1>
+          </motion.button>
 
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               <button
@@ -109,7 +117,7 @@ export const App: React.FC = () => {
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 w-full overflow-y-auto">
+        <main className="flex-1 w-full overflow-y-auto overflow-x-hidden">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/contributors" element={<ContributorsPage />} />
@@ -128,12 +136,19 @@ export const App: React.FC = () => {
                 rel="noopener noreferrer"
                 className="text-blue-600 dark:text-blue-400 hover:text-purple-600 dark:hover:text-purple-400 font-bold transition-colors"
               >
-                {APP_AUTHOR} ⭐
+                {APP_AUTHOR}
               </motion.a>
             </p>
           </div>
         </footer>
       </div>
+    );
+};
+
+export const App: React.FC = () => {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 };
