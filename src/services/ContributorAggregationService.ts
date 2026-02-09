@@ -4,7 +4,11 @@
  * from multiple repositories and enriching with user profile information
  */
 
-import type { Contributor, ContributorResponse, RepoContrib } from '../types/github';
+import type {
+  Contributor,
+  ContributorResponse,
+  RepoContrib,
+} from '../types/github';
 import { GitHubService } from './GitHubService';
 import { createContributor, mergeContributors } from '../models/Contributor';
 
@@ -16,9 +20,7 @@ export const ContributorAggregationService = {
   /**
    * Fetch and aggregate all contributors from given repositories
    */
-  async aggregateContributors(
-    repos: string[]
-  ): Promise<Contributor[]> {
+  async aggregateContributors(repos: string[]): Promise<Contributor[]> {
     if (!repos || repos.length === 0) {
       return [];
     }
@@ -48,7 +50,10 @@ export const ContributorAggregationService = {
       });
 
       // Aggregate and enrich contributors
-      return await this.aggregateAndEnrichContributors(repos, contributorsByRepo);
+      return await this.aggregateAndEnrichContributors(
+        repos,
+        contributorsByRepo
+      );
     } catch (error) {
       console.error('Failed to aggregate contributors:', error);
       return [];
@@ -79,7 +84,9 @@ export const ContributorAggregationService = {
 
         if (existingContributor) {
           // Merge with existing contributor (same login in multiple repos)
-          const enrichedData = await GitHubService.fetchUserProfile(contrib.login);
+          const enrichedData = await GitHubService.fetchUserProfile(
+            contrib.login
+          );
           contributorMap.set(
             contrib.login,
             mergeContributors(existingContributor, {
@@ -90,7 +97,9 @@ export const ContributorAggregationService = {
           );
         } else {
           // Fetch profile data for new contributor
-          const userProfile = await GitHubService.fetchUserProfile(contrib.login);
+          const userProfile = await GitHubService.fetchUserProfile(
+            contrib.login
+          );
 
           const newContributor: Contributor = createContributor(
             contrib.login,

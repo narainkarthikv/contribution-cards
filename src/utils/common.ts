@@ -7,7 +7,7 @@
  * Debounce utility function
  * Returns a debounced version of the provided function
  */
-export const debounce = <T extends (...args: any[]) => any>(
+export const debounce = <T extends (...args: Parameters<T>) => ReturnType<T>>(
   func: T,
   delay: number
 ): ((...args: Parameters<T>) => void) => {
@@ -23,7 +23,7 @@ export const debounce = <T extends (...args: any[]) => any>(
  * Throttle utility function
  * Returns a throttled version of the provided function
  */
-export const throttle = <T extends (...args: any[]) => any>(
+export const throttle = <T extends (...args: Parameters<T>) => ReturnType<T>>(
   func: T,
   limit: number
 ): ((...args: Parameters<T>) => void) => {

@@ -1,11 +1,9 @@
 /**
- * Contributor Card Component - VIEW
- * Pure presentation component that renders contributor information
- * No business logic or state management beyond UI interactions
+ * ContributorCard — Pure presentation component for a single contributor.
+ * Wrapped in React.memo to prevent unnecessary re-renders in list contexts.
  */
 
 import React, { useCallback } from 'react';
-import { motion } from 'framer-motion';
 import { Github, Copy, ArrowRight } from 'lucide-react';
 import type { Contributor } from '../types/github';
 
@@ -14,121 +12,107 @@ interface ContributorCardProps {
   onViewDetails: (contributor: Contributor) => void;
 }
 
-/**
- * Pure presentation component for displaying a single contributor
- */
-export const ContributorCard: React.FC<ContributorCardProps> = ({
-  contributor,
-  onViewDetails,
-}) => {
+export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
+  ({ contributor, onViewDetails }) => {
+    const handleCopyProfile = useCallback(
+      (e: React.MouseEvent) => {
+        e.stopPropagation();
+        navigator.clipboard.writeText(contributor.profileUrl);
+      },
+      [contributor.profileUrl]
+    );
 
-  /**
-   * Copy profile URL to clipboard
-   */
-  const handleCopyProfile = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    navigator.clipboard.writeText(contributor.profileUrl);
-  }, [contributor.profileUrl]);
+    const totalCommits = contributor.contributions.reduce(
+      (sum, c) => sum + (c.commitsCount ?? 0),
+      0
+    );
 
-  /**
-   * Calculate total contributions across all repos
-   */
-  const totalCommits = contributor.contributions.reduce(
-    (sum, c) => sum + (c.commitsCount || 0),
-    0
-  );
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="h-full w-full"
-    >
-      <div
-        className="relative h-full w-full bg-white dark:bg-slate-800 rounded-lg p-6 shadow-sm hover:shadow-md transition-all overflow-hidden group cursor-pointer border border-gray-200 dark:border-slate-700 flex flex-col"
-        onClick={() => onViewDetails(contributor)}
-      >
-        {/* Top Left - Contribution Badge Circle */}
-        <div className="absolute top-4 left-4 flex items-center justify-center">
-          <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg ring-2 ring-white dark:ring-slate-800">
-            <div className="text-center">
-              <div className="text-lg font-bold text-white">
+    return (
+      <article
+        className='h-full w-full'
+        aria-label={`Contributor card for ${contributor.name ?? contributor.login}`}>
+        <div
+          role='button'
+          tabIndex={0}
+          className='relative h-full w-full rounded-lg p-6 shadow-sm transition-shadow overflow-hidden group cursor-pointer border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)] flex flex-col hover:shadow-md focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'
+          onClick={() => onViewDetails(contributor)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              onViewDetails(contributor);
+            }
+          }}>
+          {/* Contribution Badge */}
+          <div className='absolute top-4 left-4 flex items-center justify-center'>
+            <div className='relative w-14 h-14 rounded-full bg-[var(--color-action-default)] flex items-center justify-center shadow-lg ring-2 ring-[var(--color-surface-primary)]'>
+              <span
+                className='text-lg font-bold text-white'
+                aria-label={`${totalCommits} contributions`}>
                 {totalCommits}
-              </div>
+              </span>
             </div>
           </div>
+
+          {/* Action Buttons */}
+          <div className='absolute top-4 right-4 flex gap-1.5 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200'>
+            <button
+              onClick={handleCopyProfile}
+              className='flex items-center justify-center w-9 h-9 rounded-lg border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]'
+              aria-label={`Copy profile link for ${contributor.login}`}>
+              <Copy size={16} />
+            </button>
+
+            <a
+              href={contributor.profileUrl}
+              target='_blank'
+              rel='noopener noreferrer'
+              onClick={(e) => e.stopPropagation()}
+              className='flex items-center justify-center w-9 h-9 bg-[var(--color-action-default)] text-white rounded-lg transition-colors hover:bg-[var(--color-action-hover)]'
+              aria-label={`Open ${contributor.login}'s GitHub profile`}>
+              <Github size={16} />
+            </a>
+
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onViewDetails(contributor);
+              }}
+              className='flex items-center justify-center w-9 h-9 bg-[var(--color-action-active)] text-white rounded-lg transition-colors hover:bg-[var(--color-action-hover)]'
+              aria-label={`View details for ${contributor.login}`}>
+              <ArrowRight size={16} />
+            </button>
+          </div>
+
+          {/* Avatar */}
+          <div className='flex justify-center mb-4 flex-shrink-0 mt-2'>
+            <img
+              src={contributor.avatarUrl}
+              alt=''
+              className='w-20 h-20 rounded-full ring-2 ring-[var(--color-action-default)] ring-offset-2 ring-offset-[var(--color-surface-primary)] object-cover shadow-md'
+              loading='lazy'
+            />
+          </div>
+
+          {/* Name */}
+          <div className='text-center mb-3 flex flex-col justify-center flex-shrink-0'>
+            <h3 className='text-lg font-bold text-[var(--color-text-primary)] truncate'>
+              {contributor.name ?? contributor.login}
+            </h3>
+            <p className='text-xs sm:text-sm text-[var(--color-text-secondary)] truncate font-medium'>
+              @{contributor.login}
+            </p>
+          </div>
+
+          {/* Bio */}
+          {contributor.bio && (
+            <p className='text-xs sm:text-sm text-[var(--color-text-secondary)] text-center line-clamp-3 flex-1'>
+              {contributor.bio}
+            </p>
+          )}
         </div>
+      </article>
+    );
+  }
+);
 
-        {/* Top Right Action Buttons */}
-        <div className="absolute top-4 right-4 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleCopyProfile(e as any);
-            }}
-            className="flex items-center justify-center w-9 h-9 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 rounded-lg transition-colors text-gray-700 dark:text-gray-300"
-            title="Copy profile link"
-          >
-            <Copy size={16} />
-          </motion.button>
-
-          <motion.a
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            href={contributor.profileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={(e) => e.stopPropagation()}
-            className="flex items-center justify-center w-9 h-9 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
-            title="Open GitHub profile"
-          >
-            <Github size={16} />
-          </motion.a>
-
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={(e) => {
-              e.stopPropagation();
-              onViewDetails(contributor);
-            }}
-            className="flex items-center justify-center w-9 h-9 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors"
-            title="View full profile"
-          >
-            <ArrowRight size={16} />
-          </motion.button>
-        </div>
-
-        {/* Avatar Section */}
-        <div className="flex justify-center mb-4 flex-shrink-0 mt-2">
-          <img
-            src={contributor.avatarUrl}
-            alt={contributor.login}
-            className="w-20 h-20 rounded-full ring-2 ring-blue-500 ring-offset-2 dark:ring-offset-slate-800 object-cover shadow-md"
-            loading="lazy"
-          />
-        </div>
-
-        {/* Name Section */}
-        <div className="text-center mb-3 flex flex-col justify-center flex-shrink-0">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white truncate">
-            {contributor.name || contributor.login}
-          </h3>
-          <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 truncate font-medium">
-            @{contributor.login}
-          </p>
-        </div>
-
-        {/* Bio Section */}
-        {contributor.bio && (
-          <p className="text-xs sm:text-sm text-gray-700 dark:text-gray-400 text-center line-clamp-3 flex-1">
-            {contributor.bio}
-          </p>
-        )}
-      </div>
-    </motion.div>
-  );
-};
+ContributorCard.displayName = 'ContributorCard';

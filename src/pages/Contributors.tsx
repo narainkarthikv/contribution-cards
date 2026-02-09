@@ -1,50 +1,51 @@
 /**
- * Contributors Page - VIEW
- * Main page displaying all contributors with filtering and sorting
- * Orchestrates UI using controllers (hooks) for state management
+ * Contributors Page
+ * Displays all contributors with filtering, sorting, and modal details.
  */
 
-import React, { useCallback } from 'react';
-import { motion } from 'framer-motion';
+import React, { useCallback, useEffect } from 'react';
+import { Users, Zap, GitFork } from 'lucide-react';
 import type { Contributor } from '../types/github';
 import { ContributorCard } from '../components/ContributorCard';
 import { ContributorModal } from '../components/ContributorModal';
 import { FiltersBar } from '../components/FiltersBar';
-import { LoadingSkeletons, ErrorState, EmptyState } from '../components/LoadingStates';
+import {
+  LoadingSkeletons,
+  ErrorState,
+  EmptyState,
+} from '../components/LoadingStates';
 import { useContributors } from '../controllers/useContributors';
+import { useGlobalStats } from '../controllers/useGlobalStats';
 import { useContributorsPageState } from '../controllers/useContributorsPageState';
 import { REPOSITORY_LIST } from '../constants/repositories';
 
 export const ContributorsPage: React.FC = () => {
-  // Page state management (CONTROLLER)
+  const { stats: globalStats, isLoading: globalStatsLoading } =
+    useGlobalStats();
+
   const pageState = useContributorsPageState(null);
 
-  // Data fetching (MODEL - via Controller)
-  const { data: contributors, isLoading, isError, refetch } = useContributors({
-    repositories: pageState.selectedRepositories.length > 0 ? pageState.selectedRepositories : [REPOSITORY_LIST[0]],
+  const activeRepos =
+    pageState.selectedRepositories.length > 0
+      ? pageState.selectedRepositories
+      : [REPOSITORY_LIST[0]];
+
+  const {
+    data: contributors,
+    isLoading,
+    isError,
+    refetch,
+  } = useContributors({
+    repositories: activeRepos,
     enableAutoFetch: true,
   });
 
-  // Update page state when contributors change
-  React.useEffect(() => {
-    if (contributors) {
-      pageState.setContributors(contributors);
-    }
-  }, [contributors, pageState]);
+  // Sync fetched contributors into page state
+  const { setContributors } = pageState;
+  useEffect(() => {
+    if (contributors) setContributors(contributors);
+  }, [contributors, setContributors]);
 
-  /**
-   * Handle repository selection
-   */
-  const handleSelectRepository = useCallback(
-    (repo: string) => {
-      pageState.selectRepository(repo);
-    },
-    [pageState]
-  );
-
-  /**
-   * Handle contributor details view
-   */
   const handleViewDetails = useCallback(
     (contributor: Contributor) => {
       pageState.setSelectedContributor(contributor);
@@ -53,21 +54,13 @@ export const ContributorsPage: React.FC = () => {
     [pageState]
   );
 
-  /**
-   * Handle CSV export
-   */
-  const handleExport = useCallback(() => {
-    pageState.handleExport(pageState.filteredContributors);
-  }, [pageState]);
-
-  // Error state
   if (isError) {
     return (
-      <div className="w-full bg-gray-50 dark:bg-slate-950 py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-7xl mx-auto">
+      <div className='w-full bg-[var(--color-bg-primary)] py-12 sm:py-20 px-4 sm:px-6 lg:px-8'>
+        <div className='w-full max-w-7xl mx-auto'>
           <ErrorState
-            title="Failed to Load Contributors"
-            message="There was an error fetching the contributors data. Please check your GitHub token or try again later."
+            title='Failed to Load Contributors'
+            message='There was an error fetching the contributors data. Please check your GitHub token or try again later.'
             onRetry={refetch}
           />
         </div>
@@ -76,65 +69,86 @@ export const ContributorsPage: React.FC = () => {
   }
 
   return (
-    <div className="w-full min-h-screen px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-      <div className="w-full max-w-7xl mx-auto">
-        {/* Consolidated Filters Bar - Single Row */}
+    <div className='w-full min-h-screen bg-[var(--color-bg-primary)] px-4 sm:px-6 lg:px-8 py-8 sm:py-12'>
+      <div className='w-full max-w-7xl mx-auto'>
+        {/* Global Stats */}
+        {globalStats && (
+          <div className='mb-8 grid grid-cols-1 sm:grid-cols-3 gap-4'>
+            <StatCard
+              icon={
+                <Users
+                  size={20}
+                  className='text-[var(--color-action-default)]'
+                />
+              }
+              bgClass='bg-[color-mix(in_srgb,var(--color-action-default)_15%,transparent_85%)]'
+              label='Across All Repos'
+              value={
+                globalStatsLoading ? '—' : globalStats.uniqueContributorCount
+              }
+              sublabel='Unique Contributors'
+            />
+            <StatCard
+              icon={<Zap size={20} className='text-[var(--color-success)]' />}
+              bgClass='bg-[color-mix(in_srgb,var(--color-success)_18%,transparent_82%)]'
+              label='Total'
+              value={globalStatsLoading ? '—' : globalStats.totalContributions}
+              sublabel='Contributions'
+            />
+            <StatCard
+              icon={
+                <GitFork
+                  size={20}
+                  className='text-[var(--color-action-default)]'
+                />
+              }
+              bgClass='bg-[color-mix(in_srgb,var(--color-action-default)_18%,transparent_82%)]'
+              label='Active'
+              value={globalStats.totalRepositories}
+              sublabel='Repositories'
+            />
+          </div>
+        )}
+
+        {/* Filters */}
         {!isLoading && contributors && contributors.length > 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8 sm:mb-10"
-          >
+          <div className='mb-8 sm:mb-10'>
             <FiltersBar
-              repositories={Array.from(REPOSITORY_LIST)}
+              repositories={[...REPOSITORY_LIST]}
               selectedRepositories={pageState.selectedRepositories}
               filters={pageState.filters}
               sortBy={pageState.sortBy}
-              onRepositorySelect={handleSelectRepository}
+              onRepositorySelect={pageState.selectRepository}
               onFilterChange={pageState.updateFilters}
               onSortChange={pageState.updateSort}
-              onExport={handleExport}
               totalContributors={pageState.filteredContributors.length}
             />
-          </motion.div>
+          </div>
         )}
 
-        {/* Contributors Grid - Modern Masonry */}
-        <div className="space-y-8">
+        {/* Grid */}
+        <div className='space-y-8'>
           {isLoading ? (
             <LoadingSkeletons count={12} />
           ) : pageState.filteredContributors.length > 0 ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, staggerChildren: 0.05 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8"
-            >
-              {pageState.filteredContributors.map((contributor, index) => (
-                <motion.div
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8'>
+              {pageState.filteredContributors.map((contributor) => (
+                <ContributorCard
                   key={contributor.login}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                >
-                  <ContributorCard
-                    contributor={contributor}
-                    onViewDetails={handleViewDetails}
-                  />
-                </motion.div>
+                  contributor={contributor}
+                  onViewDetails={handleViewDetails}
+                />
               ))}
-            </motion.div>
+            </div>
           ) : (
             <EmptyState
-              title="No Contributors Found"
-              message="Try adjusting your filters or search terms to find contributors."
+              title='No Contributors Found'
+              message='Try adjusting your filters or search terms to find contributors.'
             />
           )}
         </div>
       </div>
 
-      {/* Modal */}
       <ContributorModal
         contributor={pageState.selectedContributor}
         isOpen={pageState.isModalOpen}
@@ -143,3 +157,37 @@ export const ContributorsPage: React.FC = () => {
     </div>
   );
 };
+
+/* ─── Extracted StatCard component ──────────────────────────────────────── */
+
+interface StatCardProps {
+  icon: React.ReactNode;
+  bgClass: string;
+  label: string;
+  value: string | number;
+  sublabel: string;
+}
+
+const StatCard: React.FC<StatCardProps> = React.memo(
+  ({ icon, bgClass, label, value, sublabel }) => (
+    <div className='rounded-lg bg-[var(--color-surface-primary)] border border-[var(--color-border-primary)] p-4 shadow-sm'>
+      <div className='flex items-center gap-3'>
+        <div
+          className={`flex items-center justify-center h-10 w-10 rounded-lg ${bgClass}`}>
+          {icon}
+        </div>
+        <div>
+          <p className='text-xs font-medium text-[var(--color-text-secondary)]'>
+            {label}
+          </p>
+          <p className='text-2xl font-bold text-[var(--color-text-primary)]'>
+            {value}
+          </p>
+          <p className='text-xs text-[var(--color-text-muted)]'>{sublabel}</p>
+        </div>
+      </div>
+    </div>
+  )
+);
+
+StatCard.displayName = 'StatCard';

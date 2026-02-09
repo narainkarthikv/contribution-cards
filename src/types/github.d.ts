@@ -66,6 +66,20 @@ export interface GraphQLResponse<T> {
   errors?: GraphQLError[];
 }
 
+/**
+ * Repository details from GraphQL API
+ */
+export interface RepositoryDetails {
+  name: string;
+  description: string | null;
+  url: string;
+  stargazerCount: number;
+  forkCount: number;
+  primaryLanguage: {
+    name: string;
+  } | null;
+}
+
 // ============================================================================
 // CONTROLLER/STATE TYPES
 // ============================================================================

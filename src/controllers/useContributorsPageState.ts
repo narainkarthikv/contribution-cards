@@ -3,9 +3,13 @@
  * CONTROLLER layer - manages state for the contributors page including filtering, sorting, and modal management
  */
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import type { Contributor, FilterOptions, SortOption } from '../types/github';
-import { filterContributors as filterContributorsModel, sortContributors as sortContributorsModel } from '../models/Contributor';
+import {
+  filterContributors as filterContributorsModel,
+  sortContributors as sortContributorsModel,
+} from '../models/Contributor';
+import { ContributorAggregationService } from '../services/ContributorAggregationService';
 import { REPOSITORY_LIST } from '../constants/repositories';
 
 export interface UseContributorsPageState {
@@ -15,7 +19,7 @@ export interface UseContributorsPageState {
   filters: FilterOptions;
   sortBy: SortOption;
   filteredContributors: Contributor[];
-  
+
   // Actions
   setSelectedContributor: (contributor: Contributor | null) => void;
   setIsModalOpen: (isOpen: boolean) => void;
@@ -45,25 +49,26 @@ const DEFAULT_SORT: SortOption = {
 export const useContributorsPageState = (
   initialContributors: Contributor[] | null
 ): UseContributorsPageState => {
-  const [selectedContributor, setSelectedContributor] = useState<Contributor | null>(null);
+  const [selectedContributor, setSelectedContributor] =
+    useState<Contributor | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRepositories, setSelectedRepositories] = useState<string[]>([REPOSITORY_LIST[0]]);
-  const [contributors, setContributorsState] = useState<Contributor[]>(initialContributors || []);
+  const [selectedRepositories, setSelectedRepositories] = useState<string[]>([
+    REPOSITORY_LIST[0],
+  ]);
+  const [contributors, setContributorsState] = useState<Contributor[]>(
+    initialContributors || []
+  );
   const [filters, setFilters] = useState<FilterOptions>(DEFAULT_FILTERS);
   const [sortBy, setSortBy] = useState<SortOption>(DEFAULT_SORT);
-  const [filteredContributors, setFilteredContributors] = useState<Contributor[]>([]);
-
   /**
-   * Apply filters and sorting to contributors
+   * Derive filtered & sorted contributors (no extra state needed)
    */
-  useEffect(() => {
-    if (contributors && contributors.length > 0) {
-      let result = filterContributorsModel(contributors, {
-        searchTerm: filters.searchTerm,
-      });
-      result = sortContributorsModel(result, sortBy.field, sortBy.order);
-      setFilteredContributors(result);
-    }
+  const filteredContributors = useMemo(() => {
+    if (!contributors || contributors.length === 0) return [];
+    const filtered = filterContributorsModel(contributors, {
+      searchTerm: filters.searchTerm,
+    });
+    return sortContributorsModel(filtered, sortBy.field, sortBy.order);
   }, [contributors, filters, sortBy]);
 
   /**
@@ -136,6 +141,3 @@ export const useContributorsPageState = (
     handleExport,
   };
 };
-
-// Import here to avoid circular dependency
-import { ContributorAggregationService } from '../services/ContributorAggregationService';

@@ -29,7 +29,7 @@ const DEFAULT_TTL = 3600000; // 1 hour in milliseconds
 const MAX_STORAGE_SIZE = 5242880; // 5MB limit for localStorage
 
 // In-memory cache for frequently accessed items (session-level cache)
-const memoryCache = new Map<string, CacheEntry<any>>();
+const memoryCache = new Map<string, CacheEntry<unknown>>();
 
 /**
  * Get current localStorage usage in bytes
@@ -37,7 +37,7 @@ const memoryCache = new Map<string, CacheEntry<any>>();
 const getStorageSize = (): number => {
   let total = 0;
   for (const key in localStorage) {
-    if (localStorage.hasOwnProperty(key)) {
+    if (Object.hasOwn(localStorage, key)) {
       total += localStorage[key].length + key.length;
     }
   }
@@ -63,7 +63,7 @@ const clearOldestEntries = (requiredSpace: number): void => {
     if (key.startsWith(CACHE_PREFIX)) {
       keys.push(key);
       try {
-        const entry = JSON.parse(localStorage[key]) as CacheEntry<any>;
+        const entry = JSON.parse(localStorage[key]) as CacheEntry<unknown>;
         entries.push({ key, timestamp: entry.timestamp });
       } catch {
         localStorage.removeItem(key);
@@ -93,7 +93,7 @@ const generateCacheKey = (key: string): string => {
 /**
  * Check if cache entry has expired
  */
-const isExpired = (entry: CacheEntry<any>): boolean => {
+const isExpired = (entry: CacheEntry<unknown>): boolean => {
   const age = Date.now() - entry.timestamp;
   return age > entry.ttl;
 };
@@ -281,9 +281,10 @@ export const getCacheEntry = <T>(key: string): CacheEntry<T> | null => {
   const cacheKey = generateCacheKey(key);
   try {
     const stored = localStorage.getItem(cacheKey);
-    if (!stored) return memoryCache.get(key) ?? null;
+    if (!stored)
+      return (memoryCache.get(key) as CacheEntry<T> | undefined) ?? null;
     return JSON.parse(stored);
-  } catch (error) {
-    return memoryCache.get(key) ?? null;
+  } catch {
+    return (memoryCache.get(key) as CacheEntry<T> | undefined) ?? null;
   }
 };
