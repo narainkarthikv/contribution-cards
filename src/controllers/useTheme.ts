@@ -7,10 +7,6 @@ import { useCallback, useEffect, useState } from 'react';
 
 const THEME_STORAGE_KEY = 'theme';
 const THEME_CLASS = 'dark';
-const THEME_BACKGROUND_DARK = '#0f172a';
-const THEME_BACKGROUND_LIGHT = '#f9fafb';
-const THEME_TEXT_DARK = '#f1f5f9';
-const THEME_TEXT_LIGHT = '#111827';
 
 export type Theme = 'light' | 'dark';
 
@@ -40,13 +36,11 @@ const applyTheme = (isDark: boolean): void => {
 
   if (isDark) {
     htmlElement.classList.add(THEME_CLASS);
-    htmlElement.style.backgroundColor = THEME_BACKGROUND_DARK;
-    htmlElement.style.color = THEME_TEXT_DARK;
   } else {
     htmlElement.classList.remove(THEME_CLASS);
-    htmlElement.style.backgroundColor = THEME_BACKGROUND_LIGHT;
-    htmlElement.style.color = THEME_TEXT_LIGHT;
   }
+
+  htmlElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
 
   localStorage.setItem(THEME_STORAGE_KEY, isDark ? 'dark' : 'light');
 };

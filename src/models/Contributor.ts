@@ -8,9 +8,11 @@ import type { Contributor, SortOption, RepoContrib } from '../types/github';
 /**
  * Validates if a contributor object is well-formed
  */
-export const validateContributor = (contributor: unknown): contributor is Contributor => {
+export const validateContributor = (
+  contributor: unknown
+): contributor is Contributor => {
   if (!contributor || typeof contributor !== 'object') return false;
-  
+
   const c = contributor as Contributor;
   return (
     typeof c.login === 'string' &&
@@ -49,7 +51,9 @@ export const createContributor = (
     profileUrl,
     bio,
     contributions,
-    totalContributions: totalContributions || contributions.reduce((sum, c) => sum + (c.commitsCount || 0), 0),
+    totalContributions:
+      totalContributions ||
+      contributions.reduce((sum, c) => sum + (c.commitsCount || 0), 0),
   };
 };
 
@@ -69,7 +73,8 @@ export const mergeContributors = (
     name: newData.name || existing.name,
     bio: newData.bio || existing.bio,
     contributions: [...existing.contributions, newData.contribution],
-    totalContributions: existing.totalContributions + (newData.contribution.commitsCount || 0),
+    totalContributions:
+      existing.totalContributions + (newData.contribution.commitsCount || 0),
   };
 };
 
@@ -79,7 +84,10 @@ export const mergeContributors = (
 export const getContributorStats = (contributors: Contributor[]) => {
   return {
     total: contributors.length,
-    totalContributions: contributors.reduce((sum, c) => sum + c.totalContributions, 0),
+    totalContributions: contributors.reduce(
+      (sum, c) => sum + c.totalContributions,
+      0
+    ),
     averageContributions:
       contributors.length > 0
         ? Math.round(
@@ -99,11 +107,12 @@ export const filterContributors = (
   { searchTerm }: { searchTerm: string }
 ): Contributor[] => {
   const lowerSearch = searchTerm.toLowerCase();
-  
+
   return contributors.filter((contributor) => {
     return (
       contributor.login.toLowerCase().includes(lowerSearch) ||
-      (contributor.name && contributor.name.toLowerCase().includes(lowerSearch)) ||
+      (contributor.name &&
+        contributor.name.toLowerCase().includes(lowerSearch)) ||
       (contributor.bio && contributor.bio.toLowerCase().includes(lowerSearch))
     );
   });
@@ -118,23 +127,19 @@ export const sortContributors = (
   order: SortOption['order']
 ): Contributor[] => {
   const sorted = [...contributors];
-  
+
   sorted.sort((a, b) => {
-    let aValue: any;
-    let bValue: any;
-    
+    const direction = order === 'asc' ? 1 : -1;
+
     if (field === 'totalContributions') {
-      aValue = a.totalContributions;
-      bValue = b.totalContributions;
-    } else if (field === 'name') {
-      aValue = (a.name || a.login).toLowerCase();
-      bValue = (b.name || b.login).toLowerCase();
+      return (a.totalContributions - b.totalContributions) * direction;
     }
-    
-    if (aValue < bValue) return order === 'asc' ? -1 : 1;
-    if (aValue > bValue) return order === 'asc' ? 1 : -1;
-    return 0;
+
+    // field === 'name'
+    const aName = (a.name || a.login).toLowerCase();
+    const bName = (b.name || b.login).toLowerCase();
+    return aName.localeCompare(bName) * direction;
   });
-  
+
   return sorted;
 };

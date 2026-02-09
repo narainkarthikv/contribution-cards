@@ -1,7 +1,7 @@
 ---
 name: 📝 Other Request
 about: Propose documentation updates, questions, or other types of requests
-title: "[Other]: "
+title: '[Other]: '
 labels: question, documentation
 assignees: '' # Add default GitHub usernames if desired
 ---

@@ -3,70 +3,105 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Primary SEO -->
-    <title>Contribution Cards — Curated Contributor Profiles for Open Source Projects</title>
+    <title>Contribution Cards — Premium Contributor Showcase</title>
+    <meta
+      name="title"
+      content="Contribution Cards — Premium Contributor Showcase" />
     <meta
       name="description"
-      content="Contribution Cards: a curated collection of contributor profiles and recognition cards to help open-source projects celebrate and showcase their community members with beautiful, customizable cards."
-    />
+      content="Contribution Cards is a premium contributor showcase for modern open-source teams. Discover contributors, filter by repo, sort by impact, and share beautiful profile cards in seconds." />
     <meta name="author" content="Wisdom Fox Community" />
     <meta
       name="keywords"
-      content="contribution cards, open source, contributor recognition, contributor profiles, GitHub contributors, open source community, community recognition"
-    />
+      content="contribution cards, contributor recognition, contributor profiles, GitHub contributors, open source community, contributor showcase, team insights" />
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="color-scheme" content="light dark" />
 
     <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Contribution Cards" />
+    <meta property="og:url" content="https://contribution-cards.netlify.app/" />
     <meta
       property="og:title"
-      content="Contribution Cards — Curated Contributor Profiles for Open Source Projects"
-    />
+      content="Contribution Cards - Spotlight the Builders Shaping Open Source" />
     <meta
       property="og:description"
-      content="A curated collection of contributor recognition cards to help maintainers showcase and celebrate their community members beautifully."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://github.com/narainkarthikv/contribution-cards" />
+      content="Browse premium contributor profile cards. Filter by repo, sort by impact, and celebrate the people who move projects forward." />
     <meta property="og:image" content="/android-chrome-512x512.png" />
     <meta
       property="og:image:alt"
-      content="Contribution Cards - Celebrate open source contributors"
-    />
+      content="Contribution Cards - Premium contributor showcase by Wisdom Fox Community" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Contribution Cards — Curated Contributor Profiles for Open Source Projects"
-    />
+      content="Contribution Cards — Premium Contributor Showcase" />
     <meta
       name="twitter:description"
-      content="Browse and customize beautiful contributor recognition cards for your open-source project."
-    />
+      content="Fast contributor search with smart filters. Discover, sort, and celebrate open-source builders." />
     <meta name="twitter:image" content="/android-chrome-512x512.png" />
+    <meta
+      name="twitter:image:alt"
+      content="Contribution Cards interface preview" />
 
     <!-- Robots & Canonical -->
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://github.com/narainkarthikv/contribution-cards" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="bingbot" content="index, follow" />
+    <link rel="canonical" href="https://contribution-cards.netlify.app/" />
 
-    <!-- Structured Data: Website + Organization -->
+    <!-- Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": "WebSite",
+            "@type": "SoftwareApplication",
             "name": "Contribution Cards",
-            "url": "https://github.com/narainkarthikv/contribution-cards",
-            "description": "Curated contributor recognition cards for open-source projects",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": {
-                "@type": "EntryPoint",
-                "urlTemplate": "https://github.com/narainkarthikv/contribution-cards?search={search_term_string}"
-              },
-              "query-input": "required name=search_term_string"
-            }
+            "applicationCategory": "UtilitiesApplication",
+            "operatingSystem": "Web Browser",
+            "browserRequirements": "Requires JavaScript. Compatible with Chrome, Firefox, Safari, Edge.",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "author": {
+              "@type": "Organization",
+              "name": "Wisdom Fox Community",
+              "url": "https://github.com/narainkarthikv"
+            },
+            "description": "Contribution Cards is a premium contributor showcase. Filter by repo, sort by impact, and celebrate open-source builders with shareable profile cards.",
+            "featureList": [
+              "Premium contributor profile cards",
+              "Filter by repository",
+              "Sort by contribution impact",
+              "Smart contributor aggregation",
+              "Dark and light themes",
+              "Shareable contributor snapshots",
+              "SWR-based data fetching",
+              "Open source"
+            ],
+            "softwareHelp": {
+              "@type": "WebPage",
+              "url": "https://github.com/narainkarthikv/contribution-cards"
+            },
+            "screenshot": "/android-chrome-512x512.png",
+            "url": "https://contribution-cards.netlify.app/",
+            "keywords": "contribution cards, open source, contributor showcase"
           },
           {
             "@type": "Organization",
@@ -79,10 +114,18 @@
             ]
           },
           {
-            "@type": "CollectionPage",
-            "name": "Contribution Cards Collection",
-            "description": "A curated collection of contributor profiles and recognition cards",
-            "url": "https://github.com/narainkarthikv/contribution-cards"
+            "@type": "WebSite",
+            "name": "Contribution Cards",
+            "url": "https://contribution-cards.netlify.app/",
+            "description": "Premium contributor showcase for open-source projects",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://contribution-cards.netlify.app/contributors?search={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
           }
         ]
       }
@@ -90,6 +133,7 @@
 
     <!-- Favicon & Apple Touch Icon -->
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="public/apple-touch-icon.png" />
   </head>
   <body>

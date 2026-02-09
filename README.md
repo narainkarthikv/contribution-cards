@@ -1,128 +1,196 @@
-# 🎴 Contribution Cards
+![License](https://img.shields.io/github/license/narainkarthikv/contribution-cards)
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Last Commit](https://img.shields.io/github/last-commit/narainkarthikv/contribution-cards)
+[![GitHub issues](https://img.shields.io/github/issues/narainkarthikv/contribution-cards)](https://github.com/narainkarthikv/contribution-cards/issues)
+[![GitHub stars](https://img.shields.io/github/stars/narainkarthikv/contribution-cards)](https://github.com/narainkarthikv/contribution-cards/stargazers)
 
-> **Showcase your profile with beautifully designed contributor cards**
-
-Welcome to **Contribution Cards**! This project lets you design and showcase your profile cards. It's a fun way to get started with open-source, practice your frontend skills, and join a friendly community. Whether you're a beginner or a pro, your contribution is welcome! 🤍🤝
-
-[![GitHub issues](https://img.shields.io/github/issues/narainkarthikv/contribution-cards?style=flat-square)](https://github.com/narainkarthikv/contribution-cards/issues)
-[![GitHub forks](https://img.shields.io/github/forks/narainkarthikv/contribution-cards?style=flat-square)](https://github.com/narainkarthikv/contribution-cards/network)
-[![GitHub stars](https://img.shields.io/github/stars/narainkarthikv/contribution-cards?style=flat-square)](https://github.com/narainkarthikv/contribution-cards/stargazers)
-[![MIT License](https://img.shields.io/github/license/narainkarthikv/contribution-cards?style=flat-square)](./MIT-LICENSE.txt)
-[![Version](https://img.shields.io/github/package-json/v/narainkarthikv/contribution-cards?style=flat-square)](./package.json)
----
-
-## 🌟 Why Contribution Cards?
-
-**Contribution Cards** is a lightweight, beginner-friendly project designed to help you **learn web development**, **contribute to open-source**, and **build your portfolio**. Whether you're new to coding or an experienced developer, this project offers a welcoming space to showcase your skills and connect with others.
-
-✨ **Key Features:**
-
-- 👤 **Create Your Profile Card** — Add your details, social links, and bio
-- 🎨 **Beautiful Design** — Responsive, modern UI with TailwindCSS
-- 🌓 **Dark & Light Themes** — Toggle between themes with smooth transitions
-- 🔗 **Social Links** — Showcase GitHub, LinkedIn, portfolio, and more
-- 📱 **Fully Responsive** — Perfect on desktop, tablet, and mobile devices
-- 💡 **Learning Friendly** — Great for beginners learning HTML, CSS, and JavaScript
-- 🚀 **Easy Setup** — Clone, add your card, and submit a PR
-- 🎓 **Study Resources** — Links to freeCodeCamp, W3Schools, and GitHub Docs
-
----
-
-## 📑 Table of Contents
-
-- [Why Contribution Cards?](#-why-contribution-cards)
 # Contribution Cards
 
-Lightweight Vite + React + TypeScript app for showcasing contributor/profile cards. This repository includes a production-ready GitHub integration with advanced rate limiting and a dual-layer caching system (memory + localStorage) to significantly reduce API calls and improve perceived performance.
+**Showcase GitHub contributors with beautifully designed profile cards.**
 
-Highlights:
-- Built with `vite`, `react` (v19) and `typescript`
-- Styling with `tailwindcss`
-- Stale-While-Revalidate pattern via `swr`
-- Production-ready rate limiting & caching (see `docs/`)
+Contribution Cards is a lightweight, modern web application that transforms GitHub contributor data into stunning, interactive profile cards. Explore contributors from multiple repositories, filter by project, and discover amazing open-source developers with zero server dependency.
 
-Live demo: https://narainkarthikv.github.io/contribution-cards/
+## ✨ Features
 
-**Quick links**
-- Docs (start here): `docs/RATE_LIMITING_CACHING_README.md`
-- Implementation summary: `docs/IMPLEMENTATION_SUMMARY.md`
-- Developer quick start: `docs/QUICK_START.md`
+- **Multi-Repo Support**: Aggregate contributors from multiple repositories
+- **Smart Filtering**: Search and sort by contributions, join date, and repo
+- **Dark Mode**: Built-in theme toggle with smooth transitions
+- **Performance First**: Dual-layer caching (memory + localStorage)
+- **Rate Limit Smart**: Concurrent control, backoff, retries, and deduplication
+- **Responsive UI**: Optimized for desktop, tablet, and mobile
+- **Brand Typography**: Sora font across the interface
+- **Blue Palette**: Consistent, accessible blue theme tokens
 
----
+## 🚀 Quick Start
 
-## Tech stack
-- Frontend: `React` + `TypeScript`
-- Bundler: `Vite`
-- Styling: `TailwindCSS`
-- Data fetching: `swr` (SWR pattern in `src/hooks`)
+### Prerequisites
 
----
+- **Node.js** 18.0.0 or higher
+- **npm** 9.0.0 or higher
 
-## Local development
-Prerequisites: Node 18+ and npm
-
-Install and run:
+### Local Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/narainkarthikv/contribution-cards.git
+cd contribution-cards
+
+# Install dependencies
 npm install
+
+# Start development server
 npm run dev
 ```
 
-Build for production:
+Visit **http://localhost:5173** to see the app.
+
+### Production Build
 
 ```bash
 npm run build
+npm run preview
 ```
 
-Lint:
+## 🛠️ Tech Stack
+
+### Frontend
+
+- **React 19** - UI library
+- **TypeScript** - Type-safe JavaScript
+- **Vite** - Fast build tool
+- **Tailwind CSS** - Utility-first styling
+- **Framer Motion** - Animations
+- **SWR** - Stale-while-revalidate data fetching
+- **Lucide React** - Icons
+- **Sora** - Brand typography
+
+<p align="center">
+	<img src="https://skillicons.dev/icons?i=react,vite,ts,tailwind" alt="Tech Stack" />
+</p>
+
+## 📁 Project Structure
+
+```
+contribution-cards/
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── constants/      # App constants and repositories
+│   ├── controllers/    # App-level state and logic
+│   ├── hooks/          # Custom React hooks
+│   ├── lib/            # GitHub API, caching, debug utilities
+│   ├── models/         # TypeScript interfaces
+│   ├── pages/          # Page components
+│   ├── services/       # Data aggregation and API services
+│   ├── types/          # Type definitions
+│   ├── utils/          # Helper utilities
+│   └── App.tsx         # Root component with routing
+├── public/             # Static assets
+├── docs/               # Technical documentation
+└── .github/            # GitHub templates and workflows
+```
+
+## 🔑 Environment Variables
+
+**VITE_GITHUB_TOKEN** (optional): GitHub Personal Access Token for higher API rate limits.
+
+No token required for local development with cached data.
+
+## 🧪 Development
+
+### Available Scripts
 
 ```bash
-npm run lint
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
+npm run lint         # Run ESLint
 ```
 
----
+### Code Style Guidelines
 
-## What’s implemented (short)
-- Advanced rate limiting in `src/lib/github.ts` (concurrent control, backoff, retries, deduplication)
-- Dual-layer caching in `src/lib/cache.ts` (memory + localStorage, TTLs, versioning)
-- SWR / stale-while-revalidate hook in `src/hooks/useContributors.ts`
-- Debug & monitoring utilities in `src/lib/debugUtils.ts` exposed as `__GITHUB_CACHE_DEBUG__` in console
+- **Formatting**: Follow existing conventions and 2-space indentation
+- **React**: Functional components with hooks
+- **TypeScript**: Prefer typed props and models
+- **Accessibility**: Semantic HTML and keyboard navigation
 
-For full technical details, performance numbers and configuration options see `docs/CACHING_AND_RATE_LIMITING.md` and `docs/RATE_LIMITING_CACHING_README.md`.
+### Advanced Features
 
----
+- **Rate Limiting**: Concurrent control with exponential backoff and retries
+- **Dual-Layer Caching**: Memory cache + localStorage persistence
+- **SWR Pattern**: Serve stale data while revalidating in the background
+- **Debug Tools**: Console helpers via `__GITHUB_CACHE_DEBUG__`
 
-## Repo layout (top-level)
-```
-. 
-├── docs/        # Rate limiting & caching docs, quick start, implementation summary
-├── public/      # Static assets
-├── src/         # Application source (components, hooks, lib, pages, types)
-├── index.html
-├── package.json
-└── README.md
-```
+### Formatting (Prettier)
 
----
-
-## Contributing
-Standard flow:
+Run these from the repository root so Prettier checks both frontend and backend:
 
 ```bash
-git checkout -b feature/your-change
-# implement
-git add .
-git commit -m "feat: brief description"
-git push origin feature/your-change
+# Check formatting
+npx prettier --check .
+
+# Write formatting fixes
+npx prettier --write .
 ```
 
-Open a PR against `develop`. If you're adding or editing data used by the app, check the relevant code in `src/pages` and `src/lib`.
+## 🤝 Contributing
+
+We welcome contributions from the community! Here's how to get started:
+
+1. **Read the Guidelines**: Check [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed instructions
+2. **Pick an Issue**: Browse [open issues](https://github.com/narainkarthikv/contribution-cards/issues) or create a new one
+3. **Fork & Branch**: Create a feature branch from your fork
+4. **Code**: Follow our code style and commit conventions
+5. **Test**: Ensure everything works locally
+6. **Submit PR**: Open a pull request with a clear description
+
+### Ways to Contribute
+
+- 🐛 **Fix bugs** and improve stability
+- ✨ **Add features** that enhance the app
+- 📚 **Improve documentation** and examples
+- 🎨 **Enhance UI/UX** and accessibility
+- ⚡ **Optimize performance**
+- 🔧 **Improve caching and rate limiting strategies**
+
+## 💬 Community & Support
+
+- **Issues**: [Report bugs or request features](https://github.com/narainkarthikv/contribution-cards/issues)
+- **Discussions**: [Ask questions and share ideas](https://github.com/narainkarthikv/contribution-cards/discussions)
+- **Pull Requests**: [Contribute code improvements](https://github.com/narainkarthikv/contribution-cards/pulls)
+
+## 📖 Documentation
+
+- [Contributing Guide](./CONTRIBUTING.md) - How to contribute
+- [Caching & Rate Limiting](./docs/CACHING_AND_RATE_LIMITING.md) - Technical deep dive
+- [Implementation Summary](./docs/IMPLEMENTATION_SUMMARY.md) - Architecture overview
+- [Quick Start Guide](./docs/QUICK_START.md) - Developer guide
+- [Theme System](./docs/THEME_SYSTEM.md) - Design tokens and typography
+- [Contributors](./Contributors.md) - Contributor list
+- [License](./LICENSE) - MIT License details
+
+## 📜 License
+
+This project is licensed under the **MIT License** - see [LICENSE](./LICENSE) for details.
+
+**Summary:** You are free to use, modify, and distribute this software for any purpose, including commercial use.
+
+## 🌟 Show Your Support
+
+If Contribution Cards helps you discover amazing developers:
+
+- ⭐ Star the repository
+- 🐛 Report issues you encounter
+- 💡 Share your feature ideas
+- 🤝 Contribute code or docs
+- 📢 Tell others about the project
+
+## 🔗 Links
+
+- **Live Demo**: [https://narainkarthikv.github.io/contribution-cards/](https://narainkarthikv.github.io/contribution-cards/)
+- **Repository**: [https://github.com/narainkarthikv/contribution-cards](https://github.com/narainkarthikv/contribution-cards)
 
 ---
 
-## Debugging & quick checks
-- Console helper: `__GITHUB_CACHE_DEBUG__.help()`
-- Cache stats: `__GITHUB_CACHE_DEBUG__.cache.getStats()`
-- Clear cache: `__GITHUB_CACHE_DEBUG__.cache.clearAll()`
+**Built with ❤️ by the Wisdom Fox community**
 
----
+Celebrating open-source contributors, one card at a time! 🚀

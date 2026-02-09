@@ -8,6 +8,7 @@ import type {
   ContributorResponse,
   GitHubUser,
   GraphQLResponse,
+  RepositoryDetails,
 } from '../types/github';
 import { getCache, setCache } from '../lib/cache';
 
@@ -31,14 +32,14 @@ const RATE_LIMIT_CONFIG = {
  */
 interface RateLimitState {
   requestQueue: Array<{
-    fn: () => Promise<any>;
-    resolve: (value: any) => void;
-    reject: (reason?: any) => void;
+    fn: () => Promise<unknown>;
+    resolve: (value: unknown) => void;
+    reject: (reason?: unknown) => void;
     retries: number;
   }>;
   activeRequests: number;
   lastRequestTime: number;
-  pendingRequests: Map<string, Promise<any>>;
+  pendingRequests: Map<string, Promise<unknown>>;
 }
 
 const rateLimitState: RateLimitState = {
@@ -126,7 +127,7 @@ const executeWithRateLimit = async <T>(
   const promise = new Promise<T>((resolve, reject) => {
     rateLimitState.requestQueue.push({
       fn,
-      resolve,
+      resolve: resolve as (value: unknown) => void,
       reject,
       retries: 0,
     });
@@ -182,32 +183,29 @@ export const GitHubService = {
       return cached;
     }
 
-    return executeWithRateLimit(
-      async () => {
-        try {
-          const response = await fetch(
-            `${GITHUB_API_URL}/repos/${owner}/${repo}/contributors?per_page=100`,
-            {
-              headers: getAuthHeaders(),
-            }
-          );
-
-          if (!response.ok) {
-            throw new Error(`GitHub API error: ${response.statusText}`);
+    return executeWithRateLimit(async () => {
+      try {
+        const response = await fetch(
+          `${GITHUB_API_URL}/repos/${owner}/${repo}/contributors?per_page=100`,
+          {
+            headers: getAuthHeaders(),
           }
+        );
 
-          const data = await response.json();
-
-          // Cache for 24 hours
-          setCache(cacheKey, data, { ttl: 86400000 });
-
-          return data;
-        } catch (error) {
-          return [];
+        if (!response.ok) {
+          throw new Error(`GitHub API error: ${response.statusText}`);
         }
-      },
-      cacheKey
-    );
+
+        const data = await response.json();
+
+        // Cache for 24 hours
+        setCache(cacheKey, data, { ttl: 86400000 });
+
+        return data;
+      } catch {
+        return [];
+      }
+    }, cacheKey);
   },
 
   /**
@@ -221,38 +219,38 @@ export const GitHubService = {
       return cached;
     }
 
-    return executeWithRateLimit(
-      async () => {
-        try {
-          const response = await fetch(`${GITHUB_API_URL}/users/${login}`, {
-            headers: getAuthHeaders(),
-          });
+    return executeWithRateLimit(async () => {
+      try {
+        const response = await fetch(`${GITHUB_API_URL}/users/${login}`, {
+          headers: getAuthHeaders(),
+        });
 
-          if (!response.ok) {
-            return null;
-          }
-
-          const data = await response.json();
-
-          // Cache for 7 days
-          setCache(cacheKey, data, { ttl: 604800000 });
-
-          return data;
-        } catch {
+        if (!response.ok) {
           return null;
         }
-      },
-      cacheKey
-    );
+
+        const data = await response.json();
+
+        // Cache for 7 days
+        setCache(cacheKey, data, { ttl: 604800000 });
+
+        return data;
+      } catch {
+        return null;
+      }
+    }, cacheKey);
   },
 
   /**
    * Fetch repository details using GraphQL
    */
-  async fetchRepositoryDetails(owner: string, name: string): Promise<any> {
+  async fetchRepositoryDetails(
+    owner: string,
+    name: string
+  ): Promise<RepositoryDetails | null> {
     const cacheKey = `repo-details:${owner}/${name}`;
 
-    const cached = getCache(cacheKey);
+    const cached = getCache<RepositoryDetails>(cacheKey);
     if (cached) {
       return cached;
     }
@@ -283,7 +281,8 @@ export const GitHubService = {
         throw new Error(`GraphQL API error: ${response.statusText}`);
       }
 
-      const result: GraphQLResponse<any> = await response.json();
+      const result: GraphQLResponse<{ repository: RepositoryDetails }> =
+        await response.json();
 
       if (result.errors) {
         throw new Error(result.errors[0].message);
@@ -364,7 +363,7 @@ export const GitHubService = {
       setCache(cacheKey, rateLimitInfo, { ttl: 300000 });
 
       return rateLimitInfo;
-    } catch (error) {
+    } catch {
       return { limit: 0, remaining: 0 };
     }
   },

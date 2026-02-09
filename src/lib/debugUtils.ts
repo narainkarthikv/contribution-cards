@@ -3,8 +3,13 @@
  * Provides helper functions to manage, monitor, and debug the caching and rate limiting system
  */
 
-import { getCacheStats, clearAllCache, invalidateCachePattern, getCacheEntry } from './cache';
-import { getRateLimit } from './github';
+import {
+  getCacheStats,
+  clearAllCache,
+  invalidateCachePattern,
+  getCacheEntry,
+} from './cache';
+import { GitHubService } from '../services/GitHubService';
 
 /**
  * Cache management utilities
@@ -23,7 +28,7 @@ export const CacheManager = {
   /**
    * Invalidate cache entries matching a pattern
    */
-  invalidatePattern: (pattern: RegExp | string) => 
+  invalidatePattern: (pattern: RegExp | string) =>
     invalidateCachePattern(pattern),
 
   /**
@@ -52,7 +57,7 @@ export const CacheManager = {
   /**
    * Get entry metadata for debugging
    */
-  getEntry: <T = any>(key: string): any => getCacheEntry<T>(key),
+  getEntry: <T = unknown>(key: string) => getCacheEntry<T>(key),
 
   /**
    * Export cache data for backup
@@ -71,14 +76,14 @@ export const RateLimitMonitor = {
    * Get current GitHub API rate limit status
    */
   getStatus: async () => {
-    return getRateLimit();
+    return GitHubService.getRateLimit();
   },
 
   /**
    * Check if rate limit is critically low
    */
   isCritical: async (threshold: number = 10) => {
-    const { remaining } = await getRateLimit();
+    const { remaining } = await GitHubService.getRateLimit();
     return remaining < threshold;
   },
 
@@ -86,15 +91,16 @@ export const RateLimitMonitor = {
    * Get formatted rate limit status for display
    */
   getDisplayStatus: async () => {
-    const { limit, remaining } = await getRateLimit();
+    const { limit, remaining } = await GitHubService.getRateLimit();
     const percentage = limit > 0 ? (remaining / limit) * 100 : 0;
-    
+
     return {
       limit,
       remaining,
       used: limit - remaining,
       percentage: Math.round(percentage),
-      status: percentage > 50 ? 'good' : percentage > 20 ? 'warning' : 'critical',
+      status:
+        percentage > 50 ? 'good' : percentage > 20 ? 'warning' : 'critical',
     };
   },
 };
@@ -112,10 +118,10 @@ export const OptimizationMetrics = {
     estimatedSavings: number; // Estimated API calls saved
   } => {
     const stats = getCacheStats();
-    
+
     // Rough estimation of API calls saved
     const estimatedApiCallsSaved = stats.storageEntries;
-    
+
     return {
       totalCacheEntries: stats.storageEntries,
       storageUsageBytes: stats.storageSize,
@@ -140,7 +146,7 @@ export const OptimizationMetrics = {
  * Debug utilities - exposed for development console
  */
 if (typeof window !== 'undefined') {
-  (window as any).__GITHUB_CACHE_DEBUG__ = {
+  (window as unknown as Record<string, unknown>).__GITHUB_CACHE_DEBUG__ = {
     cache: CacheManager,
     rateLimit: RateLimitMonitor,
     metrics: OptimizationMetrics,
