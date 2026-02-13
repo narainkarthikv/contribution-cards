@@ -88,9 +88,8 @@ export const Home: React.FC = () => {
               <motion.p
                 variants={fadeUp}
                 className='mt-4 max-w-[56ch] text-lg text-[var(--color-text-secondary)]'>
-                {APP_NAME} turns contributor impact into premium, share-ready
-                cards. Highlight the people behind every repo with a polished,
-                modern experience.
+                See who's building what. Contribution Cards highlights active
+                contributors across repositories with simple, elegant profiles.
               </motion.p>
 
               <motion.div
@@ -197,7 +196,7 @@ export const Home: React.FC = () => {
                 Designed for clarity
               </p>
               <h2 className='mt-3 text-3xl font-semibold sm:text-4xl'>
-                A quiet, premium way to honor contributors
+                A quiet, elegant way to honor contributors
               </h2>
               <p className='mt-4 text-base text-[var(--color-text-secondary)]'>
                 Fewer surfaces. Better focus. The experience stays calm while
