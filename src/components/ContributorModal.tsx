@@ -63,14 +63,14 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className='fixed inset-2 sm:inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-2xl bg-[var(--color-surface-primary)] rounded-lg sm:rounded-2xl shadow-2xl z-50 overflow-y-auto max-h-[95vh] sm:max-h-[90vh] border border-[var(--color-border-primary)]'>
+              className='fixed inset-2 sm:inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-3xl bg-[var(--color-surface-primary)] rounded-lg sm:rounded-xl z-50 overflow-y-auto max-h-[95vh] sm:max-h-[90vh] border border-[var(--color-border-primary)]'>
               <button
                 onClick={onClose}
-                className='absolute top-2 right-2 sm:top-4 sm:right-4 p-2 hover:bg-[var(--color-bg-secondary)] rounded-full transition-colors z-10'
+                className='absolute top-2 right-2 sm:top-4 sm:right-4 p-2 hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] rounded-md transition-colors z-10'
                 aria-label='Close dialog'>
                 <X
                   size={20}
-                  className='sm:w-6 sm:h-6 text-[var(--color-text-secondary)]'
+                  className='sm:w-6 sm:h-6 text-[var(--color-text-primary)]'
                 />
               </button>
 
@@ -87,17 +87,17 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                     <h2 className='text-lg sm:text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-2'>
                       {contributor.name ?? contributor.login}
                     </h2>
-                    <p className='text-sm sm:text-base md:text-lg text-[var(--color-text-secondary)] mb-3'>
+                    <p className='text-sm sm:text-base md:text-lg text-[var(--color-text-secondary)] mb-2'>
                       @{contributor.login}
                     </p>
 
                     {contributor.bio && (
-                      <p className='text-xs sm:text-sm md:text-base text-[var(--color-text-secondary)] mb-4'>
+                      <p className='text-sm sm:text-base text-[var(--color-text-primary)] mb-4'>
                         {contributor.bio}
                       </p>
                     )}
 
-                    <div className='mb-4'>
+                    <div className='mb-4 rounded-md border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] px-3 py-2 inline-block'>
                       <div className='text-xl sm:text-2xl md:text-3xl font-bold text-[var(--color-action-default)]'>
                         {totalCommits}
                       </div>
@@ -114,14 +114,14 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                   </h3>
 
                   <ul
-                    className='grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4'
+                    className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4'
                     role='list'>
                     {contributor.contributions.map((contrib) => (
                       <li
                         key={contrib.repo}
-                        className='bg-[var(--color-bg-secondary)] rounded-lg sm:rounded-xl p-3 sm:p-4 border border-[var(--color-border-primary)]'>
+                        className='bg-[var(--color-surface-secondary)] rounded-lg sm:rounded-xl p-3 sm:p-4 border border-[var(--color-border-primary)]'>
                         <div className='flex items-start justify-between mb-2 sm:mb-3'>
-                          <h4 className='font-semibold text-[var(--color-text-primary)] truncate text-xs sm:text-sm md:text-base'>
+                          <h4 className='font-semibold text-[var(--color-text-primary)] break-all text-sm sm:text-base'>
                             {contrib.repo}
                           </h4>
                         </div>
@@ -146,7 +146,7 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                     href={contributor.profileUrl}
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='w-full bg-[var(--color-text-primary)] hover:bg-[color-mix(in_srgb,var(--color-text-primary)_80%,transparent_20%)] text-[var(--color-text-inverse)] py-2 sm:py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors font-semibold text-xs sm:text-sm md:text-base'>
+                    className='w-full bg-[var(--color-action-default)] hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] text-[var(--color-text-inverse)] py-2 sm:py-3 px-4 rounded-md flex items-center justify-center gap-2 transition-colors font-semibold text-xs sm:text-sm md:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'>
                     <Github size={16} className='sm:w-5 sm:h-5' />
                     View GitHub Profile
                   </a>

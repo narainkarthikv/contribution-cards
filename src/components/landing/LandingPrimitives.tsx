@@ -27,7 +27,7 @@ export const LandingHero: React.FC<SectionProps> = ({
 }) => (
   <section
     className={withClassName(
-      'relative px-6 lg:px-10 py-16 lg:py-24',
+      'relative px-6 lg:px-10 py-20 lg:py-24',
       className
     )}
     {...props}
@@ -64,11 +64,11 @@ export const LandingGlow: React.FC<{ variant: GlowVariant }> = ({
     variant === 'right'
       ? {
           background:
-            'radial-gradient(circle at center, color-mix(in_srgb, var(--color-action-default) 26%, transparent 74%) 0%, transparent 68%)',
+            'radial-gradient(circle at center, color-mix(in_srgb, var(--color-border-primary) 32%, transparent 68%) 0%, transparent 70%)',
         }
       : {
           background:
-            'radial-gradient(circle at center, color-mix(in_srgb, var(--color-success) 22%, transparent 78%) 0%, transparent 70%)',
+            'radial-gradient(circle at center, color-mix(in_srgb, var(--color-bg-secondary) 48%, transparent 52%) 0%, transparent 72%)',
         };
 
   return (
@@ -117,12 +117,11 @@ export const PrimaryCtaButton: React.FC<ButtonProps> = ({
 }) => (
   <button
     className={withClassName(
-      'inline-flex items-center gap-2 rounded-xl px-6 py-3 text-base font-semibold text-white transition hover:bg-[var(--color-action-hover)]',
+      'inline-flex items-center gap-2 rounded-md px-6 py-3 text-base font-semibold text-[var(--color-text-inverse)] transition-colors hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-primary)] disabled:cursor-not-allowed disabled:bg-[var(--color-action-disabled)] disabled:text-[var(--color-text-muted)]',
       className
     )}
     style={{
       background: 'var(--color-action-default)',
-      boxShadow: '0 18px 40px -24px rgba(37, 99, 235, 0.6)',
     }}
     {...props}
   />
@@ -134,14 +133,12 @@ export const SecondaryCtaLink: React.FC<AnchorProps> = ({
 }) => (
   <a
     className={withClassName(
-      'inline-flex items-center gap-2 rounded-xl px-6 py-3 text-base font-semibold transition',
+      'inline-flex items-center gap-2 rounded-md px-6 py-3 text-base font-semibold transition-colors hover:bg-[var(--color-bg-secondary)] active:bg-[var(--color-surface-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-primary)]',
       className
     )}
     style={{
-      border:
-        '1px solid color-mix(in_srgb, var(--color-border-primary) 70%, transparent 30%)',
-      background:
-        'color-mix(in_srgb, var(--color-surface-primary) 92%, transparent 8%)',
+      border: '1px solid var(--color-border-primary)',
+      background: 'var(--color-surface-primary)',
       color: 'var(--color-text-primary)',
     }}
     {...props}
@@ -156,13 +153,13 @@ export const OutlineChip: React.FC<{ size?: 'sm' | 'md' } & DivProps> = ({
   <span
     className={withClassName(
       size === 'sm'
-        ? 'rounded-full px-2 py-1 text-xs'
-        : 'rounded-full px-3 py-1 text-xs',
+        ? 'rounded-md px-2 py-1 text-xs'
+        : 'rounded-md px-3 py-1 text-xs',
       className
     )}
     style={{
-      border:
-        '1px solid color-mix(in_srgb, var(--color-border-primary) 70%, transparent 30%)',
+      border: '1px solid var(--color-border-primary)',
+      background: 'var(--color-surface-primary)',
     }}
     {...props}
   />
@@ -174,15 +171,12 @@ export const LandingCardStrong: React.FC<DivProps> = ({
 }) => (
   <div
     className={withClassName(
-      'rounded-3xl p-6 transition-all duration-300',
+      'rounded-2xl p-6 transition-colors duration-300',
       className
     )}
     style={{
-      border: '1px solid transparent',
-      background:
-        'linear-gradient(180deg, color-mix(in_srgb, var(--color-surface-primary) 94%, transparent 6%) 0%, color-mix(in_srgb, var(--color-surface-primary) 86%, transparent 14%) 100%) padding-box, linear-gradient(135deg, color-mix(in_srgb, var(--color-action-default) 38%, var(--color-border-primary) 62%) 0%, color-mix(in_srgb, var(--color-border-primary) 90%, transparent 10%) 100%) border-box',
-      boxShadow:
-        '0 26px 60px -42px rgba(15, 23, 42, 0.5), inset 0 1px 0 color-mix(in_srgb, var(--color-text-inverse) 10%, transparent 90%)',
+      border: '1px solid var(--color-border-primary)',
+      background: 'var(--color-surface-primary)',
     }}
     {...props}
   />
@@ -194,15 +188,12 @@ export const LandingCardMuted: React.FC<DivProps> = ({
 }) => (
   <div
     className={withClassName(
-      'rounded-3xl p-6 transition-all duration-300',
+      'rounded-2xl p-6 transition-colors duration-300',
       className
     )}
     style={{
-      border: '1px solid transparent',
-      background:
-        'linear-gradient(180deg, color-mix(in_srgb, var(--color-bg-secondary) 92%, transparent 8%) 0%, color-mix(in_srgb, var(--color-bg-secondary) 84%, transparent 16%) 100%) padding-box, linear-gradient(135deg, color-mix(in_srgb, var(--color-border-primary) 85%, transparent 15%) 0%, color-mix(in_srgb, var(--color-border-primary) 65%, transparent 35%) 100%) border-box',
-      boxShadow:
-        'inset 0 1px 0 color-mix(in_srgb, var(--color-text-inverse) 8%, transparent 92%)',
+      border: '1px solid var(--color-border-primary)',
+      background: 'var(--color-bg-secondary)',
     }}
     {...props}
   />
@@ -211,15 +202,12 @@ export const LandingCardMuted: React.FC<DivProps> = ({
 export const LandingPanel: React.FC<DivProps> = ({ className, ...props }) => (
   <div
     className={withClassName(
-      'rounded-2xl p-5 transition-all duration-300',
+      'rounded-lg p-5 transition-colors duration-300',
       className
     )}
     style={{
-      border: '1px solid transparent',
-      background:
-        'linear-gradient(180deg, color-mix(in_srgb, var(--color-surface-primary) 94%, transparent 6%) 0%, color-mix(in_srgb, var(--color-surface-primary) 86%, transparent 14%) 100%) padding-box, linear-gradient(135deg, color-mix(in_srgb, var(--color-border-primary) 90%, transparent 10%) 0%, color-mix(in_srgb, var(--color-border-primary) 70%, transparent 30%) 100%) border-box',
-      boxShadow:
-        'inset 0 1px 0 color-mix(in_srgb, var(--color-text-inverse) 8%, transparent 92%)',
+      border: '1px solid var(--color-border-primary)',
+      background: 'var(--color-surface-primary)',
     }}
     {...props}
   />
@@ -231,15 +219,12 @@ export const LandingPanelSoft: React.FC<DivProps> = ({
 }) => (
   <div
     className={withClassName(
-      'rounded-2xl p-4 transition-all duration-300',
+      'rounded-lg p-4 transition-colors duration-300',
       className
     )}
     style={{
-      border: '1px solid transparent',
-      background:
-        'linear-gradient(180deg, color-mix(in_srgb, var(--color-surface-primary) 96%, transparent 4%) 0%, color-mix(in_srgb, var(--color-surface-primary) 90%, transparent 10%) 100%) padding-box, linear-gradient(135deg, color-mix(in_srgb, var(--color-border-primary) 80%, transparent 20%) 0%, color-mix(in_srgb, var(--color-border-primary) 65%, transparent 35%) 100%) border-box',
-      boxShadow:
-        'inset 0 1px 0 color-mix(in_srgb, var(--color-text-inverse) 7%, transparent 93%)',
+      border: '1px solid var(--color-border-primary)',
+      background: 'var(--color-surface-primary)',
     }}
     {...props}
   />
@@ -250,7 +235,7 @@ export const LandingIconChip: React.FC<DivProps> = ({
   ...props
 }) => (
   <span
-    className={withClassName('rounded-xl p-2', className)}
+    className={withClassName('rounded-md p-2', className)}
     style={{
       background: 'var(--color-bg-secondary)',
       color: 'var(--color-action-default)',
@@ -266,13 +251,10 @@ export const LandingStatChip: React.FC<{
   loading: boolean;
 }> = ({ icon: Icon, value, label, loading }) => (
   <div
-    className='flex items-center gap-3 rounded-2xl px-4 py-3 transition-all duration-300'
+    className='flex items-center gap-3 rounded-lg px-4 py-3 transition-colors duration-300'
     style={{
-      border: '1px solid transparent',
-      background:
-        'linear-gradient(180deg, color-mix(in_srgb, var(--color-surface-primary) 96%, transparent 4%) 0%, color-mix(in_srgb, var(--color-surface-primary) 88%, transparent 12%) 100%) padding-box, linear-gradient(135deg, color-mix(in_srgb, var(--color-border-primary) 90%, transparent 10%) 0%, color-mix(in_srgb, var(--color-border-primary) 70%, transparent 30%) 100%) border-box',
-      boxShadow:
-        'inset 0 1px 0 color-mix(in_srgb, var(--color-text-inverse) 8%, transparent 92%)',
+      border: '1px solid var(--color-border-primary)',
+      background: 'var(--color-surface-primary)',
     }}>
     <LandingIconChip>
       <Icon size={18} />

@@ -81,7 +81,6 @@ export const ContributorsPage: React.FC = () => {
                   className='text-[var(--color-action-default)]'
                 />
               }
-              bgClass='bg-[color-mix(in_srgb,var(--color-action-default)_15%,transparent_85%)]'
               label='Across All Repos'
               value={
                 globalStatsLoading ? '—' : globalStats.uniqueContributorCount
@@ -89,8 +88,7 @@ export const ContributorsPage: React.FC = () => {
               sublabel='Unique Contributors'
             />
             <StatCard
-              icon={<Zap size={20} className='text-[var(--color-success)]' />}
-              bgClass='bg-[color-mix(in_srgb,var(--color-success)_18%,transparent_82%)]'
+              icon={<Zap size={20} className='text-[var(--color-action-default)]' />}
               label='Total'
               value={globalStatsLoading ? '—' : globalStats.totalContributions}
               sublabel='Contributions'
@@ -102,7 +100,6 @@ export const ContributorsPage: React.FC = () => {
                   className='text-[var(--color-action-default)]'
                 />
               }
-              bgClass='bg-[color-mix(in_srgb,var(--color-action-default)_18%,transparent_82%)]'
               label='Active'
               value={globalStats.totalRepositories}
               sublabel='Repositories'
@@ -162,18 +159,16 @@ export const ContributorsPage: React.FC = () => {
 
 interface StatCardProps {
   icon: React.ReactNode;
-  bgClass: string;
   label: string;
   value: string | number;
   sublabel: string;
 }
 
 const StatCard: React.FC<StatCardProps> = React.memo(
-  ({ icon, bgClass, label, value, sublabel }) => (
-    <div className='rounded-lg bg-[var(--color-surface-primary)] border border-[var(--color-border-primary)] p-4 shadow-sm'>
+  ({ icon, label, value, sublabel }) => (
+    <div className='rounded-lg bg-[var(--color-surface-primary)] border border-[var(--color-border-primary)] p-4'>
       <div className='flex items-center gap-3'>
-        <div
-          className={`flex items-center justify-center h-10 w-10 rounded-lg ${bgClass}`}>
+        <div className='flex items-center justify-center h-10 w-10 rounded-md bg-[var(--color-bg-secondary)] border border-[var(--color-border-primary)]'>
           {icon}
         </div>
         <div>

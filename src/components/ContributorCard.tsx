@@ -34,7 +34,7 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
         <div
           role='button'
           tabIndex={0}
-          className='relative h-full w-full rounded-lg p-6 shadow-sm transition-shadow overflow-hidden group cursor-pointer border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)] flex flex-col hover:shadow-md focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'
+          className='relative h-full w-full rounded-lg p-6 transition-colors overflow-hidden group cursor-pointer border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)] flex flex-col hover:bg-[var(--color-bg-secondary)] focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'
           onClick={() => onViewDetails(contributor)}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -44,7 +44,7 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
           }}>
           {/* Contribution Badge */}
           <div className='absolute top-4 left-4 flex items-center justify-center'>
-            <div className='relative w-14 h-14 rounded-full bg-[var(--color-action-default)] flex items-center justify-center shadow-lg ring-2 ring-[var(--color-surface-primary)]'>
+            <div className='relative w-14 h-14 rounded-full bg-[var(--color-action-default)] flex items-center justify-center ring-2 ring-[var(--color-surface-primary)]'>
               <span
                 className='text-lg font-bold text-white'
                 aria-label={`${totalCommits} contributions`}>
@@ -57,7 +57,7 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
           <div className='absolute top-4 right-4 flex gap-1.5 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200'>
             <button
               onClick={handleCopyProfile}
-              className='flex items-center justify-center w-9 h-9 rounded-lg border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)]'
+              className='flex items-center justify-center w-9 h-9 rounded-md border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'
               aria-label={`Copy profile link for ${contributor.login}`}>
               <Copy size={16} />
             </button>
@@ -67,7 +67,7 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
               target='_blank'
               rel='noopener noreferrer'
               onClick={(e) => e.stopPropagation()}
-              className='flex items-center justify-center w-9 h-9 bg-[var(--color-action-default)] text-white rounded-lg transition-colors hover:bg-[var(--color-action-hover)]'
+              className='flex items-center justify-center w-9 h-9 bg-[var(--color-action-default)] text-white rounded-md transition-colors hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'
               aria-label={`Open ${contributor.login}'s GitHub profile`}>
               <Github size={16} />
             </a>
@@ -77,7 +77,7 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
                 e.stopPropagation();
                 onViewDetails(contributor);
               }}
-              className='flex items-center justify-center w-9 h-9 bg-[var(--color-action-active)] text-white rounded-lg transition-colors hover:bg-[var(--color-action-hover)]'
+              className='flex items-center justify-center w-9 h-9 bg-[var(--color-action-default)] text-white rounded-md transition-colors hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'
               aria-label={`View details for ${contributor.login}`}>
               <ArrowRight size={16} />
             </button>
@@ -88,7 +88,7 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
             <img
               src={contributor.avatarUrl}
               alt=''
-              className='w-20 h-20 rounded-full ring-2 ring-[var(--color-action-default)] ring-offset-2 ring-offset-[var(--color-surface-primary)] object-cover shadow-md'
+              className='w-20 h-20 rounded-full ring-2 ring-[var(--color-action-default)] ring-offset-2 ring-offset-[var(--color-surface-primary)] object-cover'
               loading='lazy'
             />
           </div>

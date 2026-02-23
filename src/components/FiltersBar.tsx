@@ -82,7 +82,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
           : 'All Repos';
 
     return (
-      <div className='w-full rounded-lg p-4 sm:p-5 border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)] shadow-sm'>
+      <div className='w-full rounded-lg p-4 sm:p-5 border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)]'>
         <div className='flex flex-col gap-3 sm:flex-row sm:items-stretch sm:justify-between flex-wrap'>
           {/* Repository Dropdown */}
           <div className='relative' ref={dropdownRef}>
@@ -90,7 +90,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
               onClick={() => setShowRepoDropdown((prev) => !prev)}
               aria-expanded={showRepoDropdown}
               aria-haspopup='listbox'
-              className='flex items-center justify-center gap-2 px-4 py-0 border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] rounded-lg transition-colors text-sm font-medium whitespace-nowrap h-10 w-full sm:w-auto'>
+              className='flex items-center justify-center gap-2 px-4 py-0 border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] rounded-md transition-colors text-sm font-medium whitespace-nowrap h-10 w-full sm:w-auto hover:bg-[var(--color-surface-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'>
               <span className='hidden sm:inline text-[var(--color-text-secondary)] text-xs'>
                 Repo:
               </span>
@@ -107,7 +107,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
               <ul
                 role='listbox'
                 aria-label='Select repository'
-                className='absolute top-full left-0 mt-2 bg-[var(--color-surface-primary)] border border-[var(--color-border-primary)] rounded-lg shadow-lg z-50 min-w-48'>
+                className='absolute top-full left-0 mt-2 bg-[var(--color-surface-primary)] border border-[var(--color-border-primary)] rounded-md z-50 min-w-48'>
                 {repositories.map((repo) => {
                   const isSelected = selectedRepositories.includes(repo);
                   return (
@@ -117,7 +117,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
                           onRepositorySelect(repo);
                           setShowRepoDropdown(false);
                         }}
-                        className={`w-full text-left px-4 py-2.5 text-sm font-medium transition-colors ${
+                        className={`w-full text-left px-4 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] ${
                           isSelected
                             ? 'bg-[color-mix(in_srgb,var(--color-action-default)_12%,transparent_88%)] text-[var(--color-action-default)]'
                             : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]'
@@ -151,7 +151,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
                 type='search'
                 placeholder='Search by name...'
                 onChange={(e) => handleSearchChange(e.target.value)}
-                className='w-full h-full pl-10 pr-3 border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-action-default)] transition-all text-sm'
+                className='w-full h-full pl-10 pr-3 border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-action-default)] transition-all text-sm'
                 aria-label='Search contributors'
               />
             </div>
@@ -167,7 +167,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
                   field: e.target.value as SortOption['field'],
                 })
               }
-              className='w-full h-full px-4 py-0 border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)] rounded-lg text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[var(--color-action-default)] cursor-pointer'
+              className='w-full h-full px-4 py-0 border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] text-[var(--color-text-primary)] rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[var(--color-action-default)] cursor-pointer'
               aria-label='Sort by'>
               <option value='totalContributions'>Contributions</option>
               <option value='name'>Name</option>
@@ -183,7 +183,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
               role='radio'
               aria-checked={sortBy.order === 'asc'}
               onClick={() => onSortChange({ ...sortBy, order: 'asc' })}
-              className={`flex items-center justify-center px-3 py-0 rounded-lg transition-colors border border-[var(--color-border-primary)] ${
+              className={`flex items-center justify-center px-3 py-0 rounded-md transition-colors border border-[var(--color-border-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] ${
                 sortBy.order === 'asc'
                   ? 'bg-[var(--color-action-default)] text-white border-[var(--color-action-default)]'
                   : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
@@ -196,7 +196,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
               role='radio'
               aria-checked={sortBy.order === 'desc'}
               onClick={() => onSortChange({ ...sortBy, order: 'desc' })}
-              className={`flex items-center justify-center px-3 py-0 rounded-lg transition-colors border border-[var(--color-border-primary)] ${
+              className={`flex items-center justify-center px-3 py-0 rounded-md transition-colors border border-[var(--color-border-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] ${
                 sortBy.order === 'desc'
                   ? 'bg-[var(--color-action-default)] text-white border-[var(--color-action-default)]'
                   : 'bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
@@ -208,7 +208,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
         </div>
 
         {/* Summary */}
-        <p className='text-xs sm:text-sm font-medium text-[var(--color-text-secondary)] mt-3 pt-3 border-t border-[var(--color-border-primary)]'>
+        <p className='text-xs sm:text-sm font-medium text-[var(--color-text-secondary)] mt-4'>
           Showing{' '}
           <span className='font-semibold text-[var(--color-action-default)]'>
             {totalContributors}
