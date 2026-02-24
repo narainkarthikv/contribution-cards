@@ -6,7 +6,7 @@
 import React from 'react';
 
 export const ContributorCardSkeleton = React.memo(() => (
-  <div className='bg-[var(--color-surface-primary)] rounded-lg sm:rounded-xl shadow-md p-4 sm:p-6 border border-[var(--color-border-primary)] h-full'>
+  <div className='bg-[var(--color-surface-primary)] rounded-lg sm:rounded-xl p-4 sm:p-6 border border-[var(--color-border-primary)] h-full'>
     <div className='space-y-3 sm:space-y-4'>
       <div className='flex justify-center mb-3 sm:mb-4'>
         <div className='w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-[var(--color-bg-secondary)] rounded-full animate-pulse' />
@@ -78,7 +78,7 @@ export const ErrorState: React.FC<ErrorStateProps> = React.memo(
       {onRetry && (
         <button
           onClick={onRetry}
-          className='bg-[var(--color-action-default)] hover:bg-[var(--color-action-hover)] text-white px-4 sm:px-6 py-2 rounded-lg font-medium transition-colors text-xs sm:text-sm'>
+          className='bg-[var(--color-action-default)] hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-primary)] text-[var(--color-text-inverse)] px-4 sm:px-6 py-2 rounded-md font-medium transition-colors text-xs sm:text-sm'>
           Try Again
         </button>
       )}

@@ -67,7 +67,7 @@ export const Home: React.FC = () => {
 
       <LandingHero>
         <div className='mx-auto max-w-6xl'>
-          <div className='grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]'>
+          <div className='grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]'>
             <motion.div variants={container} initial='hidden' animate='show'>
               <motion.div variants={fadeUp} className='w-fit'>
                 <LandingEyebrow>
@@ -80,7 +80,7 @@ export const Home: React.FC = () => {
                 variants={fadeUp}
                 className='mt-6 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl'>
                 Spotlight the builders shaping
-                <span className='block bg-[linear-gradient(110deg,var(--color-action-default),_color-mix(in_srgb,var(--color-action-default)_70%,var(--color-success)_30%))] bg-clip-text text-transparent'>
+                <span className='block text-[var(--color-text-primary)]'>
                   Wisdom Fox Community
                 </span>
               </motion.h1>
@@ -110,7 +110,7 @@ export const Home: React.FC = () => {
 
               <motion.div
                 variants={fadeUp}
-                className='mt-10 flex flex-wrap items-center gap-3 text-xs text-[var(--color-text-secondary)]'>
+                className='mt-8 flex flex-wrap items-center gap-3 text-xs text-[var(--color-text-secondary)]'>
                 {['Impact insights', 'Share-ready cards', 'Smart filters'].map(
                   (item) => (
                     <OutlineChip key={item}>{item}</OutlineChip>
@@ -190,7 +190,7 @@ export const Home: React.FC = () => {
 
       <LandingSection>
         <LandingSectionInner>
-          <div className='grid gap-10 lg:grid-cols-[0.9fr_1.1fr]'>
+          <div className='grid gap-12 lg:grid-cols-[0.9fr_1.1fr]'>
             <div>
               <p className='text-sm uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
                 Designed for clarity
@@ -202,7 +202,7 @@ export const Home: React.FC = () => {
                 Fewer surfaces. Better focus. The experience stays calm while
                 still highlighting the people who move the project forward.
               </p>
-              <div className='mt-6 grid gap-4'>
+              <div className='mt-8 grid gap-4'>
                 {[
                   {
                     title: 'Elegant cards',
@@ -237,7 +237,7 @@ export const Home: React.FC = () => {
               </div>
             </div>
 
-            <div className='grid gap-4'>
+            <div className='grid gap-5'>
               {[
                 {
                   title: 'Instant insight loops',
@@ -286,8 +286,8 @@ export const Home: React.FC = () => {
 
       <LandingSection>
         <LandingSectionInner>
-          <LandingCardMuted className='rounded-[28px] p-8 md:p-10'>
-            <div className='grid gap-8 md:grid-cols-[1.1fr_0.9fr]'>
+          <LandingCardMuted className='rounded-3xl p-8 md:p-10'>
+            <div className='grid gap-10 md:grid-cols-[1.1fr_0.9fr]'>
               <div>
                 <p className='text-sm uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
                   Transparent tech
@@ -352,20 +352,20 @@ export const Home: React.FC = () => {
       </LandingSection>
 
       <LandingSection>
-        <LandingSectionInner>
-          <div className='rounded-[30px] bg-[linear-gradient(135deg,_color-mix(in_srgb,var(--color-action-default)_70%,transparent_30%)_0%,_color-mix(in_srgb,var(--color-success)_46%,transparent_54%)_100%)] p-10 text-white shadow-[0_28px_70px_-46px_rgba(15,23,42,0.5)]'>
+        <LandingSectionInner className='pt-8 pb-8 lg:pt-10 lg:pb-10'>
+          <div className='rounded-3xl border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)] p-10'>
             <div className='mx-auto max-w-3xl text-center'>
               <h2 className='text-3xl font-semibold sm:text-4xl'>
                 Ready to spotlight the builders?
               </h2>
-              <p className='mx-auto mt-4 max-w-[60ch] text-base text-white/90'>
+              <p className='mx-auto mt-4 max-w-[60ch] text-base text-[var(--color-text-secondary)]'>
                 Honor contributions, onboard new teammates, and keep the Wisdom
                 Fox culture glowing. Start with the contributor cards now.
               </p>
               <div className='mt-8 flex flex-wrap items-center justify-center gap-3'>
                 <button
                   onClick={() => navigate('/contributors')}
-                  className='inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-[0_18px_36px_-24px_rgba(15,23,42,0.5)] transition'>
+                  className='inline-flex items-center gap-2 rounded-md bg-[var(--color-action-default)] px-6 py-3 text-base font-semibold text-[var(--color-text-inverse)] transition-colors hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-primary)]'>
                   Open contributors
                   <ArrowRight size={18} />
                 </button>
@@ -373,7 +373,7 @@ export const Home: React.FC = () => {
                   href={`https://github.com/${APP_REPOSITORY}`}
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='inline-flex items-center gap-2 rounded-xl border border-white/50 px-6 py-3 text-base font-semibold text-white transition'>
+                  className='inline-flex items-center gap-2 rounded-md border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)] px-6 py-3 text-base font-semibold text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-bg-secondary)] active:bg-[var(--color-surface-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-primary)]'>
                   <Github size={18} />
                   Star on GitHub
                 </a>
@@ -384,8 +384,8 @@ export const Home: React.FC = () => {
       </LandingSection>
 
       <LandingSection>
-        <LandingSectionInner>
-          <LandingCardMuted className='rounded-[28px] p-8 text-center'>
+        <LandingSectionInner className='pt-8 pb-8 lg:pt-10 lg:pb-10'>
+          <LandingCardMuted className='rounded-3xl p-8 text-center'>
             <div className='mx-auto max-w-3xl'>
               <p className='text-sm uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
                 Wisdom Fox Community
@@ -403,18 +403,18 @@ export const Home: React.FC = () => {
                   href='https://ko-fi.com/wisdomfox'
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='inline-flex items-center gap-2 rounded-xl border border-[color-mix(in_srgb,var(--color-border-primary)_70%,transparent_30%)] bg-[color-mix(in_srgb,var(--color-surface-primary)_92%,transparent_8%)] px-6 py-3 text-sm font-semibold transition'>
+                  className='inline-flex items-center gap-2 rounded-md border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)] px-6 py-3 text-sm font-semibold transition-colors hover:bg-[var(--color-bg-secondary)] active:bg-[var(--color-surface-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-primary)]'>
                   ☕ Buy us a coffee
                 </a>
                 <a
                   href='https://patreon.com/user?u=72747187'
                   target='_blank'
                   rel='noopener noreferrer'
-                  className='inline-flex items-center gap-2 rounded-xl bg-[var(--color-action-default)] px-6 py-3 text-sm font-semibold text-white transition'>
+                  className='inline-flex items-center gap-2 rounded-md bg-[var(--color-action-default)] px-6 py-3 text-sm font-semibold text-[var(--color-text-inverse)] transition-colors hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-primary)]'>
                   💚 Support on Patreon
                 </a>
               </div>
-              <p className='mt-6 text-xs text-[var(--color-text-secondary)]'>
+              <p className='mt-8 text-xs text-[var(--color-text-secondary)]'>
                 Donations are optional. Contribution Cards will always be free
                 and open source.
               </p>
@@ -424,7 +424,7 @@ export const Home: React.FC = () => {
       </LandingSection>
 
       <LandingSection>
-        <LandingSectionInner withPadding={false} className='pt-8 pb-4'>
+        <LandingSectionInner withPadding={false} className='pt-4 pb-6 lg:pt-6 lg:pb-8'>
           <div className='border-t border-[color-mix(in_srgb,var(--color-border-primary)_70%,transparent_30%)] pt-8'>
             <div className='grid gap-8 text-center md:grid-cols-[1.3fr_1fr_1fr_1fr] md:text-left'>
               <div>

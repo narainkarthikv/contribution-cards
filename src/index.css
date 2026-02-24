@@ -24,7 +24,7 @@ body {
 
 html {
   font-family: 'Sora', ui-sans-serif, system-ui, sans-serif;
-  line-height: 1.6;
+  line-height: 1.5;
   font-weight: 400;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -53,6 +53,10 @@ html {
   --color-warning: #f59e0b;
   --color-border-primary: #e5e7eb;
   --color-border-subtle: #f0f0f0;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
 }
 
 :root[data-theme='dark'] {
@@ -95,7 +99,7 @@ a {
 }
 
 a:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--color-action-default);
   outline-offset: 2px;
 }
 
@@ -107,7 +111,7 @@ button {
 }
 
 button:focus-visible {
-  outline: 2px solid currentColor;
+  outline: 2px solid var(--color-action-default);
   outline-offset: 2px;
 }
 
@@ -137,4 +141,15 @@ h6 {
 
 p {
   margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

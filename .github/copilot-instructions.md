@@ -516,6 +516,12 @@ npm run lint
 - Lazy load routes if needed
 - Monitor bundle size with `npm run build`
 
+### Design System & UI Guidelines
+
+Refer to `design-system.md` for detailed design tokens, color palette, typography, and component patterns. When implementing UI components, always reference the design system for consistency. 
+
+---
+
 ### When to Ask for Help
 
 - Architectural changes affecting data flow
