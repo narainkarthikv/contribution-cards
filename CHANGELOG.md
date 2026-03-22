@@ -17,7 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-No unreleased changes yet.
+### Changed
+
+- Contributor detail modals now resolve the selected contributor against the all-repositories aggregate so the contribution list shows every repository they have commit activity in, even when the page is filtered to a single repository.
+- The contributor modal layout was refreshed with a more modern SaaS-style presentation, improved spacing, richer contribution hierarchy, and clearer summary insights.
+- The contributor modal now uses a taller adaptive desktop viewport so the content feels less cramped vertically while remaining scrollable when needed.
 
 ## [1.0.0] - 2026-02-24
 

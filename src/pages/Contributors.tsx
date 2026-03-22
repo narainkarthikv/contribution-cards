@@ -54,6 +54,13 @@ export const ContributorsPage: React.FC = () => {
     [pageState]
   );
 
+  const modalContributor =
+    (pageState.selectedContributor &&
+      globalStats?.uniqueContributors.find(
+        ({ login }) => login === pageState.selectedContributor?.login
+      )) ??
+    pageState.selectedContributor;
+
   if (isError) {
     return (
       <div className='w-full bg-[var(--color-bg-primary)] py-12 sm:py-20 px-4 sm:px-6 lg:px-8'>
@@ -147,7 +154,7 @@ export const ContributorsPage: React.FC = () => {
       </div>
 
       <ContributorModal
-        contributor={pageState.selectedContributor}
+        contributor={modalContributor}
         isOpen={pageState.isModalOpen}
         onClose={() => pageState.setIsModalOpen(false)}
       />

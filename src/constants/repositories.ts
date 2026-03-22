@@ -9,7 +9,7 @@ export const REPOSITORY_LIST = [
   'narainkarthikv/GLIS',
   'narainkarthikv/nmoji',
   'narainkarthikv/readme-shop',
-  'narainkarthikv/sticky-memo',
+  'narainkarthikv/ownlyst',
 ] as const;
 
 export type RepositoryName = (typeof REPOSITORY_LIST)[number];
