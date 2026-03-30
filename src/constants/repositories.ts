@@ -8,8 +8,8 @@ export const REPOSITORY_LIST = [
   'narainkarthikv/fit-track',
   'narainkarthikv/GLIS',
   'narainkarthikv/nmoji',
-  'narainkarthikv/readme-shop',
   'narainkarthikv/ownlyst',
+  'narainkarthikv/readme-shop'
 ] as const;
 
 export type RepositoryName = (typeof REPOSITORY_LIST)[number];
