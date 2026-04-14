@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Filtersbar with ui fixes with removal of showing contributors and updated it with profiles live based on repo clicked on dropdown
+- Fixes in greetings.yaml file for welcoming new contributors to the wisdom fox community
+
 ### Changed
 
 - Contributor detail modals now resolve the selected contributor against the all-repositories aggregate so the contribution list shows every repository they have commit activity in, even when the page is filtered to a single repository.
