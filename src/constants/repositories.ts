@@ -5,7 +5,7 @@
 
 export const REPOSITORY_LIST = [
   'narainkarthikv/contribution-cards',
-  'narainkarthikv/fit-track',
+  'narainkarthikv/fitprogressr',
   'narainkarthikv/GLIS',
   'narainkarthikv/nmoji',
   'narainkarthikv/ownlyst',

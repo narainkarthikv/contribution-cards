@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Filtersbar with ui fixes with removal of showing contributors and updated it with profiles live based on repo clicked on dropdown
 - Fixes in greetings.yaml file for welcoming new contributors to the wisdom fox community
+- Rebranding of Fit-track to FitProgressr project
 
 ### Changed
 
