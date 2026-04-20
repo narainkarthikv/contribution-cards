@@ -186,7 +186,8 @@ If Contribution Cards helps you discover amazing developers:
 
 ## 🔗 Links
 
-- **Live Demo**: [https://narainkarthikv.github.io/contribution-cards/](https://narainkarthikv.github.io/contribution-cards/)
+- **Production**: [https://contribution-cards.netlify.app/](https://contribution-cards.netlify.app/)
+- **Development**: [https://contributioncards-dev.vercel.app/](https://contributioncards-dev.vercel.app/)
 - **Repository**: [https://github.com/narainkarthikv/contribution-cards](https://github.com/narainkarthikv/contribution-cards)
 
 ---
