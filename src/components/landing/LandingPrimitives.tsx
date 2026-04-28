@@ -259,8 +259,8 @@ export const LandingStatChip: React.FC<{
     <LandingIconChip>
       <Icon size={18} />
     </LandingIconChip>
-    <div>
-      <div className='text-lg font-semibold text-[var(--color-text-primary)]'>
+    <div className='flex items-center gap-3'>
+      <div className='text-lg font-semibold leading-none text-[var(--color-text-primary)]'>
         {loading ? '—' : value.toLocaleString()}
       </div>
       <div className='text-[11px] uppercase tracking-[0.18em] text-[var(--color-text-muted)]'>
