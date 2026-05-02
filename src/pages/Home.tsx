@@ -407,11 +407,11 @@ export const Home: React.FC = () => {
                   ☕ Buy us a coffee
                 </a>
                 <a
-                  href='https://patreon.com/user?u=72747187'
+                  href='https://buymeacoffee.com/narainkarthikv'
                   target='_blank'
                   rel='noopener noreferrer'
                   className='inline-flex items-center gap-2 rounded-md bg-[var(--color-action-default)] px-6 py-3 text-sm font-semibold text-[var(--color-text-inverse)] transition-colors hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-primary)]'>
-                  💚 Support on Patreon
+                  💚 Support on Buy Me a Coffee
                 </a>
               </div>
               <p className='mt-8 text-xs text-[var(--color-text-secondary)]'>
