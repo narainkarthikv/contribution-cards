@@ -33,7 +33,7 @@ jobs:
       - name: Create release for tag
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BODY: ${{ steps.extract.outputs.body }}
         run: |
           version=${GITHUB_REF_NAME}
           gh release create "$version" --notes "$([[ -n "$BODY" ]] && printf '%s' "$BODY")" --draft=false --prerelease=false
-          # fallback: if gh CLI isn't available, you could use curl against the GitHub API

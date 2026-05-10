@@ -17,15 +17,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Filtersbar with ui fixes with removal of showing contributors and updated it with profiles live based on repo clicked on dropdown
-- Fixes in greetings.yaml file for welcoming new contributors to the wisdom fox community
-- Rebranding of Fit-track to FitProgressr project
+No notable changes yet.
+
+## [1.1.0] - 2026-05-10
+
+### Added
+
+- GitHub Actions CI badge in the README so contributors can see project health at a glance.
 
 ### Changed
 
+- Release workflow now publishes the matching changelog section as GitHub release notes.
+- README and package metadata now reference the current project version.
+- Added the canonical `LICENSE` file expected by GitHub and project badges.
+- Repository filtering now updates visible contributor profiles live when a repository is selected from the dropdown.
+- Contributor list UI was simplified by removing the extra "showing contributors" display from the filters bar.
+- Community-facing references were updated for the FitProgressr rebrand.
 - Contributor detail modals now resolve the selected contributor against the all-repositories aggregate so the contribution list shows every repository they have commit activity in, even when the page is filtered to a single repository.
 - The contributor modal layout was refreshed with a more modern SaaS-style presentation, improved spacing, richer contribution hierarchy, and clearer summary insights.
 - The contributor modal now uses a taller adaptive desktop viewport so the content feels less cramped vertically while remaining scrollable when needed.
+
+### Fixed
+
+- First-time contributor greeting workflow copy now welcomes contributors to the contribution-cards community consistently.
 
 ## [1.0.0] - 2026-02-24
 
@@ -60,5 +74,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Codebase cleanup and structural refactors to remove duplication, improve consistency, and align with the current design system.
 
-[Unreleased]: https://github.com/narainkarthikv/contribution-cards/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/narainkarthikv/contribution-cards/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/narainkarthikv/contribution-cards/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/narainkarthikv/contribution-cards/releases/tag/v1.0.0

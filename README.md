@@ -1,5 +1,6 @@
 ![License](https://img.shields.io/github/license/narainkarthikv/contribution-cards)
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+[![CI](https://github.com/narainkarthikv/contribution-cards/actions/workflows/ci.yml/badge.svg)](https://github.com/narainkarthikv/contribution-cards/actions/workflows/ci.yml)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![Last Commit](https://img.shields.io/github/last-commit/narainkarthikv/contribution-cards)
 [![GitHub issues](https://img.shields.io/github/issues/narainkarthikv/contribution-cards)](https://github.com/narainkarthikv/contribution-cards/issues)
 [![GitHub stars](https://img.shields.io/github/stars/narainkarthikv/contribution-cards)](https://github.com/narainkarthikv/contribution-cards/stargazers)
@@ -76,7 +77,6 @@ contribution-cards/
 │   ├── components/     # Reusable UI components
 │   ├── constants/      # App constants and repositories
 │   ├── controllers/    # App-level state and logic
-│   ├── hooks/          # Custom React hooks
 │   ├── lib/            # GitHub API, caching, debug utilities
 │   ├── models/         # TypeScript interfaces
 │   ├── pages/          # Page components
@@ -85,7 +85,6 @@ contribution-cards/
 │   ├── utils/          # Helper utilities
 │   └── App.tsx         # Root component with routing
 ├── public/             # Static assets
-├── docs/               # Technical documentation
 └── .github/            # GitHub templates and workflows
 ```
 
@@ -161,10 +160,9 @@ We welcome contributions from the community! Here's how to get started:
 ## 📖 Documentation
 
 - [Contributing Guide](./CONTRIBUTING.md) - How to contribute
-- [Caching & Rate Limiting](./docs/CACHING_AND_RATE_LIMITING.md) - Technical deep dive
-- [Implementation Summary](./docs/IMPLEMENTATION_SUMMARY.md) - Architecture overview
-- [Quick Start Guide](./docs/QUICK_START.md) - Developer guide
-- [Theme System](./docs/THEME_SYSTEM.md) - Design tokens and typography
+- [Design System](./design-system.md) - Design tokens and interface guidance
+- [Security Policy](./SECURITY.md) - Supported versions and vulnerability reporting
+- [Changelog](./CHANGELOG.md) - Release history and upcoming changes
 - [Contributors](./Contributors.md) - Contributor list
 - [License](./LICENSE) - MIT License details
 
