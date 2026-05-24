@@ -424,7 +424,9 @@ export const Home: React.FC = () => {
       </LandingSection>
 
       <LandingSection>
-        <LandingSectionInner withPadding={false} className='pt-4 pb-6 lg:pt-6 lg:pb-8'>
+        <LandingSectionInner
+          withPadding={false}
+          className='pt-4 pb-6 lg:pt-6 lg:pb-8'>
           <div className='border-t border-[color-mix(in_srgb,var(--color-border-primary)_70%,transparent_30%)] pt-8'>
             <div className='grid gap-8 text-center md:grid-cols-[1.3fr_1fr_1fr_1fr] md:text-left'>
               <div>

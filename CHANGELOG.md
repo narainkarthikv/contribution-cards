@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.  Contributors and maintainers **must** record every meaningful change here using an industry-standard format.
+All notable changes to this project will be documented in this file. Contributors and maintainers **must** record every meaningful change here using an industry-standard format.
 
 To keep the history clear:
 
@@ -18,6 +18,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 No notable changes yet.
+
+## [1.1.1] - 2026-05-24
+
+### Fixed
+
+- Remediated all npm audit findings (including critical/high severity advisories) and verified `0 vulnerabilities` at `--audit-level=moderate`.
+- Updated vulnerable direct dependency ranges in `package.json`:
+  - `vite` to `^7.3.3`
+  - `react-router-dom` to `^7.15.1`
+  - `postcss` to `^8.5.15`
+- Refreshed lockfile to pull patched transitive dependencies (including `handlebars`, `rollup`, `esbuild`, `minimatch`, `picomatch`, `ajv`, and `flatted`).
 
 ## [1.1.0] - 2026-05-10
 
@@ -74,6 +85,7 @@ No notable changes yet.
 
 - Codebase cleanup and structural refactors to remove duplication, improve consistency, and align with the current design system.
 
-[Unreleased]: https://github.com/narainkarthikv/contribution-cards/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/narainkarthikv/contribution-cards/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/narainkarthikv/contribution-cards/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/narainkarthikv/contribution-cards/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/narainkarthikv/contribution-cards/releases/tag/v1.0.0

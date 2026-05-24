@@ -9,7 +9,7 @@ export const REPOSITORY_LIST = [
   'narainkarthikv/helios',
   'narainkarthikv/nmoji',
   'narainkarthikv/ownlyst',
-  'narainkarthikv/markdown-shop'
+  'narainkarthikv/markdown-shop',
 ] as const;
 
 export type RepositoryName = (typeof REPOSITORY_LIST)[number];

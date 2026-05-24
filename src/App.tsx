@@ -52,10 +52,11 @@ export const AppContent: React.FC = () => {
           className='bg-[var(--color-bg-secondary)] border-b border-[var(--color-warning)] px-4 py-4 flex-shrink-0'>
           <div className='w-full max-w-7xl mx-auto flex items-center justify-between gap-4'>
             <div className='text-sm text-[var(--color-text-primary)] flex-1'>
-              <span className='font-bold text-[var(--color-warning)]'>⚠ GitHub Token Not Found:</span>{' '}
-              Set
-              VITE_GITHUB_TOKEN in .env.local for higher API limits (60 → 5,000
-              requests/hour)
+              <span className='font-bold text-[var(--color-warning)]'>
+                ⚠ GitHub Token Not Found:
+              </span>{' '}
+              Set VITE_GITHUB_TOKEN in .env.local for higher API limits (60 →
+              5,000 requests/hour)
             </div>
             <button
               onClick={() => setShowTokenWarning(false)}

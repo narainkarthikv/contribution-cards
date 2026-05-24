@@ -95,7 +95,9 @@ export const ContributorsPage: React.FC = () => {
               sublabel='Unique Contributors'
             />
             <StatCard
-              icon={<Zap size={20} className='text-[var(--color-action-default)]' />}
+              icon={
+                <Zap size={20} className='text-[var(--color-action-default)]' />
+              }
               label='Total'
               value={globalStatsLoading ? '—' : globalStats.totalContributions}
               sublabel='Contributions'
