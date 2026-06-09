@@ -17,7 +17,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-No notable changes yet.
+### Added
+
+- End-to-end test suite using Playwright (Chromium) covering key user flows: home, contributors listing, filters, sorting, theme toggle, and contributor detail modal.
+- Playwright configuration (`playwright.config.ts`) with `webServer` integration to run the Vite dev server for E2E runs.
+- New comprehensive E2E test file: `tests/e2e/app.spec.ts` and helper test flows under `tests/e2e/`.
+- `package.json` updated with Playwright dev dependency and `test:e2e` helper scripts.
+
+### Changed
+
+- Project test workflow: added `playwright:install` script to install browsers required for Playwright.
 
 ## [1.1.1] - 2026-05-24
 
