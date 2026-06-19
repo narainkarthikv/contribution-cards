@@ -1,7 +1,13 @@
 import { test, expect } from '@playwright/test';
+import {
+  contributorFixtures,
+  mockGitHubApi,
+  waitForContributorCards,
+} from '../support/githubApiMock';
 
 test.describe('Contribution Cards - E2E flows', () => {
   test.beforeEach(async ({ page }) => {
+    await mockGitHubApi(page);
     await page.goto('/');
   });
 
@@ -11,40 +17,38 @@ test.describe('Contribution Cards - E2E flows', () => {
 
     await explore.click();
 
-    // FiltersBar should be visible on contributors page
+    // The filters panel is only rendered after mocked contributor data arrives.
     await expect(page.getByText('Contributor Explorer')).toBeVisible();
 
-    // Wait for at least one contributor card
-    const card = page.getByRole('article', { name: /Contributor card for/i }).first();
-    await expect(card).toBeVisible({ timeout: 15000 });
+    const card = (await waitForContributorCards(page)).first();
+    await expect(card).toBeVisible();
   });
 
   test('Filters: repo dropdown, search, sort, and sort direction', async ({ page }) => {
     await page.goto('/contributors');
+    const cards = await waitForContributorCards(page);
 
-    // Open repo dropdown
-    const repoToggle = page.getByRole('button', { name: /Repo:/i }).first();
+    const repoToggle = page.locator('button[aria-haspopup="listbox"]');
     await expect(repoToggle).toBeVisible();
     await repoToggle.click();
 
     const listbox = page.getByRole('listbox', { name: /Select repository/i });
     await expect(listbox).toBeVisible();
 
-    // Select the first option
-    const firstOption = listbox.getByRole('option').first();
-    await firstOption.click();
+    await listbox.getByRole('button', { name: /fitprogressr/i }).click();
+    await expect(repoToggle).toContainText('fitprogressr');
+    await expect(cards).toHaveCount(2);
 
-    // Search input existence and typing
-    const search = page.getByRole('textbox', { name: /Search contributors/i });
+    const search = page.getByLabel('Search contributors');
     await expect(search).toBeVisible();
-    await search.fill('narain');
+    await search.fill('alice');
+    await expect(cards.filter({ hasText: contributorFixtures.alice.name })).toHaveCount(1);
+    await expect(cards.filter({ hasText: 'Cara Singh' })).toHaveCount(0);
 
-    // Change sort to 'Name'
     const sortBy = page.getByLabel('Sort by');
     await sortBy.selectOption('name');
     await expect(sortBy).toHaveValue('name');
 
-    // Toggle sort order
     const asc = page.getByRole('radio', { name: /Sort ascending/i });
     const desc = page.getByRole('radio', { name: /Sort descending/i });
     await desc.click();
@@ -79,8 +83,7 @@ test.describe('Contribution Cards - E2E flows', () => {
   test('Open contributor modal and close', async ({ page }) => {
     await page.goto('/contributors');
 
-    const card = page.getByRole('article', { name: /Contributor card for/i }).first();
-    await expect(card).toBeVisible({ timeout: 15000 });
+    const card = (await waitForContributorCards(page)).first();
 
     await card.click();
 

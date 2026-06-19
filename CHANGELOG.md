@@ -23,6 +23,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Playwright configuration (`playwright.config.ts`) with `webServer` integration to run the Vite dev server for E2E runs.
 - New comprehensive E2E test file: `tests/e2e/app.spec.ts` and helper test flows under `tests/e2e/`.
 - `package.json` updated with Playwright dev dependency and `test:e2e` helper scripts.
+- **Playwright E2E Testing**: Added comprehensive end-to-end test suite using Playwright with Chromium browser support
+- **Smoke Tests**: Tests for page loading, contributor card rendering, and repository filtering
+- **Integration Tests**: Tests for theme persistence, contributor modal interactions, and data caching behavior
+- **Test Scripts**: Added `test:e2e`, `test:e2e:ui`, and `test:e2e:debug` npm scripts for test execution and debugging
+- **Test Configuration**: Configured playwright.config.ts with proper timeouts, webServer setup, and failure artifacts (screenshots/videos)
 
 ### Changed
 
