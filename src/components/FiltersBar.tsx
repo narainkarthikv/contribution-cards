@@ -215,7 +215,6 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
             </button>
           </div>
         </div>
-
       </section>
     );
   }

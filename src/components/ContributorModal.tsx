@@ -114,7 +114,9 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                         <div className='mt-2 flex flex-wrap items-center justify-center gap-2 text-sm text-[var(--color-text-secondary)] sm:justify-start sm:text-base'>
                           <span>@{contributor.login}</span>
                           <span className='hidden h-1 w-1 rounded-full bg-[var(--color-text-muted)] sm:inline-block' />
-                          <span>{repositoryContributions.length} repositories</span>
+                          <span>
+                            {repositoryContributions.length} repositories
+                          </span>
                         </div>
 
                         {contributor.bio && (
@@ -164,7 +166,8 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                             ? Math.max(
                                 12,
                                 Math.round(
-                                  (commits / (topRepository.commitsCount ?? 1)) *
+                                  (commits /
+                                    (topRepository.commitsCount ?? 1)) *
                                     100
                                 )
                               )
@@ -276,7 +279,11 @@ interface MetricCardProps {
   value: number;
 }
 
-const MetricCard: React.FC<MetricCardProps> = ({ icon: Icon, label, value }) => (
+const MetricCard: React.FC<MetricCardProps> = ({
+  icon: Icon,
+  label,
+  value,
+}) => (
   <div className='rounded-2xl border border-[var(--color-border-primary)] bg-[color-mix(in_srgb,var(--color-surface-primary)_88%,transparent_12%)] p-4 backdrop-blur-sm'>
     <div className='flex items-center gap-3'>
       <span className='inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--color-action-default)_12%,transparent_88%)] text-[var(--color-action-default)]'>

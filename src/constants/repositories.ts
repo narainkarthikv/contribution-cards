@@ -6,10 +6,10 @@
 export const REPOSITORY_LIST = [
   'narainkarthikv/contribution-cards',
   'narainkarthikv/fitprogressr',
-  'narainkarthikv/GLIS',
+  'narainkarthikv/helios',
   'narainkarthikv/nmoji',
   'narainkarthikv/ownlyst',
-  'narainkarthikv/readme-shop'
+  'narainkarthikv/markdown-shop',
 ] as const;
 
 export type RepositoryName = (typeof REPOSITORY_LIST)[number];

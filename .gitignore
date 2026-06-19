@@ -6,6 +6,21 @@ yarn-error.log*
 
 # Testing
 coverage/
+playwright-report
+test-results
+blob-report
+
+# Playwright
+.auth/
+.playwright/
+.pwdebug
+*.jpg
+*.png
+*.webm
+blob-report/
+playwright/
+playwright-report/
+test-results/
 
 # Production
 build/

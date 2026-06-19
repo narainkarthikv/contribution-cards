@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.  Contributors and maintainers **must** record every meaningful change here using an industry-standard format.
+All notable changes to this project will be documented in this file. Contributors and maintainers **must** record every meaningful change here using an industry-standard format.
 
 To keep the history clear:
 
@@ -17,15 +17,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- Filtersbar with ui fixes with removal of showing contributors and updated it with profiles live based on repo clicked on dropdown
-- Fixes in greetings.yaml file for welcoming new contributors to the wisdom fox community
-- Rebranding of Fit-track to FitProgressr project
+### Added
+
+- End-to-end test suite using Playwright (Chromium) covering key user flows: home, contributors listing, filters, sorting, theme toggle, and contributor detail modal.
+- Playwright configuration (`playwright.config.ts`) with `webServer` integration to run the Vite dev server for E2E runs.
+- New comprehensive E2E test file: `tests/e2e/app.spec.ts` and helper test flows under `tests/e2e/`.
+- `package.json` updated with Playwright dev dependency and `test:e2e` helper scripts.
+- **Playwright E2E Testing**: Added comprehensive end-to-end test suite using Playwright with Chromium browser support
+- **Smoke Tests**: Tests for page loading, contributor card rendering, and repository filtering
+- **Integration Tests**: Tests for theme persistence, contributor modal interactions, and data caching behavior
+- **Test Scripts**: Added `test:e2e`, `test:e2e:ui`, and `test:e2e:debug` npm scripts for test execution and debugging
+- **Test Configuration**: Configured playwright.config.ts with proper timeouts, webServer setup, and failure artifacts (screenshots/videos)
 
 ### Changed
 
+- Project test workflow: added `playwright:install` script to install browsers required for Playwright.
+
+## [1.1.1] - 2026-05-24
+
+### Fixed
+
+- Remediated all npm audit findings (including critical/high severity advisories) and verified `0 vulnerabilities` at `--audit-level=moderate`.
+- Updated vulnerable direct dependency ranges in `package.json`:
+  - `vite` to `^7.3.3`
+  - `react-router-dom` to `^7.15.1`
+  - `postcss` to `^8.5.15`
+- Refreshed lockfile to pull patched transitive dependencies (including `handlebars`, `rollup`, `esbuild`, `minimatch`, `picomatch`, `ajv`, and `flatted`).
+
+## [1.1.0] - 2026-05-10
+
+### Added
+
+- GitHub Actions CI badge in the README so contributors can see project health at a glance.
+
+### Changed
+
+- Release workflow now publishes the matching changelog section as GitHub release notes.
+- README and package metadata now reference the current project version.
+- Added the canonical `LICENSE` file expected by GitHub and project badges.
+- Repository filtering now updates visible contributor profiles live when a repository is selected from the dropdown.
+- Contributor list UI was simplified by removing the extra "showing contributors" display from the filters bar.
+- Community-facing references were updated for the FitProgressr rebrand.
 - Contributor detail modals now resolve the selected contributor against the all-repositories aggregate so the contribution list shows every repository they have commit activity in, even when the page is filtered to a single repository.
 - The contributor modal layout was refreshed with a more modern SaaS-style presentation, improved spacing, richer contribution hierarchy, and clearer summary insights.
 - The contributor modal now uses a taller adaptive desktop viewport so the content feels less cramped vertically while remaining scrollable when needed.
+
+### Fixed
+
+- First-time contributor greeting workflow copy now welcomes contributors to the contribution-cards community consistently.
 
 ## [1.0.0] - 2026-02-24
 
@@ -60,5 +99,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Codebase cleanup and structural refactors to remove duplication, improve consistency, and align with the current design system.
 
-[Unreleased]: https://github.com/narainkarthikv/contribution-cards/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/narainkarthikv/contribution-cards/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/narainkarthikv/contribution-cards/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/narainkarthikv/contribution-cards/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/narainkarthikv/contribution-cards/releases/tag/v1.0.0
