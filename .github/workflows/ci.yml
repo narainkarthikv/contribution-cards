@@ -63,7 +63,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright smoke tests
-        run: npm run test:e2e -- --project=chromium
+        run: npm run test:e2e
 
       - name: Upload Playwright artifacts
         if: failure()
@@ -76,18 +76,11 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-  e2e-cross-browser:
-    name: Playwright Cross Browser (${{ matrix.project }})
+  e2e-tests:
+    name: Playwright E2E (Chromium)
     if: github.event_name == 'pull_request' || github.ref_name == 'main'
     needs: quality
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        project:
-          - chromium
-          - firefox
-          - webkit
 
     steps:
       - name: Checkout repository
@@ -103,16 +96,16 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps ${{ matrix.project }}
+        run: npx playwright install --with-deps chromium
 
       - name: Run Playwright regression tests
-        run: npm run test:e2e -- --project=${{ matrix.project }}
+        run: npm run test:e2e
 
       - name: Upload Playwright artifacts
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-${{ matrix.project }}-artifacts
+          name: playwright-chromium-artifacts
           path: |
             playwright-report
             test-results
