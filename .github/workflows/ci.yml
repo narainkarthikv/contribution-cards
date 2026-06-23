@@ -78,7 +78,7 @@ jobs:
 
   e2e-tests:
     name: Playwright E2E (Chromium)
-    if: github.event_name == 'pull_request' || github.ref_name == 'main'
+    if: github.event_name == 'pull_request' || github.ref_name == 'main' || github.ref_name == 'develop'
     needs: quality
     runs-on: ubuntu-latest
 
