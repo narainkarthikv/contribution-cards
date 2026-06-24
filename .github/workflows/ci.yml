@@ -4,10 +4,10 @@ on:
   push:
     branches:
       - develop
-      - main
   pull_request:
     branches:
       - main
+      - develop
 
 permissions:
   contents: read
@@ -42,6 +42,7 @@ jobs:
 
   e2e-smoke:
     name: Playwright Smoke (Chromium)
+    # Lightweight quality gate: Smoke tests on develop pushes
     if: github.event_name == 'push' && github.ref_name == 'develop'
     needs: quality
     runs-on: ubuntu-latest
@@ -78,7 +79,8 @@ jobs:
 
   e2e-tests:
     name: Playwright E2E (Chromium)
-    if: github.event_name == 'pull_request' || github.ref_name == 'main' || github.ref_name == 'develop'
+    # Quality gate: Full E2E tests on PRs to main and pushes to develop
+    if: (github.event_name == 'pull_request' && github.ref_name == 'main') || (github.event_name == 'push' && github.ref_name == 'develop')
     needs: quality
     runs-on: ubuntu-latest
 
