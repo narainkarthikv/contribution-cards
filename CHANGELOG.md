@@ -17,21 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- End-to-end test suite using Playwright (Chromium) covering key user flows: home, contributors listing, filters, sorting, theme toggle, and contributor detail modal.
-- Playwright configuration (`playwright.config.ts`) with `webServer` integration to run the Vite dev server for E2E runs.
-- New comprehensive E2E test file: `tests/e2e/app.spec.ts` and helper test flows under `tests/e2e/`.
-- `package.json` updated with Playwright dev dependency and `test:e2e` helper scripts.
-- **Playwright E2E Testing**: Added comprehensive end-to-end test suite using Playwright with Chromium browser support
-- **Smoke Tests**: Tests for page loading, contributor card rendering, and repository filtering
-- **Integration Tests**: Tests for theme persistence, contributor modal interactions, and data caching behavior
-- **Test Scripts**: Added `test:e2e`, `test:e2e:ui`, and `test:e2e:debug` npm scripts for test execution and debugging
-- **Test Configuration**: Configured playwright.config.ts with proper timeouts, webServer setup, and failure artifacts (screenshots/videos)
+## [1.2.1] - 2026-06-23
 
 ### Changed
 
-- Project test workflow: added `playwright:install` script to install browsers required for Playwright.
+- Playwright e2e scripts and CI now run Chromium only for now; Firefox and WebKit are deferred.
 
 ## [1.1.1] - 2026-05-24
 
@@ -99,7 +89,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Codebase cleanup and structural refactors to remove duplication, improve consistency, and align with the current design system.
 
-[Unreleased]: https://github.com/narainkarthikv/contribution-cards/compare/v1.1.1...HEAD
+[Unreleased]: https://github.com/narainkarthikv/contribution-cards/compare/v1.2.1...HEAD
+[1.2.1]: https://github.com/narainkarthikv/contribution-cards/compare/v1.1.1...v1.2.1
 [1.1.1]: https://github.com/narainkarthikv/contribution-cards/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/narainkarthikv/contribution-cards/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/narainkarthikv/contribution-cards/releases/tag/v1.0.0

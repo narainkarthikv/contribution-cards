@@ -1,15 +1,15 @@
 {
   "name": "contribution-cards",
   "private": true,
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "test:e2e:debug": "playwright test --debug",
+    "test:e2e": "playwright test --project=chromium",
+    "test:e2e:ui": "playwright test --project=chromium --ui",
+    "test:e2e:debug": "playwright test --project=chromium --debug",
     "playwright:install": "npx playwright install --with-deps",
     "preview": "vite preview"
   },
