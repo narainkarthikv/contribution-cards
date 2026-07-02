@@ -28,7 +28,7 @@ test.describe('Contribution Cards - E2E flows', () => {
     await page.goto('/contributors');
     const cards = await waitForContributorCards(page);
 
-    const repoToggle = page.locator('button[aria-haspopup="listbox"]');
+    const repoToggle = page.getByRole('button', { name: /Repository filter/i });
     await expect(repoToggle).toBeVisible();
     await repoToggle.click();
 
@@ -45,9 +45,14 @@ test.describe('Contribution Cards - E2E flows', () => {
     await expect(cards.filter({ hasText: contributorFixtures.alice.name })).toHaveCount(1);
     await expect(cards.filter({ hasText: 'Cara Singh' })).toHaveCount(0);
 
-    const sortBy = page.getByLabel('Sort by');
-    await sortBy.selectOption('name');
-    await expect(sortBy).toHaveValue('name');
+    const sortBy = page.getByRole('button', { name: /Sort by/i });
+    await sortBy.click();
+    const sortListbox = page.getByRole('listbox', {
+      name: /Sort contributors by/i,
+    });
+    await expect(sortListbox).toBeVisible();
+    await sortListbox.getByRole('button', { name: /^Name$/i }).click();
+    await expect(sortBy).toContainText('Name');
 
     const asc = page.getByRole('radio', { name: /Sort ascending/i });
     const desc = page.getByRole('radio', { name: /Sort descending/i });
@@ -55,6 +60,32 @@ test.describe('Contribution Cards - E2E flows', () => {
     await expect(desc).toHaveAttribute('aria-checked', 'true');
     await asc.click();
     await expect(asc).toHaveAttribute('aria-checked', 'true');
+  });
+
+  test('Repo dropdown supports standard keyboard interaction', async ({ page }) => {
+    await page.goto('/contributors');
+    await waitForContributorCards(page);
+
+    const repoToggle = page.getByRole('button', { name: /Repository filter/i });
+    await repoToggle.focus();
+    await page.keyboard.press('Enter');
+
+    const listbox = page.getByRole('listbox', { name: /Select repository/i });
+    await expect(listbox).toBeVisible();
+
+    await page.keyboard.press('ArrowDown');
+    await page.keyboard.press('Enter');
+
+    await expect(repoToggle).toContainText('fitprogressr');
+    await expect(listbox).not.toBeVisible();
+
+    await repoToggle.focus();
+    await page.keyboard.press('Enter');
+    await expect(listbox).toBeVisible();
+
+    await page.keyboard.press('Escape');
+    await expect(listbox).not.toBeVisible();
+    await expect(repoToggle).toBeFocused();
   });
 
   test('Theme toggle and token warning banner', async ({ page }) => {

@@ -1,11 +1,12 @@
 /**
  * FiltersBar — Filtering, sorting, and search controls.
- * Uses ref-based debounce to avoid stale closures. Click-outside closes dropdown.
+ * Uses ref-based debounce to avoid stale closures.
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Search, ChevronDown, ArrowUp, ArrowDown } from 'lucide-react';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { Search, ArrowUp, ArrowDown } from 'lucide-react';
 import type { FilterOptions, SortOption } from '../types/github';
+import { FilterDropdown } from './FilterDropdown';
 
 interface FiltersBarProps {
   repositories: string[];
@@ -31,8 +32,6 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
     onSortChange,
     totalContributors,
   }) => {
-    const [showRepoDropdown, setShowRepoDropdown] = useState(false);
-    const dropdownRef = useRef<HTMLDivElement>(null);
     const debounceTimer = useRef<ReturnType<typeof setTimeout> | undefined>(
       undefined
     );
@@ -55,31 +54,17 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
       }, DEBOUNCE_MS);
     }, []);
 
-    // Cleanup debounce timer on unmount
     useEffect(() => () => clearTimeout(debounceTimer.current), []);
 
-    // Close dropdown on click outside
-    useEffect(() => {
-      if (!showRepoDropdown) return;
-      const handleClickOutside = (e: MouseEvent) => {
-        if (
-          dropdownRef.current &&
-          !dropdownRef.current.contains(e.target as Node)
-        ) {
-          setShowRepoDropdown(false);
-        }
-      };
-      document.addEventListener('mousedown', handleClickOutside);
-      return () =>
-        document.removeEventListener('mousedown', handleClickOutside);
-    }, [showRepoDropdown]);
-
-    const selectedRepoDisplay =
-      selectedRepositories.length === 1
-        ? selectedRepositories[0].split('/')[1]
-        : selectedRepositories.length > 1
-          ? `${selectedRepositories.length} repos`
-          : 'All Repos';
+    const selectedRepoValue = selectedRepositories[0] ?? repositories[0] ?? '';
+    const repositoryOptions = repositories.map((repo) => ({
+      value: repo,
+      label: repo.split('/')[1],
+    }));
+    const sortOptions: Array<{ value: SortOption['field']; label: string }> = [
+      { value: 'totalContributions', label: 'Contributions' },
+      { value: 'name', label: 'Name' },
+    ];
 
     return (
       <section className='w-full rounded-lg border border-[var(--color-border-primary)] bg-[linear-gradient(165deg,color-mix(in_srgb,var(--color-surface-primary)_96%,var(--color-bg-secondary)_4%),color-mix(in_srgb,var(--color-bg-secondary)_92%,var(--color-surface-primary)_8%))] p-4 shadow-[0_12px_36px_-28px_color-mix(in_srgb,var(--color-text-primary)_55%,transparent)] sm:p-5'>
@@ -92,66 +77,18 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
           </p>
         </div>
 
-        <div className='flex flex-col gap-3 sm:flex-row sm:items-stretch sm:justify-between flex-wrap'>
-          {/* Repository Dropdown */}
-          <div className='relative' ref={dropdownRef}>
-            <button
-              onClick={() => setShowRepoDropdown((prev) => !prev)}
-              aria-expanded={showRepoDropdown}
-              aria-haspopup='listbox'
-              className='group flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded-md border border-[var(--color-border-primary)] bg-[var(--color-surface-secondary)] px-4 py-0 text-sm font-medium transition-all hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--color-action-default)_35%,var(--color-border-primary))] hover:bg-[color-mix(in_srgb,var(--color-surface-secondary)_85%,var(--color-action-default)_15%)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] sm:w-auto'>
-              <span className='hidden text-xs text-[var(--color-text-secondary)] sm:inline'>
-                Repo:
-              </span>
-              <span className='font-semibold text-[var(--color-text-primary)]'>
-                {selectedRepoDisplay}
-              </span>
-              <ChevronDown
-                size={16}
-                className={`flex-shrink-0 transition-transform ${showRepoDropdown ? 'rotate-180' : ''}`}
-              />
-            </button>
+        <div className='flex flex-col flex-wrap gap-3 sm:flex-row sm:items-stretch sm:justify-between'>
+          <FilterDropdown
+            ariaLabel='Repository filter'
+            listboxLabel='Select repository'
+            options={repositoryOptions}
+            value={selectedRepoValue}
+            onChange={onRepositorySelect}
+            prefix='Repo:'
+          />
 
-            {showRepoDropdown && (
-              <ul
-                role='listbox'
-                aria-label='Select repository'
-                className='absolute left-0 top-full z-50 mt-2 min-w-56 overflow-hidden rounded-md border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)] shadow-2xl shadow-black/30'>
-                {repositories.map((repo) => {
-                  const isSelected = selectedRepositories.includes(repo);
-                  return (
-                    <li key={repo} role='option' aria-selected={isSelected}>
-                      <button
-                        onClick={() => {
-                          onRepositorySelect(repo);
-                          setShowRepoDropdown(false);
-                        }}
-                        className={`w-full px-4 py-2.5 text-left text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] ${
-                          isSelected
-                            ? 'bg-[color-mix(in_srgb,var(--color-action-default)_12%,transparent_88%)] text-[var(--color-action-default)]'
-                            : 'text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]'
-                        }`}>
-                        <div className='flex items-center gap-2'>
-                          {isSelected && (
-                            <span
-                              className='text-[var(--color-action-default)]'
-                              aria-hidden='true'>
-                              &#10003;
-                            </span>
-                          )}
-                          {repo.split('/')[1]}
-                        </div>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </div>
-
-          {/* Search */}
-          <div className='flex-1 min-w-48 sm:min-w-56 h-10'>
-            <div className='relative h-full flex items-center'>
+          <div className='h-10 min-w-48 flex-1 sm:min-w-56'>
+            <div className='relative flex h-full items-center'>
               <Search
                 className='pointer-events-none absolute left-3 h-4 w-4 flex-shrink-0 text-[var(--color-text-muted)]'
                 aria-hidden='true'
@@ -166,29 +103,26 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
             </div>
           </div>
 
-          {/* Sort Field */}
-          <div className='h-10 w-full sm:w-auto'>
-            <select
-              value={sortBy.field}
-              onChange={(e) =>
-                onSortChange({
-                  ...sortBy,
-                  field: e.target.value as SortOption['field'],
-                })
-              }
-              className='h-full w-full cursor-pointer rounded-md border border-[var(--color-border-primary)] bg-[var(--color-surface-secondary)] px-4 py-0 text-sm font-medium text-[var(--color-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-action-default)]'
-              aria-label='Sort by'>
-              <option value='totalContributions'>Contributions</option>
-              <option value='name'>Name</option>
-            </select>
-          </div>
+          <FilterDropdown
+            ariaLabel='Sort by'
+            listboxLabel='Sort contributors by'
+            options={sortOptions}
+            value={sortBy.field}
+            prefix='Filter by:'
+            onChange={(field) =>
+              onSortChange({
+                ...sortBy,
+                field: field as SortOption['field'],
+              })
+            }
+          />
 
-          {/* Sort Direction */}
           <div
             className='flex h-10 gap-1.5'
             role='radiogroup'
             aria-label='Sort direction'>
             <button
+              type='button'
               role='radio'
               aria-checked={sortBy.order === 'asc'}
               onClick={() => onSortChange({ ...sortBy, order: 'asc' })}
@@ -202,6 +136,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
             </button>
 
             <button
+              type='button'
               role='radio'
               aria-checked={sortBy.order === 'desc'}
               onClick={() => onSortChange({ ...sortBy, order: 'desc' })}
