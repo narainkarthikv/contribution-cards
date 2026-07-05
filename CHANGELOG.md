@@ -17,6 +17,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-07-05
+
+### Fixed
+
+- Fixed e2e test for repository filtering by using more specific selector that targets only the repository filter button, resolving Playwright strict mode violation where generic `button[aria-haspopup="listbox"]` selector matched multiple elements.
+
 ## [1.3.0] - 2026-07-02
 
 ### Added
