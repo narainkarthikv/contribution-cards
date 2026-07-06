@@ -18,6 +18,7 @@ import { ContributorsPage } from './pages/Contributors';
 import { useTheme } from './controllers/useTheme';
 import { GitHubService } from './services/GitHubService';
 import { APP_NAME, APP_REPOSITORY } from './constants/repositories';
+import { IconButton } from './common';
 
 export const AppContent: React.FC = () => {
   const { isDark, toggleTheme } = useTheme();
@@ -82,9 +83,9 @@ export const AppContent: React.FC = () => {
             </button>
 
             <div className='flex items-center gap-2 sm:gap-3 flex-shrink-0'>
-              <button
+              <IconButton
                 onClick={toggleTheme}
-                className='p-2.5 rounded-md hover:bg-[var(--color-bg-secondary)] active:bg-[var(--color-surface-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] transition-colors duration-200 border border-[var(--color-border-primary)]'
+                variant='ghost'
                 aria-label='Toggle theme'>
                 {isDark ? (
                   <svg
@@ -101,16 +102,17 @@ export const AppContent: React.FC = () => {
                     <path d='M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z' />
                   </svg>
                 )}
-              </button>
+              </IconButton>
 
-              <a
+              <IconButton
                 href={`https://github.com/${APP_REPOSITORY}`}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='p-2.5 rounded-md hover:bg-[var(--color-bg-secondary)] active:bg-[var(--color-surface-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] transition-colors duration-200 border border-[var(--color-border-primary)] group'
+                variant='ghost'
+                className='group'
                 aria-label='View on GitHub'>
                 <Github className='w-5 h-5 text-[var(--color-text-secondary)] group-hover:text-[var(--color-action-default)] transition-colors' />
-              </a>
+              </IconButton>
             </div>
           </nav>
         </header>

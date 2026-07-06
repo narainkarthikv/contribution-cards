@@ -18,6 +18,7 @@ import { useContributors } from '../controllers/useContributors';
 import { useGlobalStats } from '../controllers/useGlobalStats';
 import { useContributorsPageState } from '../controllers/useContributorsPageState';
 import { REPOSITORY_LIST } from '../constants/repositories';
+import { Card } from '../common';
 
 export const ContributorsPage: React.FC = () => {
   const { stats: globalStats, isLoading: globalStatsLoading } =
@@ -175,7 +176,7 @@ interface StatCardProps {
 
 const StatCard: React.FC<StatCardProps> = React.memo(
   ({ icon, label, value, sublabel }) => (
-    <div className='rounded-lg bg-[var(--color-surface-primary)] border border-[var(--color-border-primary)] p-4'>
+    <Card padding='sm'>
       <div className='flex items-center gap-3'>
         <div className='flex items-center justify-center h-10 w-10 rounded-md bg-[var(--color-bg-secondary)] border border-[var(--color-border-primary)]'>
           {icon}
@@ -190,7 +191,7 @@ const StatCard: React.FC<StatCardProps> = React.memo(
           <p className='text-xs text-[var(--color-text-muted)]'>{sublabel}</p>
         </div>
       </div>
-    </div>
+    </Card>
   )
 );
 

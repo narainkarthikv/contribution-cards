@@ -14,6 +14,7 @@ import {
   ArrowUpRight,
 } from 'lucide-react';
 import type { Contributor } from '../types/github';
+import { Button, IconButton } from '../common';
 
 interface ContributorModalProps {
   contributor: Contributor | null;
@@ -79,12 +80,13 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
               exit={{ opacity: 0, y: 16, scale: 0.98 }}
               transition={{ duration: 0.22, ease: 'easeOut' }}
               className='fixed inset-2 z-50 overflow-hidden rounded-[20px] border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)] shadow-2xl sm:inset-4 md:bottom-4 md:left-1/2 md:top-4 md:w-full md:max-w-5xl md:-translate-x-1/2'>
-              <button
+              <IconButton
                 onClick={onClose}
-                className='absolute right-4 top-4 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border-primary)] bg-[color-mix(in_srgb,var(--color-surface-primary)_78%,transparent_22%)] text-[var(--color-text-primary)] backdrop-blur-sm transition-colors hover:bg-[var(--color-bg-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'
+                variant='outline'
+                className='absolute right-4 top-4 z-20 rounded-full bg-[color-mix(in_srgb,var(--color-surface-primary)_78%,transparent_22%)] text-[var(--color-text-primary)] backdrop-blur-sm'
                 aria-label='Close dialog'>
                 <X size={20} />
-              </button>
+              </IconButton>
 
               <div className='h-full max-h-[95vh] overflow-y-auto md:max-h-none'>
                 <div className='border-b border-[var(--color-border-primary)] bg-[linear-gradient(135deg,color-mix(in_srgb,var(--color-action-default)_14%,var(--color-surface-primary)_86%)_0%,var(--color-surface-primary)_58%,color-mix(in_srgb,var(--color-surface-secondary)_78%,transparent_22%)_100%)] px-5 pb-6 pt-12 sm:px-8 sm:pb-8 md:px-10 md:pt-14'>
@@ -249,15 +251,16 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                         GitHub for deeper context and recent activity.
                       </p>
                       <div className='mt-5 flex flex-col gap-2 sm:gap-3'>
-                        <a
+                        <Button
                           href={contributor.profileUrl}
                           target='_blank'
                           rel='noopener noreferrer'
-                          className='inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-action-default)] px-4 py-3 text-sm font-semibold text-[var(--color-text-inverse)] transition-colors hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'>
+                          size='sm'
+                          className='w-full rounded-xl px-4 py-3 text-sm'>
                           <Github size={18} />
                           View GitHub Profile
                           <ArrowUpRight size={16} />
-                        </a>
+                        </Button>
                       </div>
                     </div>
                   </aside>
