@@ -7,6 +7,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { Search, ArrowUp, ArrowDown } from 'lucide-react';
 import type { FilterOptions, SortOption } from '../types/github';
 import { FilterDropdown } from './FilterDropdown';
+import { IconButton } from '../common';
 
 interface FiltersBarProps {
   repositories: string[];
@@ -121,33 +122,25 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
             className='flex h-10 gap-1.5'
             role='radiogroup'
             aria-label='Sort direction'>
-            <button
-              type='button'
+            <IconButton
               role='radio'
               aria-checked={sortBy.order === 'asc'}
               onClick={() => onSortChange({ ...sortBy, order: 'asc' })}
-              className={`flex items-center justify-center rounded-md border px-3 py-0 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] ${
-                sortBy.order === 'asc'
-                  ? 'border-[var(--color-action-default)] bg-[var(--color-action-default)] text-white'
-                  : 'border-[var(--color-border-primary)] bg-[var(--color-surface-secondary)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
-              }`}
+              variant={sortBy.order === 'asc' ? 'active' : 'outline'}
+              size='lg'
               aria-label='Sort ascending'>
               <ArrowUp size={18} />
-            </button>
+            </IconButton>
 
-            <button
-              type='button'
+            <IconButton
               role='radio'
               aria-checked={sortBy.order === 'desc'}
               onClick={() => onSortChange({ ...sortBy, order: 'desc' })}
-              className={`flex items-center justify-center rounded-md border px-3 py-0 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] ${
-                sortBy.order === 'desc'
-                  ? 'border-[var(--color-action-default)] bg-[var(--color-action-default)] text-white'
-                  : 'border-[var(--color-border-primary)] bg-[var(--color-surface-secondary)] text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]'
-              }`}
+              variant={sortBy.order === 'desc' ? 'active' : 'outline'}
+              size='lg'
               aria-label='Sort descending'>
               <ArrowDown size={18} />
-            </button>
+            </IconButton>
           </div>
         </div>
       </section>

@@ -4,37 +4,41 @@
  */
 
 import React from 'react';
+import { Button, Card, Skeleton } from '../common';
 
 export const ContributorCardSkeleton = React.memo(() => (
-  <div className='bg-[var(--color-surface-primary)] rounded-lg sm:rounded-xl p-4 sm:p-6 border border-[var(--color-border-primary)] h-full'>
+  <Card className='h-full rounded-lg sm:rounded-xl p-4 sm:p-6'>
     <div className='space-y-3 sm:space-y-4'>
       <div className='flex justify-center mb-3 sm:mb-4'>
-        <div className='w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-[var(--color-bg-secondary)] rounded-full animate-pulse' />
+        <Skeleton
+          shape='circle'
+          className='w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20'
+        />
       </div>
 
-      <div className='h-4 sm:h-6 bg-[var(--color-bg-secondary)] rounded animate-pulse' />
-      <div className='h-3 sm:h-4 bg-[var(--color-bg-secondary)] rounded animate-pulse w-1/2 mx-auto' />
+      <Skeleton className='h-4 sm:h-6' />
+      <Skeleton className='h-3 sm:h-4 w-1/2 mx-auto' />
 
       <div className='space-y-1 sm:space-y-2'>
-        <div className='h-3 sm:h-4 bg-[var(--color-bg-secondary)] rounded animate-pulse' />
-        <div className='h-3 sm:h-4 bg-[var(--color-bg-secondary)] rounded animate-pulse w-5/6' />
+        <Skeleton className='h-3 sm:h-4' />
+        <Skeleton className='h-3 sm:h-4 w-5/6' />
       </div>
 
       <div className='grid grid-cols-3 gap-2 py-2 sm:py-3'>
         {Array.from({ length: 3 }).map((_, i) => (
           <div key={i} className='space-y-1 sm:space-y-2'>
-            <div className='h-4 sm:h-6 bg-[var(--color-bg-secondary)] rounded animate-pulse' />
-            <div className='h-2 sm:h-3 bg-[var(--color-bg-secondary)] rounded animate-pulse' />
+            <Skeleton className='h-4 sm:h-6' />
+            <Skeleton className='h-2 sm:h-3' />
           </div>
         ))}
       </div>
 
       <div className='space-y-2'>
-        <div className='h-8 sm:h-10 bg-[var(--color-bg-secondary)] rounded-lg animate-pulse' />
-        <div className='h-8 sm:h-10 bg-[var(--color-bg-secondary)] rounded-lg animate-pulse' />
+        <Skeleton className='h-8 sm:h-10 rounded-lg' />
+        <Skeleton className='h-8 sm:h-10 rounded-lg' />
       </div>
     </div>
-  </div>
+  </Card>
 ));
 
 ContributorCardSkeleton.displayName = 'ContributorCardSkeleton';
@@ -76,11 +80,9 @@ export const ErrorState: React.FC<ErrorStateProps> = React.memo(
         {message}
       </p>
       {onRetry && (
-        <button
-          onClick={onRetry}
-          className='bg-[var(--color-action-default)] hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-primary)] text-[var(--color-text-inverse)] px-4 sm:px-6 py-2 rounded-md font-medium transition-colors text-xs sm:text-sm'>
+        <Button onClick={onRetry} size='sm'>
           Try Again
-        </button>
+        </Button>
       )}
     </div>
   )

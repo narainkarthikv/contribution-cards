@@ -44,6 +44,57 @@ import {
   APP_REPOSITORY,
   REPOSITORY_LIST,
 } from '../constants/repositories';
+import { FooterLinkColumn, type FooterLinkItem } from '../common';
+
+const projectLinks: FooterLinkItem[] = [
+  { label: 'Open app', href: '/contributors' },
+  {
+    label: 'GitHub repo',
+    href: `https://github.com/${APP_REPOSITORY}`,
+    external: true,
+  },
+  {
+    label: 'Issues & roadmap',
+    href: `https://github.com/${APP_REPOSITORY}/issues`,
+    external: true,
+  },
+];
+
+const communityLinks: FooterLinkItem[] = [
+  {
+    label: 'Contributing',
+    href: `https://github.com/${APP_REPOSITORY}/blob/main/CONTRIBUTING.md`,
+    external: true,
+  },
+  {
+    label: 'Code of conduct',
+    href: `https://github.com/${APP_REPOSITORY}/blob/main/CODE_OF_CONDUCT.md`,
+    external: true,
+  },
+  {
+    label: 'Security policy',
+    href: `https://github.com/${APP_REPOSITORY}/blob/main/SECURITY.md`,
+    external: true,
+  },
+];
+
+const legalLinks: FooterLinkItem[] = [
+  {
+    label: 'MIT License',
+    href: `https://github.com/${APP_REPOSITORY}/blob/main/MIT-LICENSE.txt`,
+    external: true,
+  },
+  {
+    label: 'Documentation',
+    href: `https://github.com/${APP_REPOSITORY}/blob/main/README.md`,
+    external: true,
+  },
+  {
+    label: 'Release notes',
+    href: `https://github.com/${APP_REPOSITORY}/releases`,
+    external: true,
+  },
+];
 
 const container = {
   hidden: { opacity: 0 },
@@ -439,106 +490,9 @@ export const Home: React.FC = () => {
                   © 2026 {APP_NAME}. Crafted with care for an open web.
                 </p>
               </div>
-              <div>
-                <h4 className='text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
-                  Project
-                </h4>
-                <ul className='mt-4 space-y-2 text-sm'>
-                  <li>
-                    <a
-                      href='/contributors'
-                      className='text-[var(--color-text-secondary)] transition hover:text-[var(--color-text-primary)]'>
-                      Open app
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={`https://github.com/${APP_REPOSITORY}`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-[var(--color-text-secondary)] transition hover:text-[var(--color-text-primary)]'>
-                      GitHub repo
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={`https://github.com/${APP_REPOSITORY}/issues`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-[var(--color-text-secondary)] transition hover:text-[var(--color-text-primary)]'>
-                      Issues & roadmap
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className='text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
-                  Community
-                </h4>
-                <ul className='mt-4 space-y-2 text-sm'>
-                  <li>
-                    <a
-                      href={`https://github.com/${APP_REPOSITORY}/blob/main/CONTRIBUTING.md`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-[var(--color-text-secondary)] transition hover:text-[var(--color-text-primary)]'>
-                      Contributing
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={`https://github.com/${APP_REPOSITORY}/blob/main/CODE_OF_CONDUCT.md`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-[var(--color-text-secondary)] transition hover:text-[var(--color-text-primary)]'>
-                      Code of conduct
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={`https://github.com/${APP_REPOSITORY}/blob/main/SECURITY.md`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-[var(--color-text-secondary)] transition hover:text-[var(--color-text-primary)]'>
-                      Security policy
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h4 className='text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
-                  Legal
-                </h4>
-                <ul className='mt-4 space-y-2 text-sm'>
-                  <li>
-                    <a
-                      href={`https://github.com/${APP_REPOSITORY}/blob/main/MIT-LICENSE.txt`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-[var(--color-text-secondary)] transition hover:text-[var(--color-text-primary)]'>
-                      MIT License
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={`https://github.com/${APP_REPOSITORY}/blob/main/README.md`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-[var(--color-text-secondary)] transition hover:text-[var(--color-text-primary)]'>
-                      Documentation
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href={`https://github.com/${APP_REPOSITORY}/releases`}
-                      target='_blank'
-                      rel='noopener noreferrer'
-                      className='text-[var(--color-text-secondary)] transition hover:text-[var(--color-text-primary)]'>
-                      Release notes
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              <FooterLinkColumn title='Project' links={projectLinks} />
+              <FooterLinkColumn title='Community' links={communityLinks} />
+              <FooterLinkColumn title='Legal' links={legalLinks} />
             </div>
             <div className='mt-8 text-center text-xs text-[var(--color-text-secondary)]'></div>
           </div>

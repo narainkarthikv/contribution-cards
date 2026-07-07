@@ -95,7 +95,9 @@ test.describe('Smoke Tests - Contribution Cards', () => {
     await page.goto('/contributors');
     await waitForContributorCards(page);
 
-    const repositoryFilter = page.locator('button[aria-haspopup="listbox"]');
+    const repositoryFilter = page.getByRole('button', {
+      name: /repository filter/i,
+    });
     await expect(
       repositoryFilter,
       'Expected the repository filter control to be visible.'

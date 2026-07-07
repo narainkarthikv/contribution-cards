@@ -6,6 +6,7 @@
 import React, { useCallback } from 'react';
 import { Github, Copy, ArrowRight } from 'lucide-react';
 import type { Contributor } from '../types/github';
+import { IconButton } from '../common';
 
 interface ContributorCardProps {
   contributor: Contributor;
@@ -55,32 +56,35 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
 
           {/* Action Buttons */}
           <div className='absolute top-4 right-4 flex gap-1.5 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200'>
-            <button
+            <IconButton
+              variant='outline'
+              size='sm'
               onClick={handleCopyProfile}
-              className='flex items-center justify-center w-9 h-9 rounded-md border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] transition-colors hover:text-[var(--color-text-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'
               aria-label={`Copy profile link for ${contributor.login}`}>
               <Copy size={16} />
-            </button>
+            </IconButton>
 
-            <a
+            <IconButton
+              variant='solid'
+              size='sm'
               href={contributor.profileUrl}
               target='_blank'
               rel='noopener noreferrer'
               onClick={(e) => e.stopPropagation()}
-              className='flex items-center justify-center w-9 h-9 bg-[var(--color-action-default)] text-white rounded-md transition-colors hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'
               aria-label={`Open ${contributor.login}'s GitHub profile`}>
               <Github size={16} />
-            </a>
+            </IconButton>
 
-            <button
+            <IconButton
+              variant='solid'
+              size='sm'
               onClick={(e) => {
                 e.stopPropagation();
                 onViewDetails(contributor);
               }}
-              className='flex items-center justify-center w-9 h-9 bg-[var(--color-action-default)] text-white rounded-md transition-colors hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)]'
               aria-label={`View details for ${contributor.login}`}>
               <ArrowRight size={16} />
-            </button>
+            </IconButton>
           </div>
 
           {/* Avatar */}

@@ -17,6 +17,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-07-06
+
+### Added
+
+- Introduced a shared `src/common/` UI primitive library (`Button`, `IconButton`, `Card`, `Badge`, `Skeleton`, `FooterLink`, `FooterLinkColumn`) to establish a DRY, industry-standard component layer.
+- Added animated hover states for footer links: an accent-blue color transition and an underline that scales in on hover, matching the design system's action color.
+
+### Changed
+
+- Refactored `ContributorCard`, `ContributorModal`, `FiltersBar`, `LoadingStates`, `App`, and the landing primitives to consume the new common components instead of duplicating Tailwind class strings.
+- Consolidated the Home page footer's Project/Community/Legal link columns into a single data-driven `FooterLinkColumn` usage, removing repeated markup.
+
+## [1.3.1] - 2026-07-05
+
+### Fixed
+
+- Fixed e2e test for repository filtering by using more specific selector that targets only the repository filter button, resolving Playwright strict mode violation where generic `button[aria-haspopup="listbox"]` selector matched multiple elements.
+
 ## [1.3.0] - 2026-07-02
 
 ### Added
