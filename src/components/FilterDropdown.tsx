@@ -37,7 +37,8 @@ export const FilterDropdown: React.FC<FilterDropdownProps> = React.memo(
     const listboxId = useId();
 
     const selectedIndex = options.findIndex((option) => option.value === value);
-    const selectedOption = selectedIndex >= 0 ? options[selectedIndex] : options[0];
+    const selectedOption =
+      selectedIndex >= 0 ? options[selectedIndex] : options[0];
 
     const closeDropdown = useCallback(() => {
       setIsOpen(false);

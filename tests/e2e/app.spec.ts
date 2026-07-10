@@ -24,7 +24,9 @@ test.describe('Contribution Cards - E2E flows', () => {
     await expect(card).toBeVisible();
   });
 
-  test('Filters: repo dropdown, search, sort, and sort direction', async ({ page }) => {
+  test('Filters: repo dropdown, search, sort, and sort direction', async ({
+    page,
+  }) => {
     await page.goto('/contributors');
     const cards = await waitForContributorCards(page);
 
@@ -42,7 +44,9 @@ test.describe('Contribution Cards - E2E flows', () => {
     const search = page.getByLabel('Search contributors');
     await expect(search).toBeVisible();
     await search.fill('alice');
-    await expect(cards.filter({ hasText: contributorFixtures.alice.name })).toHaveCount(1);
+    await expect(
+      cards.filter({ hasText: contributorFixtures.alice.name })
+    ).toHaveCount(1);
     await expect(cards.filter({ hasText: 'Cara Singh' })).toHaveCount(0);
 
     const sortBy = page.getByRole('button', { name: /Sort by/i });
@@ -62,7 +66,9 @@ test.describe('Contribution Cards - E2E flows', () => {
     await expect(asc).toHaveAttribute('aria-checked', 'true');
   });
 
-  test('Repo dropdown supports standard keyboard interaction', async ({ page }) => {
+  test('Repo dropdown supports standard keyboard interaction', async ({
+    page,
+  }) => {
     await page.goto('/contributors');
     await waitForContributorCards(page);
 

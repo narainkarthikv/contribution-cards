@@ -110,7 +110,9 @@ test.describe('Smoke Tests - Contribution Cards', () => {
     });
     await expect(repositoryListbox).toBeVisible();
 
-    await repositoryListbox.getByRole('button', { name: /fitprogressr/i }).click();
+    await repositoryListbox
+      .getByRole('button', { name: /fitprogressr/i })
+      .click();
 
     const filteredCards = await waitForContributorCards(page);
 
@@ -123,8 +125,12 @@ test.describe('Smoke Tests - Contribution Cards', () => {
       filteredCards,
       'Expected only mocked contributors for the selected repository to remain.'
     ).toHaveCount(2);
-    await expect(filteredCards.filter({ hasText: 'Alice Johnson' })).toHaveCount(1);
-    await expect(filteredCards.filter({ hasText: 'Cara Singh' })).toHaveCount(1);
+    await expect(
+      filteredCards.filter({ hasText: 'Alice Johnson' })
+    ).toHaveCount(1);
+    await expect(filteredCards.filter({ hasText: 'Cara Singh' })).toHaveCount(
+      1
+    );
 
     await filteredCards.first().click();
 

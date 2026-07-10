@@ -88,7 +88,9 @@ test.describe('Integration Tests - Contribution Cards', () => {
         await expect(root).not.toHaveClass(/dark/);
       }
 
-      const storedTheme = await page.evaluate(() => localStorage.getItem('theme'));
+      const storedTheme = await page.evaluate(() =>
+        localStorage.getItem('theme')
+      );
       expect(storedTheme).toBe(switchedTheme);
     });
 
@@ -98,7 +100,9 @@ test.describe('Integration Tests - Contribution Cards', () => {
       await page.waitForLoadState('networkidle');
       await expect(root).toHaveAttribute('data-theme', switchedTheme);
 
-      const storedTheme = await page.evaluate(() => localStorage.getItem('theme'));
+      const storedTheme = await page.evaluate(() =>
+        localStorage.getItem('theme')
+      );
       expect(storedTheme).toBe(switchedTheme);
 
       await page.getByRole('button', { name: /Explore contributors/i }).click();
@@ -135,7 +139,9 @@ test.describe('Integration Tests - Contribution Cards', () => {
         name: /Profile details for Alice Johnson/i,
       });
 
-      await expect(dialog.getByRole('heading', { name: 'Alice Johnson' })).toBeVisible();
+      await expect(
+        dialog.getByRole('heading', { name: 'Alice Johnson' })
+      ).toBeVisible();
       await expect(dialog.getByText('@alice')).toBeVisible();
       await expect(
         dialog.getByText(contributorFixtures.alice.bio, { exact: false })
@@ -146,7 +152,9 @@ test.describe('Integration Tests - Contribution Cards', () => {
         dialog.getByRole('link', { name: /View GitHub Profile/i })
       ).toHaveAttribute('href', contributorFixtures.alice.html_url);
       await expect(
-        dialog.getByRole('heading', { name: 'narainkarthikv/contribution-cards' })
+        dialog.getByRole('heading', {
+          name: 'narainkarthikv/contribution-cards',
+        })
       ).toBeVisible();
     });
 
@@ -189,11 +197,15 @@ test.describe('Integration Tests - Contribution Cards', () => {
 
     await test.step('Confirm cache entries are stored after the first load', async () => {
       const cacheKeys = await page.evaluate(() =>
-        Object.keys(localStorage).filter((key) => key.startsWith('github_cache_'))
+        Object.keys(localStorage).filter((key) =>
+          key.startsWith('github_cache_')
+        )
       );
 
       expect(cacheKeys.length).toBeGreaterThan(0);
-      expect(cacheKeys.some((key) => key.includes('contributors'))).toBeTruthy();
+      expect(
+        cacheKeys.some((key) => key.includes('contributors'))
+      ).toBeTruthy();
     });
 
     await test.step('Reload and verify the page can render from cache', async () => {
