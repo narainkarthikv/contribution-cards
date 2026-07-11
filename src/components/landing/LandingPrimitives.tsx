@@ -108,11 +108,9 @@ export const PrimaryCtaButton: React.FC<
   <Button variant='primary' size='md' className={className} {...props} />
 );
 
-export const SecondaryCtaLink: React.FC<React.ComponentPropsWithoutRef<'a'>> = ({
-  className,
-  href,
-  ...props
-}) => (
+export const SecondaryCtaLink: React.FC<
+  React.ComponentPropsWithoutRef<'a'>
+> = ({ className, href, ...props }) => (
   <Button
     variant='secondary'
     size='md'

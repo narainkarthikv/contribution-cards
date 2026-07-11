@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test';
-import { mockGitHubApi, waitForContributorCards } from '../support/githubApiMock';
+import {
+  mockGitHubApi,
+  waitForContributorCards,
+} from '../support/githubApiMock';
 
 test.describe('Contributors page', () => {
   test.beforeEach(async ({ page }) => {

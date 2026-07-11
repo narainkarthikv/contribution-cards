@@ -102,7 +102,8 @@ export const mockGitHubApi = async (page: Page): Promise<void> => {
     if (repositoryMatch) {
       const [, owner, repository] = repositoryMatch;
       const repositoryKey = `${owner}/${repository}`;
-      const repositoryContributors = contributorsByRepository[repositoryKey] ?? [];
+      const repositoryContributors =
+        contributorsByRepository[repositoryKey] ?? [];
 
       await route.fulfill({
         status: 200,
@@ -139,7 +140,9 @@ export const mockGitHubApi = async (page: Page): Promise<void> => {
     await route.fulfill({
       status: 404,
       contentType: 'application/json',
-      body: JSON.stringify({ message: `Unhandled GitHub API route: ${pathName}` }),
+      body: JSON.stringify({
+        message: `Unhandled GitHub API route: ${pathName}`,
+      }),
     });
   });
 };
@@ -157,9 +160,7 @@ export const dismissTokenWarning = async (page: Page): Promise<void> => {
 /**
  * Wait for mocked contributor content to replace the skeleton state.
  */
-export const waitForContributorCards = async (
-  page: Page
-): Promise<Locator> => {
+export const waitForContributorCards = async (page: Page): Promise<Locator> => {
   await page.waitForLoadState('domcontentloaded');
   await dismissTokenWarning(page);
 
