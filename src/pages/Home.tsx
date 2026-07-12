@@ -44,7 +44,7 @@ import {
   APP_REPOSITORY,
   REPOSITORY_LIST,
 } from '../constants/repositories';
-import { FooterLinkColumn, type FooterLinkItem } from '../common';
+import { FooterLinkColumn, type FooterLinkItem, Button } from '../common';
 
 const projectLinks: FooterLinkItem[] = [
   { label: 'Open app', href: '/contributors' },
@@ -414,20 +414,22 @@ export const Home: React.FC = () => {
                 Fox culture glowing. Start with the contributor cards now.
               </p>
               <div className='mt-8 flex flex-wrap items-center justify-center gap-3'>
-                <button
-                  onClick={() => navigate('/contributors')}
-                  className='inline-flex items-center gap-2 rounded-md bg-[var(--color-action-default)] px-6 py-3 text-base font-semibold text-[var(--color-text-inverse)] transition-colors hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-primary)]'>
+                <Button
+                  variant='primary'
+                  size='md'
+                  onClick={() => navigate('/contributors')}>
                   Open contributors
                   <ArrowRight size={18} />
-                </button>
-                <a
+                </Button>
+                <Button
+                  variant='secondary'
+                  size='md'
                   href={`https://github.com/${APP_REPOSITORY}`}
                   target='_blank'
-                  rel='noopener noreferrer'
-                  className='inline-flex items-center gap-2 rounded-md border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)] px-6 py-3 text-base font-semibold text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-bg-secondary)] active:bg-[var(--color-surface-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-primary)]'>
+                  rel='noopener noreferrer'>
                   <Github size={18} />
                   Star on GitHub
-                </a>
+                </Button>
               </div>
             </div>
           </div>
@@ -450,20 +452,22 @@ export const Home: React.FC = () => {
                 with a coffee or a small pledge.
               </p>
               <div className='mt-8 flex flex-wrap items-center justify-center gap-3'>
-                <a
+                <Button
+                  variant='secondary'
+                  size='sm'
                   href='https://ko-fi.com/wisdomfox'
                   target='_blank'
-                  rel='noopener noreferrer'
-                  className='inline-flex items-center gap-2 rounded-md border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)] px-6 py-3 text-sm font-semibold transition-colors hover:bg-[var(--color-bg-secondary)] active:bg-[var(--color-surface-secondary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-primary)]'>
+                  rel='noopener noreferrer'>
                   ☕ Buy us a coffee
-                </a>
-                <a
+                </Button>
+                <Button
+                  variant='primary'
+                  size='sm'
                   href='https://buymeacoffee.com/narainkarthikv'
                   target='_blank'
-                  rel='noopener noreferrer'
-                  className='inline-flex items-center gap-2 rounded-md bg-[var(--color-action-default)] px-6 py-3 text-sm font-semibold text-[var(--color-text-inverse)] transition-colors hover:bg-[var(--color-action-hover)] active:bg-[var(--color-action-active)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-action-default)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-surface-primary)]'>
+                  rel='noopener noreferrer'>
                   💚 Support on Buy Me a Coffee
-                </a>
+                </Button>
               </div>
               <p className='mt-8 text-xs text-[var(--color-text-secondary)]'>
                 Donations are optional. Contribution Cards will always be free
