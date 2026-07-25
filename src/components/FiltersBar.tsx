@@ -5,8 +5,9 @@
 
 import React, { useCallback, useEffect, useRef } from 'react';
 import { Search, ArrowUp, ArrowDown } from 'lucide-react';
-import type { FilterOptions, SortOption } from '../types/github';
+import type { Contributor, FilterOptions, SortOption } from '../types/github';
 import { FilterDropdown } from './FilterDropdown';
+import { ExportMenu } from './ExportMenu';
 import { IconButton } from '../common';
 
 interface FiltersBarProps {
@@ -14,6 +15,7 @@ interface FiltersBarProps {
   selectedRepositories: string[];
   filters: FilterOptions;
   sortBy: SortOption;
+  contributors: Contributor[];
   onRepositorySelect: (repo: string) => void;
   onFilterChange: (filters: FilterOptions) => void;
   onSortChange: (sort: SortOption) => void;
@@ -28,6 +30,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
     selectedRepositories,
     filters,
     sortBy,
+    contributors,
     onRepositorySelect,
     onFilterChange,
     onSortChange,
@@ -142,6 +145,8 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
               <ArrowDown size={18} />
             </IconButton>
           </div>
+
+          <ExportMenu contributors={contributors} />
         </div>
       </section>
     );

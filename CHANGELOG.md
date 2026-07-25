@@ -17,6 +17,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-07-25
+
+### Added
+
+- Implemented comprehensive Markdown export functionality for contributor profiles with multiple export formats
+  - **Table Format**: Export contributors as a formatted Markdown table with avatars, names, contributions, and repositories
+  - **Card Format**: Export contributors as detailed profile cards with bio and contribution information
+  - **List Format**: Export contributors as a simple bulleted list with contribution counts and repository associations
+  - **Badge Generation**: Generate GitHub contributor badges/shields in Markdown format for README files and documentation
+- Added export dropdown menu to FiltersBar with copy and download options for all formats
+- Export utilities support both individual profile export and bulk export of filtered contributors
+- Exported files are automatically named with format and timestamp for easy organization
+
 ## [1.4.1] - 2026-07-12
 
 ### Changed
