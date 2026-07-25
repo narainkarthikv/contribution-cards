@@ -17,6 +17,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-07-25
+
+### Added
+
+- Implemented comprehensive Markdown export functionality for contributor profiles with multiple export formats
+  - **Table Format**: Export contributors as a formatted Markdown table with avatars, names, contributions, and repositories
+  - **Card Format**: Export contributors as detailed profile cards with bio and contribution information
+  - **List Format**: Export contributors as a simple bulleted list with contribution counts and repository associations
+  - **Badge Generation**: Generate GitHub contributor badges/shields in Markdown format for README files and documentation
+- Added export dropdown menu to FiltersBar with copy and download options for all formats
+- Export utilities support both individual profile export and bulk export of filtered contributors
+- Exported files are automatically named with format and timestamp for easy organization
+
+## [1.4.1] - 2026-07-12
+
+### Changed
+
+- Refactored Home page call-to-action buttons and donation buttons to use the common `Button` component, eliminating duplicate style strings and improving maintainability.
+
 ## [1.4.0] - 2026-07-06
 
 ### Added
@@ -119,7 +138,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Codebase cleanup and structural refactors to remove duplication, improve consistency, and align with the current design system.
 
-[Unreleased]: https://github.com/narainkarthikv/contribution-cards/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/narainkarthikv/contribution-cards/compare/v1.4.1...HEAD
+[1.4.1]: https://github.com/narainkarthikv/contribution-cards/compare/v1.4.0...v1.4.1
+[1.4.0]: https://github.com/narainkarthikv/contribution-cards/compare/v1.3.1...v1.4.0
+[1.3.1]: https://github.com/narainkarthikv/contribution-cards/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/narainkarthikv/contribution-cards/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/narainkarthikv/contribution-cards/compare/v1.1.1...v1.2.1
 [1.1.1]: https://github.com/narainkarthikv/contribution-cards/compare/v1.1.0...v1.1.1

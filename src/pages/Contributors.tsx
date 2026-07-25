@@ -125,6 +125,7 @@ export const ContributorsPage: React.FC = () => {
               selectedRepositories={pageState.selectedRepositories}
               filters={pageState.filters}
               sortBy={pageState.sortBy}
+              contributors={pageState.filteredContributors}
               onRepositorySelect={pageState.selectRepository}
               onFilterChange={pageState.updateFilters}
               onSortChange={pageState.updateSort}
