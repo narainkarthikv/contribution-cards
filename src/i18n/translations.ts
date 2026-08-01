@@ -54,7 +54,8 @@ export const translations = {
       accessibleTitle: 'Accessible by design',
       accessibleBody:
         'Keyboard-friendly flows, thoughtful contrast, and clear structure keep the experience welcoming.',
-      footerTitle: 'Built for curious contributors',
+      footerEyebrow: 'Transparent tech',
+      footerTitle: 'The honest breakdown, without the noise',
       footerBody:
         'Whether you are sharing a project update or introducing a new team, these cards make recognition feel effortless.',
       footerCta: 'Open the contributor gallery',
@@ -145,7 +146,7 @@ export const translations = {
       repositoryCountHelper: '{count} repositories',
     },
     card: {
-      copyProfileLink: 'Copy profile link',
+      copyProfileLink: 'Copy profile link for {login}',
       openProfile: 'Open GitHub profile',
       viewDetails: 'View details',
       contributionsAria: '{count} contributions',
@@ -203,7 +204,8 @@ export const translations = {
       accessibleTitle: 'Accesible por diseño',
       accessibleBody:
         'Flujos amigables con el teclado, contraste cuidadoso y una estructura clara hacen la experiencia más acogedora.',
-      footerTitle: 'Hecho para contribuyentes curiosos',
+      footerEyebrow: 'Tecnología transparente',
+      footerTitle: 'El desglose honesto, sin ruido',
       footerBody:
         'Ya sea que compartas una actualización de proyecto o presentes a un nuevo equipo, estas tarjetas hacen que el reconocimiento se sienta sencillo.',
       footerCta: 'Abrir la galería de contribuyentes',
@@ -224,7 +226,7 @@ export const translations = {
       starOnGitHub: 'Marcar en GitHub',
       supportTitle: 'Apoya el trabajo de código abierto',
       supportBody: 'Contribution Cards es mantenido por la comunidad de Wisdom Fox. Si el proyecto te ahorra tiempo, considera impulsar el próximo lanzamiento con un café o una pequeña contribución.',
-      buyACoffee: '☕ Cómpanos un café',
+      buyACoffee: '☕ Cómpranos un café',
       supportOnBuyMeACoffee: '💚 Apoya en Buy Me a Coffee',
       donationNote: 'Las donaciones son opcionales. Contribution Cards siempre será gratuito y de código abierto.',
       communityTagline: 'Una galería rápida de contribuyentes construida por la comunidad de Wisdom Fox.',
@@ -294,12 +296,13 @@ export const translations = {
       repositoryCountHelper: '{count} repositorios',
     },
     card: {
-      copyProfileLink: 'Copiar enlace del perfil',
+      copyProfileLink: 'Copiar enlace del perfil de {login}',
       openProfile: 'Abrir perfil de GitHub',
       viewDetails: 'Ver detalles',
       contributionsAria: '{count} contribuciones',
     },
     common: {
+      name: 'Nombre',
       loading: 'Cargando',
     },
   },

@@ -69,7 +69,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
     }));
     const sortOptions: Array<{ value: SortOption['field']; label: string }> = [
       { value: 'totalContributions', label: t('contributors.contributions') },
-      { value: 'name', label: t('contributors.total') },
+      { value: 'name', label: t('common.name') },
     ];
 
     return (

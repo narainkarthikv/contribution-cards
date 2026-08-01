@@ -62,7 +62,7 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
               variant='outline'
               size='sm'
               onClick={handleCopyProfile}
-              aria-label={`${t('card.copyProfileLink')} for ${contributor.login}`}>
+              aria-label={t('card.copyProfileLink', { login: contributor.login })}>
               <Copy size={16} />
             </IconButton>
 

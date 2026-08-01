@@ -348,7 +348,7 @@ export const Home: React.FC = () => {
             <div className='grid gap-10 md:grid-cols-[1.1fr_0.9fr]'>
               <div>
                 <p className='text-sm uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
-                  {t('home.footerTitle')}
+                  {t('home.footerEyebrow')}
                 </p>
                 <h2 className='mt-3 text-3xl font-semibold sm:text-4xl'>
                   {t('home.footerTitle')}
@@ -430,7 +430,7 @@ export const Home: React.FC = () => {
           <LandingCardMuted className='rounded-3xl p-8 text-center'>
             <div className='mx-auto max-w-3xl'>
               <p className='text-sm uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
-                {t('app.eyebrow')}
+                {t('home.eyebrow')}
               </p>
               <h2 className='mt-3 text-3xl font-semibold sm:text-4xl'>
                 {t('home.supportTitle')}
