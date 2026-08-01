@@ -41,6 +41,15 @@ npm run lint
 npm run build
 ```
 
+## Translations
+
+When updating user-facing copy, keep the translation keys in [src/i18n/translations.ts](./src/i18n/translations.ts) aligned for both supported languages.
+
+- Add new visible strings to both `en` and `es`.
+- Use [src/i18n/useI18n.ts](./src/i18n/useI18n.ts) in React components instead of hardcoding text.
+- Verify the language toggle still updates every visible label, button, and message.
+- Run `npm run build` before opening a pull request.
+
 ## Pull Request Guidelines
 
 - Provide a clear summary of what changed and why.

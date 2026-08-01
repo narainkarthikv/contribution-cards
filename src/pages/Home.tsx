@@ -45,52 +45,53 @@ import {
   REPOSITORY_LIST,
 } from '../constants/repositories';
 import { FooterLinkColumn, type FooterLinkItem, Button } from '../common';
+import { useI18n } from '../i18n/useI18n';
 
-const projectLinks: FooterLinkItem[] = [
-  { label: 'Open app', href: '/contributors' },
+const projectLinks = (t: (key: string) => string): FooterLinkItem[] => [
+  { label: t('app.openApp'), href: '/contributors' },
   {
-    label: 'GitHub repo',
+    label: t('app.githubRepo'),
     href: `https://github.com/${APP_REPOSITORY}`,
     external: true,
   },
   {
-    label: 'Issues & roadmap',
+    label: t('app.issuesRoadmap'),
     href: `https://github.com/${APP_REPOSITORY}/issues`,
     external: true,
   },
 ];
 
-const communityLinks: FooterLinkItem[] = [
+const communityLinks = (t: (key: string) => string): FooterLinkItem[] => [
   {
-    label: 'Contributing',
+    label: t('app.contributing'),
     href: `https://github.com/${APP_REPOSITORY}/blob/main/CONTRIBUTING.md`,
     external: true,
   },
   {
-    label: 'Code of conduct',
+    label: t('app.codeOfConduct'),
     href: `https://github.com/${APP_REPOSITORY}/blob/main/CODE_OF_CONDUCT.md`,
     external: true,
   },
   {
-    label: 'Security policy',
+    label: t('app.securityPolicy'),
     href: `https://github.com/${APP_REPOSITORY}/blob/main/SECURITY.md`,
     external: true,
   },
 ];
 
-const legalLinks: FooterLinkItem[] = [
+const legalLinks = (t: (key: string) => string): FooterLinkItem[] => [
   {
-    label: 'MIT License',
+    label: t('app.mitLicense'),
     href: `https://github.com/${APP_REPOSITORY}/blob/main/MIT-LICENSE.txt`,
     external: true,
   },
   {
-    label: 'Documentation',
+    label: t('app.documentation'),
     href: `https://github.com/${APP_REPOSITORY}/blob/main/README.md`,
     external: true,
   },
   {
-    label: 'Release notes',
+    label: t('app.releaseNotes'),
     href: `https://github.com/${APP_REPOSITORY}/releases`,
     external: true,
   },
@@ -109,6 +110,20 @@ const fadeUp = {
 export const Home: React.FC = () => {
   const navigate = useNavigate();
   const { stats, isLoading } = useGlobalStats();
+  const { t } = useI18n();
+  const projectLinksList = projectLinks(t);
+  const communityLinksList = communityLinks(t);
+  const legalLinksList = legalLinks(t);
+  const projectHighlights = [
+    t('home.footerHighlightOne'),
+    t('home.footerHighlightTwo'),
+    t('home.footerHighlightThree'),
+  ];
+  const projectFocus = [
+    t('home.footerFocusOne'),
+    t('home.footerFocusTwo'),
+    t('home.footerFocusThree'),
+  ];
 
   return (
     <LandingShell>
@@ -123,38 +138,37 @@ export const Home: React.FC = () => {
               <motion.div variants={fadeUp} className='w-fit'>
                 <LandingEyebrow>
                   <span className='inline-flex h-2 w-2 rounded-full bg-[var(--color-success)]' />
-                  Wisdom Fox community
+                  {t('home.eyebrow')}
                 </LandingEyebrow>
               </motion.div>
 
               <motion.h1
                 variants={fadeUp}
                 className='mt-6 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl'>
-                Spotlight the builders shaping
+                {t('home.heroTitle')}
                 <span className='block text-[var(--color-text-primary)]'>
-                  Wisdom Fox Community
+                  {t('home.heroTitleAccent')}
                 </span>
               </motion.h1>
 
               <motion.p
                 variants={fadeUp}
                 className='mt-4 max-w-[56ch] text-lg text-[var(--color-text-secondary)]'>
-                See who's building what. Contribution Cards highlights active
-                contributors across repositories with simple, elegant profiles.
+                {t('home.heroSubtitle')}
               </motion.p>
 
               <motion.div
                 variants={fadeUp}
                 className='mt-8 flex flex-wrap items-center gap-3'>
                 <PrimaryCtaButton onClick={() => navigate('/contributors')}>
-                  Explore contributors
+                  {t('home.primaryCta')}
                   <ArrowRight size={18} />
                 </PrimaryCtaButton>
                 <SecondaryCtaLink
                   href={`https://github.com/${APP_REPOSITORY}`}
                   target='_blank'
                   rel='noopener noreferrer'>
-                  View the repo
+                  {t('home.secondaryCta')}
                   <ArrowUpRight size={16} />
                 </SecondaryCtaLink>
               </motion.div>
@@ -162,11 +176,9 @@ export const Home: React.FC = () => {
               <motion.div
                 variants={fadeUp}
                 className='mt-8 flex flex-wrap items-center gap-3 text-xs text-[var(--color-text-secondary)]'>
-                {['Impact insights', 'Share-ready cards', 'Smart filters'].map(
-                  (item) => (
-                    <OutlineChip key={item}>{item}</OutlineChip>
-                  )
-                )}
+                {t('home.chips').split('|').map((item) => (
+                  <OutlineChip key={item}>{item}</OutlineChip>
+                ))}
               </motion.div>
             </motion.div>
 
@@ -182,29 +194,29 @@ export const Home: React.FC = () => {
                 <LandingCardStrong>
                   <div className='flex items-center justify-between'>
                     <p className='text-xs uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
-                      Community pulse
+                      {t('home.communityPulse')}
                     </p>
                     <span className='rounded-full bg-[color-mix(in_srgb,var(--color-success)_18%,transparent_82%)] px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[var(--color-success)]'>
-                      Live
+                      {t('home.live')}
                     </span>
                   </div>
                   <div className='mt-6 grid gap-3'>
                     <LandingStatChip
                       icon={Users}
                       value={stats?.uniqueContributorCount ?? 0}
-                      label='Unique builders'
+                      label={t('home.statUniqueBuilders')}
                       loading={isLoading}
                     />
                     <LandingStatChip
                       icon={Zap}
                       value={stats?.totalContributions ?? 0}
-                      label='Total contributions'
+                      label={t('home.statTotalContributions')}
                       loading={isLoading}
                     />
                     <LandingStatChip
                       icon={Github}
                       value={stats?.totalRepositories ?? REPOSITORY_LIST.length}
-                      label='Active repositories'
+                      label={t('home.statActiveRepositories')}
                       loading={isLoading}
                     />
                   </div>
@@ -216,21 +228,17 @@ export const Home: React.FC = () => {
                 transition={{ duration: 0.3 }}>
                 <LandingCardMuted>
                   <p className='text-sm font-semibold'>
-                    Next steps, simplified
+                    {t('home.nextStepsTitle')}
                   </p>
                   <p className='mt-2 text-sm text-[var(--color-text-secondary)]'>
-                    Filter by repo, sort by impact, and open a profile in
-                    seconds. Everything stays fast and respectful of rate
-                    limits.
+                    {t('home.nextStepsBody')}
                   </p>
                   <div className='mt-4 flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-secondary)]'>
-                    {['Smart filters', 'Quick share', 'Rank by impact'].map(
-                      (item) => (
-                        <OutlineChip key={item} size='sm'>
-                          {item}
-                        </OutlineChip>
-                      )
-                    )}
+                    {t('home.nextStepsChips').split('|').map((item) => (
+                      <OutlineChip key={item} size='sm'>
+                        {item}
+                      </OutlineChip>
+                    ))}
                   </div>
                 </LandingCardMuted>
               </motion.div>
@@ -244,30 +252,29 @@ export const Home: React.FC = () => {
           <div className='grid gap-12 lg:grid-cols-[0.9fr_1.1fr]'>
             <div>
               <p className='text-sm uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
-                Designed for clarity
+                {t('home.designedForClarity')}
               </p>
               <h2 className='mt-3 text-3xl font-semibold sm:text-4xl'>
-                A quiet, elegant way to honor contributors
+                {t('home.sectionTitle')}
               </h2>
               <p className='mt-4 text-base text-[var(--color-text-secondary)]'>
-                Fewer surfaces. Better focus. The experience stays calm while
-                still highlighting the people who move the project forward.
+                {t('home.sectionBody')}
               </p>
               <div className='mt-8 grid gap-4'>
                 {[
                   {
-                    title: 'Elegant cards',
-                    copy: 'Shareable profiles that feel curated, not cluttered.',
+                    title: t('home.cardsTitle'),
+                    copy: t('home.cardsBody'),
                     icon: Wand2,
                   },
                   {
-                    title: 'SWR refresh',
-                    copy: 'Instant results while fresh data loads behind the scenes.',
+                    title: t('home.insightsTitle'),
+                    copy: t('home.insightsBody'),
                     icon: Gauge,
                   },
                   {
-                    title: 'Dual-layer cache',
-                    copy: 'Memory and localStorage keep everything snappy.',
+                    title: t('home.accessibleTitle'),
+                    copy: t('home.accessibleBody'),
                     icon: Layers,
                   },
                 ].map((item) => (
@@ -291,23 +298,23 @@ export const Home: React.FC = () => {
             <div className='grid gap-5'>
               {[
                 {
-                  title: 'Instant insight loops',
-                  copy: 'Surface contributor momentum fast with smart aggregation.',
+                  title: t('home.insightsTitle'),
+                  copy: t('home.insightsBody'),
                   icon: ShieldCheck,
                 },
                 {
-                  title: 'Team-ready profiles',
-                  copy: 'Spotlight builders with clean, shareable profile cards.',
+                  title: t('home.cardsTitle'),
+                  copy: t('home.cardsBody'),
                   icon: HeartHandshake,
                 },
                 {
-                  title: 'Signal over noise',
-                  copy: 'Focus on impact, not cluttered dashboards or exports.',
+                  title: t('home.accessibleTitle'),
+                  copy: t('home.accessibleBody'),
                   icon: Globe2,
                 },
                 {
-                  title: 'Responsive by default',
-                  copy: 'Looks sharp on desktop, tablet, or a quick mobile check-in.',
+                  title: t('home.sectionTitle'),
+                  copy: t('home.sectionBody'),
                   icon: Sparkles,
                 },
               ].map((item) => (
@@ -341,59 +348,42 @@ export const Home: React.FC = () => {
             <div className='grid gap-10 md:grid-cols-[1.1fr_0.9fr]'>
               <div>
                 <p className='text-sm uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
-                  Transparent tech
+                  {t('home.footerTitle')}
                 </p>
                 <h2 className='mt-3 text-3xl font-semibold sm:text-4xl'>
-                  The honest breakdown, without the noise
+                  {t('home.footerTitle')}
                 </h2>
                 <p className='mt-4 text-base text-[var(--color-text-secondary)]'>
-                  No hidden services. No mystery APIs. Just a clean, open stack
-                  designed for speed and trust.
+                  {t('home.footerBody')}
                 </p>
               </div>
               <div className='grid gap-4'>
                 <LandingPanel>
                   <h3 className='text-sm font-semibold'>
-                    Where the data lives
+                    {t('home.footerHighlightsTitle')}
                   </h3>
                   <ul className='mt-3 space-y-2 text-sm text-[var(--color-text-secondary)]'>
-                    <li className='flex items-start gap-2'>
-                      <span className='text-[var(--color-action-default)]'>
-                        →
-                      </span>
-                      GitHub contributors API with smart caching.
-                    </li>
-                    <li className='flex items-start gap-2'>
-                      <span className='text-[var(--color-action-default)]'>
-                        →
-                      </span>
-                      Client-side filtering and sorting only.
-                    </li>
-                    <li className='flex items-start gap-2'>
-                      <span className='text-[var(--color-action-default)]'>
-                        →
-                      </span>
-                      No databases to leak because we do not run one.
-                    </li>
+                    {projectHighlights.map((item) => (
+                      <li key={item} className='flex items-start gap-2'>
+                        <span className='text-[var(--color-action-default)]'>
+                          →
+                        </span>
+                        {item}
+                      </li>
+                    ))}
                   </ul>
                 </LandingPanel>
                 <LandingPanel>
                   <h3 className='text-sm font-semibold'>
-                    What keeps it focused
+                    {t('home.footerFocusTitle')}
                   </h3>
                   <ul className='mt-3 space-y-2 text-sm text-[var(--color-text-secondary)]'>
-                    <li className='flex items-start gap-2'>
-                      <span className='text-[var(--color-error)]'>✗</span>
-                      Heavy dashboards that slow teams down.
-                    </li>
-                    <li className='flex items-start gap-2'>
-                      <span className='text-[var(--color-error)]'>✗</span>
-                      Manual exports or spreadsheet wrangling.
-                    </li>
-                    <li className='flex items-start gap-2'>
-                      <span className='text-[var(--color-error)]'>✗</span>
-                      Fragmented views of contributor impact.
-                    </li>
+                    {projectFocus.map((item) => (
+                      <li key={item} className='flex items-start gap-2'>
+                        <span className='text-[var(--color-error)]'>✗</span>
+                        {item}
+                      </li>
+                    ))}
                   </ul>
                 </LandingPanel>
               </div>
@@ -407,18 +397,17 @@ export const Home: React.FC = () => {
           <div className='rounded-3xl border border-[var(--color-border-primary)] bg-[var(--color-surface-primary)] p-10'>
             <div className='mx-auto max-w-3xl text-center'>
               <h2 className='text-3xl font-semibold sm:text-4xl'>
-                Ready to spotlight the builders?
+                {t('home.ctaHeading')}
               </h2>
               <p className='mx-auto mt-4 max-w-[60ch] text-base text-[var(--color-text-secondary)]'>
-                Honor contributions, onboard new teammates, and keep the Wisdom
-                Fox culture glowing. Start with the contributor cards now.
+                {t('home.ctaSubtitle')}
               </p>
               <div className='mt-8 flex flex-wrap items-center justify-center gap-3'>
                 <Button
                   variant='primary'
                   size='md'
                   onClick={() => navigate('/contributors')}>
-                  Open contributors
+                  {t('home.openContributors')}
                   <ArrowRight size={18} />
                 </Button>
                 <Button
@@ -428,7 +417,7 @@ export const Home: React.FC = () => {
                   target='_blank'
                   rel='noopener noreferrer'>
                   <Github size={18} />
-                  Star on GitHub
+                  {t('home.starOnGitHub')}
                 </Button>
               </div>
             </div>
@@ -441,15 +430,13 @@ export const Home: React.FC = () => {
           <LandingCardMuted className='rounded-3xl p-8 text-center'>
             <div className='mx-auto max-w-3xl'>
               <p className='text-sm uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
-                Wisdom Fox Community
+                {t('app.eyebrow')}
               </p>
               <h2 className='mt-3 text-3xl font-semibold sm:text-4xl'>
-                Support open source craft
+                {t('home.supportTitle')}
               </h2>
               <p className='mx-auto mt-4 max-w-[64ch] text-base text-[var(--color-text-secondary)]'>
-                Contribution Cards is maintained by the Wisdom Fox community. If
-                the project saves you time, consider fueling the next release
-                with a coffee or a small pledge.
+                {t('home.supportBody')}
               </p>
               <div className='mt-8 flex flex-wrap items-center justify-center gap-3'>
                 <Button
@@ -458,7 +445,7 @@ export const Home: React.FC = () => {
                   href='https://ko-fi.com/wisdomfox'
                   target='_blank'
                   rel='noopener noreferrer'>
-                  ☕ Buy us a coffee
+                  {t('home.buyACoffee')}
                 </Button>
                 <Button
                   variant='primary'
@@ -466,12 +453,11 @@ export const Home: React.FC = () => {
                   href='https://buymeacoffee.com/narainkarthikv'
                   target='_blank'
                   rel='noopener noreferrer'>
-                  💚 Support on Buy Me a Coffee
+                  {t('home.supportOnBuyMeACoffee')}
                 </Button>
               </div>
               <p className='mt-8 text-xs text-[var(--color-text-secondary)]'>
-                Donations are optional. Contribution Cards will always be free
-                and open source.
+                {t('home.donationNote')}
               </p>
             </div>
           </LandingCardMuted>
@@ -487,16 +473,15 @@ export const Home: React.FC = () => {
               <div>
                 <h3 className='text-lg font-semibold'>{APP_NAME}</h3>
                 <p className='mt-3 text-sm text-[var(--color-text-secondary)]'>
-                  A fast, contributor showcase built by the Wisdom Fox
-                  community.
+                  {t('home.communityTagline')}
                 </p>
                 <p className='mt-4 text-xs text-[var(--color-text-secondary)]'>
-                  © 2026 {APP_NAME}. Crafted with care for an open web.
+                  {t('home.copyright')}
                 </p>
               </div>
-              <FooterLinkColumn title='Project' links={projectLinks} />
-              <FooterLinkColumn title='Community' links={communityLinks} />
-              <FooterLinkColumn title='Legal' links={legalLinks} />
+              <FooterLinkColumn title={t('home.footerProjectTitle')} links={projectLinksList} />
+              <FooterLinkColumn title={t('home.footerCommunityTitle')} links={communityLinksList} />
+              <FooterLinkColumn title={t('home.footerLegalTitle')} links={legalLinksList} />
             </div>
             <div className='mt-8 text-center text-xs text-[var(--color-text-secondary)]'></div>
           </div>

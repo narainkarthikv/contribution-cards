@@ -9,6 +9,7 @@ import type { Contributor, FilterOptions, SortOption } from '../types/github';
 import { FilterDropdown } from './FilterDropdown';
 import { ExportMenu } from './ExportMenu';
 import { IconButton } from '../common';
+import { useI18n } from '../i18n/useI18n';
 
 interface FiltersBarProps {
   repositories: string[];
@@ -60,35 +61,36 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
 
     useEffect(() => () => clearTimeout(debounceTimer.current), []);
 
+    const { t } = useI18n();
     const selectedRepoValue = selectedRepositories[0] ?? repositories[0] ?? '';
     const repositoryOptions = repositories.map((repo) => ({
       value: repo,
       label: repo.split('/')[1],
     }));
     const sortOptions: Array<{ value: SortOption['field']; label: string }> = [
-      { value: 'totalContributions', label: 'Contributions' },
-      { value: 'name', label: 'Name' },
+      { value: 'totalContributions', label: t('contributors.contributions') },
+      { value: 'name', label: t('contributors.total') },
     ];
 
     return (
       <section className='w-full rounded-lg border border-[var(--color-border-primary)] bg-[linear-gradient(165deg,color-mix(in_srgb,var(--color-surface-primary)_96%,var(--color-bg-secondary)_4%),color-mix(in_srgb,var(--color-bg-secondary)_92%,var(--color-surface-primary)_8%))] p-4 shadow-[0_12px_36px_-28px_color-mix(in_srgb,var(--color-text-primary)_55%,transparent)] sm:p-5'>
         <div className='mb-4 flex flex-wrap items-center justify-between gap-2'>
           <p className='text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-text-muted)]'>
-            Contributor Explorer
+            {t('filters.contributorExplorer')}
           </p>
           <p className='rounded-full border border-[color-mix(in_srgb,var(--color-action-default)_35%,transparent)] bg-[color-mix(in_srgb,var(--color-action-default)_18%,transparent)] px-3 py-1 text-xs font-semibold text-[var(--color-action-default)]'>
-            {totalContributors} profiles live
+            {t('filters.profilesLive', { count: totalContributors })}
           </p>
         </div>
 
         <div className='flex flex-col flex-wrap gap-3 sm:flex-row sm:items-stretch sm:justify-between'>
           <FilterDropdown
-            ariaLabel='Repository filter'
-            listboxLabel='Select repository'
+            ariaLabel={t('filters.repoFilter')}
+            listboxLabel={t('filters.selectRepository')}
             options={repositoryOptions}
             value={selectedRepoValue}
             onChange={onRepositorySelect}
-            prefix='Repo:'
+            prefix={t('filters.repoPrefix')}
           />
 
           <div className='h-10 min-w-48 flex-1 sm:min-w-56'>
@@ -99,20 +101,20 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
               />
               <input
                 type='search'
-                placeholder='Search by name...'
+                placeholder={t('filters.searchPlaceholder')}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 className='h-full w-full rounded-md border border-[var(--color-border-primary)] bg-[var(--color-surface-secondary)] pl-10 pr-3 text-sm text-[var(--color-text-primary)] transition-all placeholder:text-[var(--color-text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--color-action-default)]'
-                aria-label='Search contributors'
+                aria-label={t('filters.searchAria')}
               />
             </div>
           </div>
 
           <FilterDropdown
-            ariaLabel='Sort by'
-            listboxLabel='Sort contributors by'
+            ariaLabel={t('filters.sortBy')}
+            listboxLabel={t('filters.sortContributorsBy')}
             options={sortOptions}
             value={sortBy.field}
-            prefix='Filter by:'
+            prefix={t('filters.filterPrefix')}
             onChange={(field) =>
               onSortChange({
                 ...sortBy,
@@ -124,14 +126,14 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
           <div
             className='flex h-10 gap-1.5'
             role='radiogroup'
-            aria-label='Sort direction'>
+            aria-label={t('filters.sortDirection')}>
             <IconButton
               role='radio'
               aria-checked={sortBy.order === 'asc'}
               onClick={() => onSortChange({ ...sortBy, order: 'asc' })}
               variant={sortBy.order === 'asc' ? 'active' : 'outline'}
               size='lg'
-              aria-label='Sort ascending'>
+              aria-label={t('filters.sortAscending')}>
               <ArrowUp size={18} />
             </IconButton>
 
@@ -141,7 +143,7 @@ export const FiltersBar: React.FC<FiltersBarProps> = React.memo(
               onClick={() => onSortChange({ ...sortBy, order: 'desc' })}
               variant={sortBy.order === 'desc' ? 'active' : 'outline'}
               size='lg'
-              aria-label='Sort descending'>
+              aria-label={t('filters.sortDescending')}>
               <ArrowDown size={18} />
             </IconButton>
           </div>

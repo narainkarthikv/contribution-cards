@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import type { Contributor } from '../types/github';
 import { Button, IconButton } from '../common';
+import { useI18n } from '../i18n/useI18n';
 
 interface ContributorModalProps {
   contributor: Contributor | null;
@@ -24,6 +25,7 @@ interface ContributorModalProps {
 
 export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
   ({ contributor, isOpen, onClose }) => {
+    const { t } = useI18n();
     const handleKeyDown = useCallback(
       (e: KeyboardEvent) => {
         if (e.key === 'Escape') onClose();
@@ -84,7 +86,7 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                 onClick={onClose}
                 variant='outline'
                 className='absolute right-4 top-4 z-20 rounded-full bg-[color-mix(in_srgb,var(--color-surface-primary)_78%,transparent_22%)] text-[var(--color-text-primary)] backdrop-blur-sm'
-                aria-label='Close dialog'>
+                aria-label={t('modal.closeDialog')}>
                 <X size={20} />
               </IconButton>
 
@@ -108,7 +110,7 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                             size={14}
                             className='text-[var(--color-action-default)]'
                           />
-                          Contributor snapshot
+                          {t('modal.contributorSnapshot')}
                         </div>
                         <h2 className='mt-4 text-3xl font-semibold tracking-tight text-[var(--color-text-primary)] sm:text-4xl'>
                           {contributor.name ?? contributor.login}
@@ -117,7 +119,7 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                           <span>@{contributor.login}</span>
                           <span className='hidden h-1 w-1 rounded-full bg-[var(--color-text-muted)] sm:inline-block' />
                           <span>
-                            {repositoryContributions.length} repositories
+                            {t('modal.repositoriesCount', { count: repositoryContributions.length })}
                           </span>
                         </div>
 
@@ -132,12 +134,12 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                     <div className='grid grid-cols-2 gap-3 sm:w-full sm:max-w-md'>
                       <MetricCard
                         icon={GitCommitHorizontal}
-                        label='Total commits'
+                        label={t('modal.totalCommits')}
                         value={totalCommits}
                       />
                       <MetricCard
                         icon={FolderGit2}
-                        label='Repositories'
+                        label={t('modal.repositories')}
                         value={repositoryContributions.length}
                       />
                     </div>
@@ -149,14 +151,14 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                     <div className='flex flex-col gap-2 border-b border-[var(--color-border-primary)] pb-4 sm:flex-row sm:items-end sm:justify-between'>
                       <div>
                         <p className='text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
-                          Contributions
+                          {t('modal.contributions')}
                         </p>
                         <h3 className='mt-2 text-xl font-semibold text-[var(--color-text-primary)]'>
-                          Activity across the ecosystem
+                          {t('modal.activityTitle')}
                         </h3>
                       </div>
                       <p className='text-sm text-[var(--color-text-secondary)]'>
-                        Sorted by commit volume
+                        {t('modal.activitySubtitle')}
                       </p>
                     </div>
 
@@ -190,7 +192,7 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                                       {contrib.repo}
                                     </h4>
                                     <p className='mt-1 text-sm text-[var(--color-text-secondary)]'>
-                                      Repository contribution footprint
+                                      {t('modal.repositoryFootprint')}
                                     </p>
                                   </div>
                                 </div>
@@ -205,7 +207,7 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
 
                               <div className='rounded-2xl border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] px-4 py-3 text-left sm:min-w-[124px] sm:text-right'>
                                 <p className='text-xs font-semibold uppercase tracking-[0.18em] text-[var(--color-text-secondary)]'>
-                                  Commits
+                                  {t('modal.commits')}
                                 </p>
                                 <p className='mt-1 text-2xl font-semibold tracking-tight text-[var(--color-action-default)]'>
                                   {commits}
@@ -221,34 +223,33 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                   <aside className='space-y-4'>
                     <div className='rounded-[18px] border border-[var(--color-border-primary)] bg-[var(--color-surface-secondary)] p-5'>
                       <p className='text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
-                        Highlights
+                        {t('modal.highlights')}
                       </p>
                       <div className='mt-4 space-y-4'>
                         <InsightRow
-                          label='Top repository'
+                          label={t('modal.topRepository')}
                           value={topRepository?.repo ?? '—'}
-                          helper={`${topRepository?.commitsCount ?? 0} commits`}
+                          helper={t('modal.commitsHelper', { count: topRepository?.commitsCount ?? 0 })}
                         />
                         <InsightRow
-                          label='Average per repo'
+                          label={t('modal.averagePerRepo')}
                           value={averageCommits.toString()}
-                          helper='commits on average'
+                          helper={t('modal.averageHelper')}
                         />
                         <InsightRow
-                          label='Open source reach'
-                          value={`${repositoryContributions.length} repositories`}
-                          helper='tracked in this project ecosystem'
+                          label={t('modal.openSourceReach')}
+                          value={t('modal.repositoryCountHelper', { count: repositoryContributions.length })}
+                          helper={t('modal.reachHelper')}
                         />
                       </div>
                     </div>
 
                     <div className='rounded-[18px] border border-[var(--color-border-primary)] bg-[var(--color-surface-secondary)] p-5'>
                       <p className='text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-text-secondary)]'>
-                        Quick action
+                        {t('modal.quickAction')}
                       </p>
                       <p className='mt-3 text-sm leading-6 text-[var(--color-text-secondary)]'>
-                        Continue exploring this contributor’s public work on
-                        GitHub for deeper context and recent activity.
+                        {t('modal.quickActionBody')}
                       </p>
                       <div className='mt-5 flex flex-col gap-2 sm:gap-3'>
                         <Button
@@ -258,7 +259,7 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                           size='sm'
                           className='w-full rounded-xl px-4 py-3 text-sm'>
                           <Github size={18} />
-                          View GitHub Profile
+                          {t('modal.viewGitHubProfile')}
                           <ArrowUpRight size={16} />
                         </Button>
                       </div>
