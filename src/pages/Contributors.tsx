@@ -19,10 +19,12 @@ import { useGlobalStats } from '../controllers/useGlobalStats';
 import { useContributorsPageState } from '../controllers/useContributorsPageState';
 import { REPOSITORY_LIST } from '../constants/repositories';
 import { Card } from '../common';
+import { useI18n } from '../i18n/useI18n';
 
 export const ContributorsPage: React.FC = () => {
   const { stats: globalStats, isLoading: globalStatsLoading } =
     useGlobalStats();
+  const { t } = useI18n();
 
   const pageState = useContributorsPageState(null);
 
@@ -67,8 +69,8 @@ export const ContributorsPage: React.FC = () => {
       <div className='w-full bg-[var(--color-bg-primary)] py-12 sm:py-20 px-4 sm:px-6 lg:px-8'>
         <div className='w-full max-w-7xl mx-auto'>
           <ErrorState
-            title='Failed to Load Contributors'
-            message='There was an error fetching the contributors data. Please check your GitHub token or try again later.'
+            title={t('contributors.errorTitle')}
+            message={t('contributors.errorMessage')}
             onRetry={refetch}
           />
         </div>
@@ -89,19 +91,19 @@ export const ContributorsPage: React.FC = () => {
                   className='text-[var(--color-action-default)]'
                 />
               }
-              label='Across All Repos'
+              label={t('contributors.acrossAllRepos')}
               value={
                 globalStatsLoading ? '—' : globalStats.uniqueContributorCount
               }
-              sublabel='Unique Contributors'
+              sublabel={t('contributors.uniqueContributors')}
             />
             <StatCard
               icon={
                 <Zap size={20} className='text-[var(--color-action-default)]' />
               }
-              label='Total'
+              label={t('contributors.total')}
               value={globalStatsLoading ? '—' : globalStats.totalContributions}
-              sublabel='Contributions'
+              sublabel={t('contributors.contributions')}
             />
             <StatCard
               icon={
@@ -110,9 +112,9 @@ export const ContributorsPage: React.FC = () => {
                   className='text-[var(--color-action-default)]'
                 />
               }
-              label='Active'
+              label={t('contributors.active')}
               value={globalStats.totalRepositories}
-              sublabel='Repositories'
+              sublabel={t('contributors.repositories')}
             />
           </div>
         )}
@@ -150,8 +152,8 @@ export const ContributorsPage: React.FC = () => {
             </div>
           ) : (
             <EmptyState
-              title='No Contributors Found'
-              message='Try adjusting your filters or search terms to find contributors.'
+              title={t('contributors.noContributorsTitle')}
+              message={t('contributors.noContributorsMessage')}
             />
           )}
         </div>

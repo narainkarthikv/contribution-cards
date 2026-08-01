@@ -7,6 +7,7 @@ import React, { useCallback } from 'react';
 import { Github, Copy, ArrowRight } from 'lucide-react';
 import type { Contributor } from '../types/github';
 import { IconButton } from '../common';
+import { useI18n } from '../i18n/useI18n';
 
 interface ContributorCardProps {
   contributor: Contributor;
@@ -15,6 +16,7 @@ interface ContributorCardProps {
 
 export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
   ({ contributor, onViewDetails }) => {
+    const { t } = useI18n();
     const handleCopyProfile = useCallback(
       (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -48,7 +50,7 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
             <div className='relative w-14 h-14 rounded-full bg-[var(--color-action-default)] flex items-center justify-center ring-2 ring-[var(--color-surface-primary)]'>
               <span
                 className='text-lg font-bold text-white'
-                aria-label={`${totalCommits} contributions`}>
+                aria-label={t('card.contributionsAria', { count: totalCommits })}>
                 {totalCommits}
               </span>
             </div>
@@ -60,7 +62,7 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
               variant='outline'
               size='sm'
               onClick={handleCopyProfile}
-              aria-label={`Copy profile link for ${contributor.login}`}>
+              aria-label={t('card.copyProfileLink', { login: contributor.login })}>
               <Copy size={16} />
             </IconButton>
 
@@ -71,7 +73,7 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
               target='_blank'
               rel='noopener noreferrer'
               onClick={(e) => e.stopPropagation()}
-              aria-label={`Open ${contributor.login}'s GitHub profile`}>
+              aria-label={`${t('card.openProfile')} (${contributor.login})`}>
               <Github size={16} />
             </IconButton>
 
@@ -82,7 +84,7 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
                 e.stopPropagation();
                 onViewDetails(contributor);
               }}
-              aria-label={`View details for ${contributor.login}`}>
+              aria-label={`${t('card.viewDetails')} (${contributor.login})`}>
               <ArrowRight size={16} />
             </IconButton>
           </div>
