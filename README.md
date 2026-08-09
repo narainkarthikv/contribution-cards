@@ -166,6 +166,13 @@ We welcome contributions from the community! Here's how to get started:
 - [Contributors](./Contributors.md) - Contributor list
 - [License](./LICENSE) - MIT License details
 
+### Translations
+
+- UI translations live in [src/i18n/translations.ts](./src/i18n/translations.ts).
+- Add new language keys to both `en` and `es` so the toggle stays in sync.
+- Use [src/i18n/useI18n.ts](./src/i18n/useI18n.ts) inside components instead of hardcoding visible text.
+- Run `npm run build` after translation updates to verify the app still compiles.
+
 ## 📜 License
 
 This project is licensed under the **MIT License** - see [LICENSE](./LICENSE) for details.

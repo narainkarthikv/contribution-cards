@@ -113,6 +113,48 @@ test.describe('Integration Tests - Contribution Cards', () => {
     expectNoRuntimeIssues(diagnostics);
   });
 
+  test('switches language to Spanish and persists it across reloads', async ({
+    page,
+  }) => {
+    const diagnostics = installDiagnostics(page);
+
+    await test.step('Open the home page and switch the language', async () => {
+      await page.goto('/');
+      await expect(
+        page.getByRole('button', { name: /Explore contributors/i })
+      ).toBeVisible();
+
+      await page
+        .getByRole('button', { name: /Switch language|Cambiar idioma/i })
+        .click();
+
+      await expect(
+        page.getByRole('button', { name: /Explorar contribuyentes/i })
+      ).toBeVisible();
+
+      const storedLanguage = await page.evaluate(() =>
+        localStorage.getItem('contribution-cards-language')
+      );
+      expect(storedLanguage).toBe('es');
+    });
+
+    await test.step('Reload the page and verify Spanish persists', async () => {
+      await page.reload();
+      await page.waitForLoadState('networkidle');
+
+      await expect(
+        page.getByRole('button', { name: /Explorar contribuyentes/i })
+      ).toBeVisible();
+
+      const storedLanguage = await page.evaluate(() =>
+        localStorage.getItem('contribution-cards-language')
+      );
+      expect(storedLanguage).toBe('es');
+    });
+
+    expectNoRuntimeIssues(diagnostics);
+  });
+
   test('opens the contributor modal and shows contributor details', async ({
     page,
   }) => {
