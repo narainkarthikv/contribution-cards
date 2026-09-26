@@ -17,6 +17,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Preserved GitHub API failure signals instead of silently converting them into empty contributor results so the app surfaces the existing error UI for rate-limit and request failures.
+- Hardened contributor card accessibility and translation coverage uncovered during end-to-end validation so the UI remains stable under failed-fetch handling and sort interactions.
+
+## [1.5.1] - 2026-09-26
+
+### Fixed
+
+- Fixed issue #68 by re-throwing GitHub API and repository aggregation failures instead of swallowing them as empty contributor lists, allowing the contributors page to display the proper error state.
+- Added regression coverage for GitHub API failure handling and verified the Chromium E2E suite remains green.
+
 ## [1.5.0] - 2026-07-25
 
 ### Added

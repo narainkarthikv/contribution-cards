@@ -119,7 +119,9 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                           <span>@{contributor.login}</span>
                           <span className='hidden h-1 w-1 rounded-full bg-[var(--color-text-muted)] sm:inline-block' />
                           <span>
-                            {t('modal.repositoriesCount', { count: repositoryContributions.length })}
+                            {t('modal.repositoriesCount', {
+                              count: repositoryContributions.length,
+                            })}
                           </span>
                         </div>
 
@@ -229,7 +231,9 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                         <InsightRow
                           label={t('modal.topRepository')}
                           value={topRepository?.repo ?? '—'}
-                          helper={t('modal.commitsHelper', { count: topRepository?.commitsCount ?? 0 })}
+                          helper={t('modal.commitsHelper', {
+                            count: topRepository?.commitsCount ?? 0,
+                          })}
                         />
                         <InsightRow
                           label={t('modal.averagePerRepo')}
@@ -238,7 +242,9 @@ export const ContributorModal: React.FC<ContributorModalProps> = React.memo(
                         />
                         <InsightRow
                           label={t('modal.openSourceReach')}
-                          value={t('modal.repositoryCountHelper', { count: repositoryContributions.length })}
+                          value={t('modal.repositoryCountHelper', {
+                            count: repositoryContributions.length,
+                          })}
                           helper={t('modal.reachHelper')}
                         />
                       </div>

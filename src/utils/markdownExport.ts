@@ -18,7 +18,8 @@ function generateMarkdownTable(contributors: Contributor[]): string {
     return '| Avatar | Name | Contributions | Repositories |\n|--------|------|---------------|---------------|\n';
   }
 
-  const header = '| Avatar | Name | Contributions | Repositories |\n|--------|------|---------------|---------------|\n';
+  const header =
+    '| Avatar | Name | Contributions | Repositories |\n|--------|------|---------------|---------------|\n';
   const rows = contributors
     .map((c) => {
       const avatar = `![${c.login}](${c.avatarUrl})`;
@@ -50,7 +51,9 @@ function generateMarkdownCards(contributors: Contributor[]): string {
         ? `**Repositories:** ${c.contributions.map((r) => r.repo).join(', ')}`
         : '';
 
-      return [header, avatar, bio, contributions, repos].filter((line) => line).join('\n\n');
+      return [header, avatar, bio, contributions, repos]
+        .filter((line) => line)
+        .join('\n\n');
     })
     .join('\n\n---\n\n');
 
@@ -69,8 +72,12 @@ function generateMarkdownList(contributors: Contributor[]): string {
     .map((c) => {
       const name = c.name || c.login;
       const link = `[${name}](${c.profileUrl})`;
-      const contributions = c.totalContributions ? ` - ${c.totalContributions} contributions` : '';
-      const repos = c.contributions.length ? ` in ${c.contributions.map((r) => r.repo).join(', ')}` : '';
+      const contributions = c.totalContributions
+        ? ` - ${c.totalContributions} contributions`
+        : '';
+      const repos = c.contributions.length
+        ? ` in ${c.contributions.map((r) => r.repo).join(', ')}`
+        : '';
       return `- ${link}${contributions}${repos}`;
     })
     .join('\n');
@@ -194,7 +201,9 @@ export function downloadMarkdownFile(result: MarkdownExportResult): void {
 /**
  * Copy Markdown content to clipboard
  */
-export async function copyMarkdownToClipboard(content: string): Promise<boolean> {
+export async function copyMarkdownToClipboard(
+  content: string
+): Promise<boolean> {
   try {
     await navigator.clipboard.writeText(content);
     return true;

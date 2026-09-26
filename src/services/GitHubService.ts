@@ -184,27 +184,34 @@ export const GitHubService = {
     }
 
     return executeWithRateLimit(async () => {
-      try {
-        const response = await fetch(
-          `${GITHUB_API_URL}/repos/${owner}/${repo}/contributors?per_page=100`,
-          {
-            headers: getAuthHeaders(),
-          }
-        );
+      const response = await fetch(
+        `${GITHUB_API_URL}/repos/${owner}/${repo}/contributors?per_page=100`,
+        {
+          headers: getAuthHeaders(),
+        }
+      );
 
-        if (!response.ok) {
-          throw new Error(`GitHub API error: ${response.statusText}`);
+      if (!response.ok) {
+        let message = `${response.status} ${response.statusText}`;
+
+        try {
+          const errorBody = await response.json();
+          if (errorBody?.message) {
+            message = errorBody.message;
+          }
+        } catch {
+          // Ignore JSON parsing errors and fall back to the HTTP status text.
         }
 
-        const data = await response.json();
-
-        // Cache for 24 hours
-        setCache(cacheKey, data, { ttl: 86400000 });
-
-        return data;
-      } catch {
-        return [];
+        throw new Error(`GitHub API error for ${owner}/${repo}: ${message}`);
       }
+
+      const data = await response.json();
+
+      // Cache for 24 hours
+      setCache(cacheKey, data, { ttl: 86400000 });
+
+      return data;
     }, cacheKey);
   },
 
