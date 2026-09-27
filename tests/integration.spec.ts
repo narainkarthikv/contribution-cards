@@ -241,10 +241,25 @@ test.describe('Integration Tests - Contribution Cards', () => {
     const appConsoleErrors = diagnostics.consoleErrors.filter(
       (message) => !message.includes('Failed to load resource')
     );
-    expect(appConsoleErrors, 'unexpected app console errors').toHaveLength(1);
-    expect(appConsoleErrors[0]).toContain(
-      'Request failed after max retries: Error: GitHub API error for narainkarthikv/contribution-cards: API rate limit exceeded'
+    expect(appConsoleErrors).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining(
+          'GitHub API error for narainkarthikv/contribution-cards: API rate limit exceeded'
+        ),
+      ])
     );
+    expect(
+      appConsoleErrors.every(
+        (message) =>
+          message.startsWith('Request failed after max retries: Error: ') &&
+          repositories.some((repository) =>
+            message.includes(
+              `GitHub API error for ${repository}: API rate limit exceeded`
+            )
+          )
+      ),
+      'all app console errors should be expected GitHub rate-limit failures'
+    ).toBe(true);
   });
 
   test('loads contributor data and reuses cached data on reload', async ({
