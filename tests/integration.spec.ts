@@ -238,14 +238,13 @@ test.describe('Integration Tests - Contribution Cards', () => {
     expect(
       page.getByText('Failed to Load Contributors', { exact: true })
     ).toBeVisible();
-    expect(
-      diagnostics.consoleErrors.filter(
-        (message) => !message.includes('Failed to load resource')
-      ),
-      'unexpected app console errors'
-    ).toEqual([
-      'Request failed after max retries: Error: GitHub API error for narainkarthikv/contribution-cards: API rate limit exceeded\n    at Object.fn (http://localhost:5173/src/services/GitHubService.ts?t=1790409109311:125:15)\n    at async http://localhost:5173/src/services/GitHubService.ts?t=1790409109311:40:24',
-    ]);
+    const appConsoleErrors = diagnostics.consoleErrors.filter(
+      (message) => !message.includes('Failed to load resource')
+    );
+    expect(appConsoleErrors, 'unexpected app console errors').toHaveLength(1);
+    expect(appConsoleErrors[0]).toContain(
+      'Request failed after max retries: Error: GitHub API error for narainkarthikv/contribution-cards: API rate limit exceeded'
+    );
   });
 
   test('loads contributor data and reuses cached data on reload', async ({

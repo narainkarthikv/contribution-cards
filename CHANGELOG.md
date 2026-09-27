@@ -22,6 +22,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Preserved GitHub API failure signals instead of silently converting them into empty contributor results so the app surfaces the existing error UI for rate-limit and request failures.
 - Hardened contributor card accessibility and translation coverage uncovered during end-to-end validation so the UI remains stable under failed-fetch handling and sort interactions.
 
+## [1.5.2] - 2026-09-27
+
+### Fixed
+
+- Made the GitHub API failure integration test independent of Vite's generated stack-trace timestamp.
+
 ## [1.5.1] - 2026-09-26
 
 ### Fixed
