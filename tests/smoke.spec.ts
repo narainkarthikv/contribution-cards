@@ -84,7 +84,7 @@ test.describe('Smoke Tests - Contribution Cards', () => {
     await firstCard.hover();
 
     await expect(
-      firstCard.getByRole('link', { name: /open .* github profile/i }),
+      firstCard.getByRole('link', { name: /open .*github.*profile/i }),
       'Expected contributor cards to expose a GitHub profile link.'
     ).toBeVisible();
   });

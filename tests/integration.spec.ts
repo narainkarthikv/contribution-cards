@@ -211,6 +211,57 @@ test.describe('Integration Tests - Contribution Cards', () => {
     expectNoRuntimeIssues(diagnostics);
   });
 
+  test('surfaces a GitHub API failure instead of an empty contributors list', async ({
+    page,
+  }) => {
+    const diagnostics = installDiagnostics(page);
+
+    await page.route(`${apiBaseUrl}/repos/**/contributors*`, async (route) => {
+      await route.fulfill({
+        status: 429,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          message: 'API rate limit exceeded',
+        }),
+      });
+    });
+
+    await page.goto('/contributors');
+
+    await expect(
+      page.getByText('Failed to Load Contributors', { exact: true })
+    ).toBeVisible({ timeout: 20_000 });
+    await expect(
+      page.getByRole('button', { name: /Try Again/i })
+    ).toBeVisible();
+
+    expect(
+      page.getByText('Failed to Load Contributors', { exact: true })
+    ).toBeVisible();
+    const appConsoleErrors = diagnostics.consoleErrors.filter(
+      (message) => !message.includes('Failed to load resource')
+    );
+    expect(appConsoleErrors).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining(
+          'GitHub API error for narainkarthikv/contribution-cards: API rate limit exceeded'
+        ),
+      ])
+    );
+    expect(
+      appConsoleErrors.every(
+        (message) =>
+          message.startsWith('Request failed after max retries: Error: ') &&
+          repositories.some((repository) =>
+            message.includes(
+              `GitHub API error for ${repository}: API rate limit exceeded`
+            )
+          )
+      ),
+      'all app console errors should be expected GitHub rate-limit failures'
+    ).toBe(true);
+  });
+
   test('loads contributor data and reuses cached data on reload', async ({
     page,
   }) => {

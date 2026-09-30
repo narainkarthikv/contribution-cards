@@ -50,7 +50,8 @@ export const translations = {
       cardsTitle: 'Elegant cards',
       cardsBody: 'Shareable profiles that feel curated, not cluttered.',
       insightsTitle: 'Insightful summaries',
-      insightsBody: 'Understand momentum at a glance with concise, meaningful contributor stats.',
+      insightsBody:
+        'Understand momentum at a glance with concise, meaningful contributor stats.',
       accessibleTitle: 'Accessible by design',
       accessibleBody:
         'Keyboard-friendly flows, thoughtful contrast, and clear structure keep the experience welcoming.',
@@ -71,16 +72,21 @@ export const translations = {
       footerFocusTwo: 'Manual exports or spreadsheet wrangling.',
       footerFocusThree: 'Fragmented views of contributor impact.',
       ctaHeading: 'Ready to spotlight the builders?',
-      ctaSubtitle: 'Honor contributions, onboard new teammates, and keep the Wisdom Fox culture glowing. Start with the contributor cards now.',
+      ctaSubtitle:
+        'Honor contributions, onboard new teammates, and keep the Wisdom Fox culture glowing. Start with the contributor cards now.',
       openContributors: 'Open contributors',
       starOnGitHub: 'Star on GitHub',
       supportTitle: 'Support open source craft',
-      supportBody: 'Contribution Cards is maintained by the Wisdom Fox community. If the project saves you time, consider fueling the next release with a coffee or a small pledge.',
+      supportBody:
+        'Contribution Cards is maintained by the Wisdom Fox community. If the project saves you time, consider fueling the next release with a coffee or a small pledge.',
       buyACoffee: '☕ Buy us a coffee',
       supportOnBuyMeACoffee: '💚 Support on Buy Me a Coffee',
-      donationNote: 'Donations are optional. Contribution Cards will always be free and open source.',
-      communityTagline: 'A fast, contributor showcase built by the Wisdom Fox community.',
-      copyright: '© 2026 Contribution Cards. Crafted with care for an open web.',
+      donationNote:
+        'Donations are optional. Contribution Cards will always be free and open source.',
+      communityTagline:
+        'A fast, contributor showcase built by the Wisdom Fox community.',
+      copyright:
+        '© 2026 Contribution Cards. Crafted with care for an open web.',
     },
     contributors: {
       errorTitle: 'Failed to Load Contributors',
@@ -152,6 +158,7 @@ export const translations = {
       contributionsAria: '{count} contributions',
     },
     common: {
+      name: 'Name',
       loading: 'Loading',
     },
   },
@@ -183,7 +190,11 @@ export const translations = {
         'Mira quién está construyendo qué. Contribution Cards resalta a los contribuyentes activos en varios repositorios con perfiles simples y elegantes.',
       primaryCta: 'Explorar contribuyentes',
       secondaryCta: 'Ver el repositorio',
-      chips: ['Ideas de impacto', 'Tarjetas listas para compartir', 'Filtros inteligentes'],
+      chips: [
+        'Ideas de impacto',
+        'Tarjetas listas para compartir',
+        'Filtros inteligentes',
+      ],
       communityPulse: 'Pulso de la comunidad',
       live: 'En vivo',
       statUniqueBuilders: 'Creadores únicos',
@@ -192,15 +203,22 @@ export const translations = {
       nextStepsTitle: 'Siguientes pasos, simplificados',
       nextStepsBody:
         'Filtra por repositorio, ordena por impacto y abre un perfil en segundos. Todo sigue siendo rápido y respetuoso con los límites de la API.',
-      nextStepsChips: ['Filtros inteligentes', 'Compartir rápido', 'Ordenar por impacto'],
+      nextStepsChips: [
+        'Filtros inteligentes',
+        'Compartir rápido',
+        'Ordenar por impacto',
+      ],
       designedForClarity: 'Diseñado para la claridad',
-      sectionTitle: 'Una manera tranquila y elegante de honrar a los contribuyentes',
+      sectionTitle:
+        'Una manera tranquila y elegante de honrar a los contribuyentes',
       sectionBody:
         'Menos distracciones. Mejor enfoque. La experiencia sigue siendo serena y al mismo tiempo destaca a las personas que hacen avanzar el proyecto.',
       cardsTitle: 'Tarjetas elegantes',
-      cardsBody: 'Perfiles compartibles que se sienten curados, no abarrotados.',
+      cardsBody:
+        'Perfiles compartibles que se sienten curados, no abarrotados.',
       insightsTitle: 'Resúmenes reveladores',
-      insightsBody: 'Comprende el impulso del proyecto de un vistazo con estadísticas concisas y útiles.',
+      insightsBody:
+        'Comprende el impulso del proyecto de un vistazo con estadísticas concisas y útiles.',
       accessibleTitle: 'Accesible por diseño',
       accessibleBody:
         'Flujos amigables con el teclado, contraste cuidadoso y una estructura clara hacen la experiencia más acogedora.',
@@ -214,23 +232,31 @@ export const translations = {
       footerLegalTitle: 'Legal',
       footerHighlightsTitle: 'Aspectos del proyecto',
       footerFocusTitle: 'Lo que lo mantiene enfocado',
-      footerHighlightOne: 'API de contribuyentes de GitHub con caché inteligente.',
+      footerHighlightOne:
+        'API de contribuyentes de GitHub con caché inteligente.',
       footerHighlightTwo: 'Solo filtrado y ordenación del lado del cliente.',
-      footerHighlightThree: 'No hay bases de datos que filtrar porque no usamos una.',
+      footerHighlightThree:
+        'No hay bases de datos que filtrar porque no usamos una.',
       footerFocusOne: 'Paneles pesados que ralentizan a los equipos.',
       footerFocusTwo: 'Exportaciones manuales o manejo de hojas de cálculo.',
-      footerFocusThree: 'Vistas fragmentadas del impacto de los contribuyentes.',
+      footerFocusThree:
+        'Vistas fragmentadas del impacto de los contribuyentes.',
       ctaHeading: '¿Listo para destacar a los creadores?',
-      ctaSubtitle: 'Honra las contribuciones, incorpora nuevos compañeros de equipo y mantén viva la cultura de Wisdom Fox. Comienza con las tarjetas de contribuyentes ahora.',
+      ctaSubtitle:
+        'Honra las contribuciones, incorpora nuevos compañeros de equipo y mantén viva la cultura de Wisdom Fox. Comienza con las tarjetas de contribuyentes ahora.',
       openContributors: 'Abrir contribuyentes',
       starOnGitHub: 'Marcar en GitHub',
       supportTitle: 'Apoya el trabajo de código abierto',
-      supportBody: 'Contribution Cards es mantenido por la comunidad de Wisdom Fox. Si el proyecto te ahorra tiempo, considera impulsar el próximo lanzamiento con un café o una pequeña contribución.',
+      supportBody:
+        'Contribution Cards es mantenido por la comunidad de Wisdom Fox. Si el proyecto te ahorra tiempo, considera impulsar el próximo lanzamiento con un café o una pequeña contribución.',
       buyACoffee: '☕ Cómpranos un café',
       supportOnBuyMeACoffee: '💚 Apoya en Buy Me a Coffee',
-      donationNote: 'Las donaciones son opcionales. Contribution Cards siempre será gratuito y de código abierto.',
-      communityTagline: 'Una galería rápida de contribuyentes construida por la comunidad de Wisdom Fox.',
-      copyright: '© 2026 Contribution Cards. Hecho con cuidado para una web abierta.',
+      donationNote:
+        'Las donaciones son opcionales. Contribution Cards siempre será gratuito y de código abierto.',
+      communityTagline:
+        'Una galería rápida de contribuyentes construida por la comunidad de Wisdom Fox.',
+      copyright:
+        '© 2026 Contribution Cards. Hecho con cuidado para una web abierta.',
     },
     contributors: {
       errorTitle: 'No se pudieron cargar los contribuyentes',
@@ -333,7 +359,9 @@ export function translate(
   if (typeof value === 'string') {
     return value.replace(/\{(\w+)\}/g, (_, placeholder: string) => {
       const replacement = params?.[placeholder];
-      return replacement === undefined ? `{${placeholder}}` : String(replacement);
+      return replacement === undefined
+        ? `{${placeholder}}`
+        : String(replacement);
     });
   }
 

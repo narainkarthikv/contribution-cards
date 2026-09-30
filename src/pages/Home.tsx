@@ -176,9 +176,11 @@ export const Home: React.FC = () => {
               <motion.div
                 variants={fadeUp}
                 className='mt-8 flex flex-wrap items-center gap-3 text-xs text-[var(--color-text-secondary)]'>
-                {t('home.chips').split('|').map((item) => (
-                  <OutlineChip key={item}>{item}</OutlineChip>
-                ))}
+                {t('home.chips')
+                  .split('|')
+                  .map((item) => (
+                    <OutlineChip key={item}>{item}</OutlineChip>
+                  ))}
               </motion.div>
             </motion.div>
 
@@ -234,11 +236,13 @@ export const Home: React.FC = () => {
                     {t('home.nextStepsBody')}
                   </p>
                   <div className='mt-4 flex flex-wrap items-center gap-2 text-xs text-[var(--color-text-secondary)]'>
-                    {t('home.nextStepsChips').split('|').map((item) => (
-                      <OutlineChip key={item} size='sm'>
-                        {item}
-                      </OutlineChip>
-                    ))}
+                    {t('home.nextStepsChips')
+                      .split('|')
+                      .map((item) => (
+                        <OutlineChip key={item} size='sm'>
+                          {item}
+                        </OutlineChip>
+                      ))}
                   </div>
                 </LandingCardMuted>
               </motion.div>
@@ -479,9 +483,18 @@ export const Home: React.FC = () => {
                   {t('home.copyright')}
                 </p>
               </div>
-              <FooterLinkColumn title={t('home.footerProjectTitle')} links={projectLinksList} />
-              <FooterLinkColumn title={t('home.footerCommunityTitle')} links={communityLinksList} />
-              <FooterLinkColumn title={t('home.footerLegalTitle')} links={legalLinksList} />
+              <FooterLinkColumn
+                title={t('home.footerProjectTitle')}
+                links={projectLinksList}
+              />
+              <FooterLinkColumn
+                title={t('home.footerCommunityTitle')}
+                links={communityLinksList}
+              />
+              <FooterLinkColumn
+                title={t('home.footerLegalTitle')}
+                links={legalLinksList}
+              />
             </div>
             <div className='mt-8 text-center text-xs text-[var(--color-text-secondary)]'></div>
           </div>

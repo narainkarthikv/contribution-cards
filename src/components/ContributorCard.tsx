@@ -32,7 +32,7 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
 
     return (
       <article
-        className='h-full w-full'
+        className='group h-full w-full'
         aria-label={`Contributor card for ${contributor.name ?? contributor.login}`}>
         <div
           role='button'
@@ -50,19 +50,23 @@ export const ContributorCard: React.FC<ContributorCardProps> = React.memo(
             <div className='relative w-14 h-14 rounded-full bg-[var(--color-action-default)] flex items-center justify-center ring-2 ring-[var(--color-surface-primary)]'>
               <span
                 className='text-lg font-bold text-white'
-                aria-label={t('card.contributionsAria', { count: totalCommits })}>
+                aria-label={t('card.contributionsAria', {
+                  count: totalCommits,
+                })}>
                 {totalCommits}
               </span>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className='absolute top-4 right-4 flex gap-1.5 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200'>
+          <div className='absolute top-4 right-4 flex gap-1.5 opacity-100 transition-opacity duration-200'>
             <IconButton
               variant='outline'
               size='sm'
               onClick={handleCopyProfile}
-              aria-label={t('card.copyProfileLink', { login: contributor.login })}>
+              aria-label={t('card.copyProfileLink', {
+                login: contributor.login,
+              })}>
               <Copy size={16} />
             </IconButton>
 

@@ -27,37 +27,21 @@ export const ContributorAggregationService = {
 
     const contributorsByRepo = new Map<string, ContributorResponse[]>();
 
-    try {
-      // Fetch contributors from all repositories in parallel
-      const fetchPromises = repos.map(async (repo) => {
-        const [owner, repoName] = repo.split('/');
-        try {
-          const contributors = await GitHubService.fetchRepositoryContributors(
-            owner,
-            repoName
-          );
-          return { repo, contributors };
-        } catch (error) {
-          console.error(`Failed to fetch contributors for ${repo}:`, error);
-          return { repo, contributors: [] };
-        }
-      });
-
-      const results = await Promise.all(fetchPromises);
-
-      results.forEach(({ repo, contributors }) => {
-        contributorsByRepo.set(repo, contributors);
-      });
-
-      // Aggregate and enrich contributors
-      return await this.aggregateAndEnrichContributors(
-        repos,
-        contributorsByRepo
+    // If any repo fails, allow the rejection to propagate so the controller can
+    // present the existing error state and retry flow instead of silently
+    // converting the failure into a valid empty result.
+    const fetchPromises = repos.map(async (repo) => {
+      const [owner, repoName] = repo.split('/');
+      const contributors = await GitHubService.fetchRepositoryContributors(
+        owner,
+        repoName
       );
-    } catch (error) {
-      console.error('Failed to aggregate contributors:', error);
-      return [];
-    }
+      contributorsByRepo.set(repo, contributors);
+    });
+
+    await Promise.all(fetchPromises);
+
+    return await this.aggregateAndEnrichContributors(repos, contributorsByRepo);
   },
 
   /**

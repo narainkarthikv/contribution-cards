@@ -4,7 +4,12 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Github, X } from 'lucide-react';
 import { Home } from './pages/Home';
